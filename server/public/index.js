@@ -1,6 +1,6 @@
 async function getUser() {
     try {
-        const response = await axios.get('http://localhost:3000/api/pessoas/');
+        const response = await axios.get('http://localhost:3000/api/pessoas/await');
         const resps = JSON.parse(response.request.response);
 
         const imprime = document.getElementById('coisas');
