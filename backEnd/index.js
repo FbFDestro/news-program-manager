@@ -3,6 +3,10 @@ const genres = require('./routes/genres');
 const pessoas = require('./routes/pessoas');
 const express = require('express');
 const app = express();
+var path = require('path');
+
+app.use(express.static(path.join(__dirname, 'frontEnd'))); //  "public" off of current is root
+
 
 app.use(express.json());
 app.use('/api/genres', genres);
