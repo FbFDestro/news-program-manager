@@ -11,6 +11,20 @@ router.get('/', (request, response) => { // usando callback
     });
 });
 
+router.post('/', async (request, response) => {
+    try {
+
+        const query = {
+            text: 'INSERT INTO pessoa ("cpf", "nome", "tel", "senha") VALUES ($1, $2, $3, $4)',
+            values: request.body.
+        }
+        await conexao.query(query);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        console.log('Database ' + err);
+    }
+});
+
 router.get('/await', async (request, response) => { // usando await async
     try {
         const results = await conexao.query('SELECT * FROM users ORDER BY id ASC');
