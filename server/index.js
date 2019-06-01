@@ -13,8 +13,13 @@ app.use(express.json());
 app.use('/api/genres', genres);
 app.use('/api/pessoas', pessoas);
 
-bdSetup.drop();
-bdSetup.create();
+
+// BD SETUP -> DROP E CREATE TABLES
+async function bd_setup() {
+    await bdSetup.drop();
+    await bdSetup.create();
+}
+// bd_setup(); // drop e create
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
