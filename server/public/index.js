@@ -1,13 +1,31 @@
 async function getUser() {
     try {
-        const response = await axios.get('http://localhost:3000/api/pessoas/await');
-        const resps = JSON.parse(response.request.response);
+        const response = await axios.get('http://localhost:3000/api/pessoas/');
+        const resposta = JSON.parse(response.request.response);
 
-        const imprime = document.getElementById('paineis');
+        const usuarios = document.querySelector('#usuarios table');
 
-        for (resp of resps) {
-            console.log(resp);
-            imprime.innerHTML += `<div id="pessoa" class="${resp.id}">${resp.firstname}</div>`
+        let usersTable = '';
+
+        for (linha of resposta) {
+            console.log(linha);
+            usersTable += `
+            <tr>
+            <td>${linha.nome}</td>
+            <td>${linha.cpf}</td> 
+            <td>${linha.tel}</td>
+          </tr>`;
+        }
+
+        console.log(usersTable);
+        usuarios.innerHTML += usersTable;
+
+        const linhas = document.getElementsByTagName('tr');
+        for (linha of linhas) {
+            linha.onclick = function () {
+                console.log(this);
+                this.classList.add('teste');
+            }
         }
 
     } catch (error) {
@@ -15,4 +33,4 @@ async function getUser() {
     }
 }
 
-document.getElementById('pesquisador').onclick = getUser;
+getUser();

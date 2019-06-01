@@ -244,3 +244,49 @@ p#nenhumUsuario {
 .hidden {
     display: none;
 }
+
+#usuarios table {
+    width: 100%;
+}
+
+#usuarios table,
+#usuarios th,
+#usuarios td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+#usuarios th,
+#usuarios td {
+    padding: 15px;
+    text-align: left;
+}
+
+#usuarios table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+#usuarios table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+#usuarios table th {
+    background-color: #eee;
+    color: #000;
+}
+
+.teste {
+    background: #ccc !important;
+}
+
+.user {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.item {
+    display: inline-block;
+    width: 33%;
+    text-align: center;
+}
