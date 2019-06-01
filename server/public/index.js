@@ -1,11 +1,58 @@
 let users = [];
 
+function adicionaFiltro() {
+
+    const filtro = {
+        pesquisador: document.getElementsByName('pesquisador')[0].checked,
+        jornalista: document.getElementsByName('jornalista')[0].checked,
+        produtor: document.getElementsByName('produtor')[0].checked,
+        editor: document.getElementsByName('editor')[0].checked
+    }
+    let strFiltro = '';
+    let temFiltro = false;
+    if (filtro.pesquisador || filtro.jornalista || filtro.produtor || filtro.editor) {
+        strFiltro += 'filtros?';
+    }
+    if (filtro.pesquisador) {
+        strFiltro += 'pesquisador=1'
+        temFiltro = true;
+    }
+    if (filtro.jornalista) {
+        if (temFiltro) {
+            strFiltro += '&';
+        }
+        strFiltro += 'jornalista=1'
+        temFiltro = true;
+    }
+
+    if (filtro.produtor) {
+        if (temFiltro) {
+            strFiltro += '&';
+        }
+        strFiltro += 'produtor=1'
+        temFiltro = true;
+    }
+    if (filtro.editor) {
+        if (temFiltro) {
+            strFiltro += '&';
+        }
+        strFiltro += 'editor=1'
+        temFiltro = true;
+    }
+
+    return strFiltro;
+}
+
 async function getUser() {
     try {
-        const response = await axios.get('http://localhost:3000/api/pessoas/');
+
+        let strReq = 'http://localhost:3000/api/pessoas/' + adicionaFiltro();
+
+        const response = await axios.get(strReq);
         const resposta = JSON.parse(response.request.response);
 
         const usuarios = document.querySelector('#usuarios table');
+        usuarios.innerHTML = '';
 
         if (resposta.length == 0) {
             usuarios.classList.add('hidden');
@@ -13,9 +60,15 @@ async function getUser() {
             document.getElementById('nenhumUsuario').classList.add('hidden');
         }
 
-        let usersTable = '';
-        let id = 0;
+        let usersTable = `
+                   <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Cargos</th>
+                </tr>`;
 
+        let id = 0;
 
         for (linha of resposta) {
             console.log(linha);
@@ -71,3 +124,4 @@ async function getUser() {
 }
 
 getUser();
+document.getElementById('btnFiltro').onclick = getUser;
