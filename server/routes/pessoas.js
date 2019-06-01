@@ -48,7 +48,6 @@ router.get('/', async (request, response) => { // usando await async
 
 router.get('/filtros', async (request, response) => { // usando await async
     try {
-        console.log(request.query);
 
         let sql = `
         select pes.cpf, pes.nome, pes.tel,
@@ -84,7 +83,6 @@ router.get('/filtros', async (request, response) => { // usando await async
             jaAdd = true;
         }
 
-
         if (request.query.editor) {
             if (jaAdd) sql += 'and '
             sql += `ed.cpf is not null `;
@@ -102,6 +100,24 @@ router.get('/filtros', async (request, response) => { // usando await async
         console.log('Database ' + err);
     }
 });
+
+
+router.get('/quantidade/:cargo', async (request, response) => { // usando await async
+    try {
+        const sql = `
+        select count(*) from pessoa pes
+            inner join ${request.params.cargo} cargo
+            on pes.cpf = cargo.cpf 
+        `;
+        const results = await conexao.query(sql);
+        console.log(results);
+        response.status(200).json(results.rows[0].count);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
+
 
 router.post('/', async (request, response) => {
     console.log(request.body.cpf, request.body.nome, request.body.telefone, request.body.pesquisador);

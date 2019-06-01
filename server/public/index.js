@@ -123,5 +123,27 @@ async function getUser() {
     }
 }
 
+
+async function getQtds() {
+
+    const qtdBox = document.getElementById('infoQuantidades');
+    const cargos = ['pesquisador', 'jornalista', 'produtor', 'editor'];
+
+    for (cargo of cargos) {
+        const response = await axios.get(`http://localhost:3000/api/pessoas/quantidade/${cargo}`);
+        const resposta = JSON.parse(response.request.response);
+        console.log(resposta);
+
+        qtdBox.innerHTML += `
+            <div class="qtdBox">
+               <h3>${cargo}</h3><span>${resposta}</span>
+            </div>`;
+
+
+    }
+
+}
+
 getUser();
+getQtds();
 document.getElementById('btnFiltro').onclick = getUser;
