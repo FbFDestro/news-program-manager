@@ -249,6 +249,7 @@ p#nenhumUsuario {
     width: 100%;
 }
 
+
 #usuarios table,
 #usuarios th,
 #usuarios td {
@@ -273,6 +274,15 @@ p#nenhumUsuario {
 #usuarios table th {
     background-color: #eee;
     color: #000;
+}
+
+#usuarios table tr {
+    transition: 0.5s;
+}
+
+#usuarios table tr:hover {
+    background-color: #eee;
+    transition: 0.5s;
 }
 
 .teste {

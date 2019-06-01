@@ -20,7 +20,23 @@ router.get('/', (request, response) => { // usando callback
 
 router.get('/', async (request, response) => { // usando await async
     try {
-        const results = await conexao.query('SELECT * FROM PESSOA');
+        const sql = `
+        select pes.cpf, pes.nome, pes.tel,
+            pesq.cpf as pesquisador,
+            jor.cpf as jornalista,
+            prod.cpf as produtor,
+            ed.cpf as editor
+        from pessoa pes
+        left join pesquisador pesq
+        on pes.cpf = pesq.cpf
+        left join jornalista jor
+        on pes.cpf = jor.cpf
+        left join PRODUTOR prod
+        on pes.cpf = prod.cpf
+        left join editor ed
+        on pes.cpf = ed.cpf;`;
+
+        const results = await conexao.query(sql);
         response.status(200).json(results.rows);
     } catch (err) {
         response.status(404).send("Not found");
