@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const conexao = require('../conexao')
 
+router.use(express.json()) // for parsing application/json
+router.use(express.urlencoded({
+    extended: true
+}));
+
 router.get('/', (request, response) => { // usando callback
     conexao.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
         if (error) {
@@ -12,16 +17,18 @@ router.get('/', (request, response) => { // usando callback
 });
 
 router.post('/', async (request, response) => {
+    console.log(request.body.cpf, request.body.nome, request.body.telefone);
     try {
-
         const query = {
-            text: 'INSERT INTO pessoa ("cpf", "nome", "tel", "senha") VALUES ($1, $2, $3, $4)',
-            values: request.body.
+            text: 'INSERT INTO pessoa ("cpf", "nome", "tel") VALUES ($1, $2, $3)',
+            values: [request.body.cpf, request.body.nome, request.body.telefone]
         }
         await conexao.query(query);
-        response.status(200).json(results.rows);
+        response.status(200).send("Dados inseridos com sucesso");
     } catch (err) {
+        response.status(400).send("Falha ao inserir dados!\n" + err.message);
         console.log('Database ' + err);
+        // console.log(Object.getOwnPropertyNames(err));
     }
 });
 

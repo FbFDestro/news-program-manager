@@ -14,10 +14,10 @@
 
     <header>
         <div id="cabecalho">
-            <div id="logo">Gerenciador de Jornal</div>
+            <div id="logo"><a href="../index.html">Gerenciador de Jornal</a></div>
             <nav>
                 <ul>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="../index.html">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -27,14 +27,30 @@
 
         <h1>Cadastrar pessoa</h1>
         <form>
-            <input type="text" placeholder="Nome *" />
-            <input type="text" placeholder="CPF *" />
-            <input type="text" placeholder="Telefone" />
-            <input type="password" placeholder="Senha *" />
-            <input type="password" placeholder="Confirmação da senha *" />
-            <input type="button" value="Cadastrar" />
+            <input type="text" id="nome" placeholder="Nome *" />
+            <input type="text" id="cpf" placeholder="CPF *" />
+            <input type="text" id="telefone" placeholder="Telefone" />
+
+            <ul id="cargos">
+                <li><input type="checkbox" name="pesquisador" value="pesquisador"> Pesquisador</li>
+                <li><input type="checkbox" name="jornalista" value="jornalista"> Jornalista</li>
+                <li><input type="checkbox" name="produtor" value="produtor"> Produtor</li>
+                <li><input type="checkbox" name="editor" value="editor"> Editor</li>
+            </ul>
+
+
+            <input type="button" id="cadastrar" value="Cadastrar">
         </form>
         <p>Itens com (*) são obrigatórios</p>
+
+        <div id="avisos">
+            <div id="enviando" class="aviso hidden">Cadastrando..'</div>
+            <div id="sucesso" class="aviso hidden">Usuario cadastrado com sucesso. <a style="color:#008CBA"
+                    href="../index.html">Acessar página de
+                    usuarios!</a></div>
+            <div id="erro" class="aviso hidden">Erro ao cadastrar</div>
+        </div>
+
     </article>
 
     <footer>
@@ -43,7 +59,7 @@
         </div>
     </footer>
 
-    <script src="index.js"></script>
+    <script src="cadastrar.js"></script>
 </body>
 
 </html>

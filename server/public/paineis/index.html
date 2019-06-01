@@ -7,18 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gerenciador jornal</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
     <header>
         <div id="cabecalho">
-            <div id="logo"><a href="index.html">Gerenciador de Jornal</a></div>
+            <div id="logo"><a href="../index.html">Gerenciador de Jornal</a></div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Entrar</a></li>
-                    <li><a href="pessoas/cadastrar.html">Cadastrar</a></li>
+                    <li><a href="#">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,17 +25,12 @@
 
     <article>
 
-        <!-- Verificar com javascript se ja esta logado, se estiver, redireciona para a pagina de paineis-->
-
-        <h1>Utilize o sistema como um dos usuarios cadastrados abaixo</h1>
-
-        <div id="usuarios">
-            <p id="nenhumUsuario">Nenhum usuario cadastrado</p>
-
-        </div>
-
-        <div id="cadastrarNovoBtn">
-            <a class="btn" href="pessoas/cadastrar.html">Cadastrar novo</a>
+        <div id="paineis">
+            <h1>Paineis de usuarios</h1>
+            <a class="btnPainel" id="pesquisador" href="pesquisador.html">Painel de Pesquisador</a>
+            <a class="btnPainel" href="jornalista.html">Painel de Jornalista</a>
+            <a class="btnPainel" href="produtor.html">Painel de Produtor</a>
+            <a class="btnPainel" href="editor.html">Painel de Editor</a>
         </div>
 
     </article>

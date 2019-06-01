@@ -3,7 +3,7 @@ async function getUser() {
         const response = await axios.get('http://localhost:3000/api/pessoas/await');
         const resps = JSON.parse(response.request.response);
 
-        const imprime = document.getElementById('coisas');
+        const imprime = document.getElementById('paineis');
 
         for (resp of resps) {
             console.log(resp);
@@ -15,4 +15,4 @@ async function getUser() {
     }
 }
 
-document.getElementById("pesquisar").onclick = getUser;
+document.getElementById('pesquisador').onclick = getUser;

@@ -24,6 +24,17 @@ header {
     position: relative;
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+    transition: 0.6s;
+}
+
+a:hover {
+    opacity: 0.6;
+    transition: 0.6s;
+}
+
 #cabecalho {
     height: 50px;
     width: 980px;
@@ -35,6 +46,17 @@ header {
     line-height: 50px;
     float: left;
     font-family: nexaB;
+}
+
+#logo a {
+    text-decoration: none;
+    color: #000;
+    transition: 0.6s;
+}
+
+#logo a:hover {
+    opacity: 0.5;
+    transition: 0.6s;
 }
 
 article {
@@ -83,18 +105,18 @@ li {
 
 li a {
     display: block;
-    color: #000;
-    background: #ddd;
+    color: #fff;
+    background: #4CAF50;
     font-family: nexaB;
     text-align: center;
     padding: 10px 16px;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 25px;
     transition: 0.6s;
 }
 
 li a:hover {
-    background-color: #b2b2b2;
+    background-color: #53cc58;
     transition: 0.6s;
 }
 
@@ -104,9 +126,14 @@ li a:hover {
     margin: 0 auto;
 }
 
+#paineis h1 {
+    margin: 20px 0;
+}
+
 h1 {
     font-family: nexaB;
     font-size: 18px;
+    margin-bottom: 15px;
 }
 
 a.btnPainel {
@@ -142,7 +169,8 @@ input[type=password] {
     box-sizing: border-box;
 }
 
-input[type=button] {
+input[type=button],
+a.btn {
     background-color: #008CBA;
     cursor: pointer;
     border: none;
@@ -152,11 +180,67 @@ input[type=button] {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    border-radius: 25px;
     font-size: 16px;
     transition: 0.6s;
 }
 
-input[type=button]:hover {
+input[type=button]:hover,
+a.btn:hover {
     background-color: #059fd3;
     transition: 0.6s;
+}
+
+ul#cargos {
+    margin: 10px 0;
+}
+
+ul#cargos li {
+    margin-left: 0;
+    margin-right: 15px;
+}
+
+#cargos input[type=checkbox] {
+    width: 13px;
+    height: 13px;
+}
+
+
+p#nenhumUsuario {
+    color: #232323;
+}
+
+#cadastrarNovoBtn {
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+    text-align: center;
+    margin-top: 25px;
+}
+
+#avisos {
+    margin-top: 10px;
+    font-family: NexaB;
+    text-align: center;
+}
+
+.aviso {
+    margin-top: 15px;
+    border-top: 1px dashed #ccc;
+    padding: 20px 30px;
+}
+
+#enviando {
+    color: #232323;
+}
+
+#sucesso {
+    color: #2b8dba;
+}
+
+#erro {
+    color: #ec3a3a;
+}
+
+.hidden {
+    display: none;
 }
