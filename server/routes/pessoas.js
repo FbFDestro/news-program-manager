@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const conexao = require('../conexao')
+const conexao = require('../conexao');
 
 router.use(express.json()) // for parsing application/json
 router.use(express.urlencoded({
