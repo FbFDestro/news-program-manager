@@ -37,7 +37,7 @@ async function create() {
     sql_command = `
     CREATE TABLE PESSOA (
         CPF CHAR(11),
-        NOME VARCHAR(20) NOT NULL,
+        NOME VARCHAR(50) NOT NULL,
         TEL INTEGER,
 
         CONSTRAINT PK_PESSOA
