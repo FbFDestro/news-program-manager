@@ -130,6 +130,12 @@ li a:hover {
     margin: 20px 0;
 }
 
+nav span {
+    line-height: 36px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
 h1 {
     font-family: nexaB;
     font-size: 18px;
@@ -254,7 +260,7 @@ p#nenhumUsuario {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 #usuarios table {
@@ -311,4 +317,32 @@ p#nenhumUsuario {
     display: inline-block;
     width: 33%;
     text-align: center;
+}
+
+#infoQuantidades {
+    margin-top: 15px;
+    border-top: 1px dashed #ccc;
+    padding-top: 25px;
+    text-align: center;
+}
+
+.qtdBox {
+    display: inline-block;
+    width: 22%;
+    margin: 0 10px;
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: 10px 0px;
+}
+
+.qtdBox h3 {
+    text-transform: uppercase;
+    font-size: 17px;
+    border-bottom: 1px dashed #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.qtdBox span {
+    font-size: 20px;
 }
