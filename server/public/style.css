@@ -130,6 +130,12 @@ li a:hover {
     margin: 20px 0;
 }
 
+nav span {
+    line-height: 36px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
 h1 {
     font-family: nexaB;
     font-size: 18px;
@@ -254,7 +260,7 @@ p#nenhumUsuario {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 #usuarios table {
@@ -335,4 +341,8 @@ p#nenhumUsuario {
     border-bottom: 1px dashed #ccc;
     padding: 10px 0;
     margin-bottom: 10px;
+}
+
+.qtdBox span {
+    font-size: 20px;
 }

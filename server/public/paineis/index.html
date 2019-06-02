@@ -14,10 +14,12 @@
 
     <header>
         <div id="cabecalho">
-            <div id="logo"><a href="../index.html">Gerenciador de Jornal</a></div>
+            <div id="logo"><a href="index.html">Gerenciador de Jornal</a></div>
             <nav>
                 <ul>
-                    <li><a href="#">Login</a></li>
+                    <li><span></span></li>
+                    <li><a id="linkPerfil" href="#">Meu Perfil</a></li>
+                    <li><a id="linkSair" href="#">Sair</a></li>
                 </ul>
             </nav>
         </div>
@@ -28,9 +30,9 @@
         <div id="paineis">
             <h1>Paineis de usuarios</h1>
             <a class="btnPainel" id="pesquisador" href="pesquisador.html">Painel de Pesquisador</a>
-            <a class="btnPainel" href="jornalista.html">Painel de Jornalista</a>
-            <a class="btnPainel" href="produtor.html">Painel de Produtor</a>
-            <a class="btnPainel" href="editor.html">Painel de Editor</a>
+            <a class="btnPainel" id="jornalista" href="jornalista.html">Painel de Jornalista</a>
+            <a class="btnPainel" id="produtor" href="produtor.html">Painel de Produtor</a>
+            <a class="btnPainel" id="editor" href="editor.html">Painel de Editor</a>
         </div>
 
     </article>
@@ -41,6 +43,7 @@
         </div>
     </footer>
 
+    <script src="../login.js"></script>
     <script src="index.js"></script>
 </body>
 

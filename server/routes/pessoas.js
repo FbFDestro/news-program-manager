@@ -7,16 +7,6 @@ router.use(express.urlencoded({
     extended: true
 }));
 
-/*
-router.get('/', (request, response) => { // usando callback
-    conexao.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    });
-});
-*/
 
 router.get('/', async (request, response) => { // usando await async
     try {
@@ -109,8 +99,10 @@ router.get('/quantidade/:cargo', async (request, response) => { // usando await 
             inner join ${request.params.cargo} cargo
             on pes.cpf = cargo.cpf 
         `;
+
+        console.log(sql);
+
         const results = await conexao.query(sql);
-        console.log(results);
         response.status(200).json(results.rows[0].count);
     } catch (err) {
         response.status(404).send("Not found");
@@ -126,6 +118,9 @@ router.post('/', async (request, response) => {
             text: 'INSERT INTO pessoa ("cpf", "nome", "tel") VALUES ($1, $2, $3)',
             values: [request.body.cpf, request.body.nome, request.body.telefone]
         }
+
+        console.log(sql);
+
         await conexao.query(sql); // insere pessoa
 
         if (request.body.pesquisador == true) { // insere pesquisador
@@ -147,20 +142,6 @@ router.post('/', async (request, response) => {
         console.log('Database ' + err);
         // console.log(Object.getOwnPropertyNames(err));
     }
-});
-
-
-router.get('/:nome', (request, response) => {
-    const query = {
-        text: 'Select * from users where firstname = $1',
-        values: [request.params.nome]
-    }
-    conexao.query(query, (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    })
 });
 
 module.exports = router;

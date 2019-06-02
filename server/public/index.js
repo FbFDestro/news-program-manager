@@ -54,9 +54,13 @@ async function getUser() {
         const usuarios = document.querySelector('#usuarios table');
         usuarios.innerHTML = '';
 
+        users = [];
+
         if (resposta.length == 0) {
             usuarios.classList.add('hidden');
+            document.getElementById('nenhumUsuario').classList.remove('hidden');
         } else {
+            usuarios.classList.remove('hidden');
             document.getElementById('nenhumUsuario').classList.add('hidden');
         }
 
@@ -113,7 +117,11 @@ async function getUser() {
         const linhas = document.getElementsByTagName('tr');
         for (linha of linhas) {
             linha.onclick = function () {
-                console.log(this);
+                const idClicked = parseInt(this.id);
+                console.log(users[idClicked]);
+                document.cookie = "dadosLogado=" + JSON.stringify(users[idClicked]);
+                console.log(getCookie("dadosLogado"));
+                window.location.href = "/paineis/index.html";
                 this.classList.add('teste');
             }
         }
@@ -122,7 +130,10 @@ async function getUser() {
         console.error(error);
     }
 }
-
+getCookie = function (name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) return match[2];
+}
 
 async function getQtds() {
 
@@ -138,7 +149,6 @@ async function getQtds() {
             <div class="qtdBox">
                <h3>${cargo}</h3><span>${resposta}</span>
             </div>`;
-
 
     }
 
