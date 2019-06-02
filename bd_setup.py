@@ -290,6 +290,10 @@ def create_table(cur):
                         CONSTRAINT FK_VIDEO_MATERIA_FINAL
                             FOREIGN KEY (MATERIA_FINAL)
                             REFERENCES MATERIA_FINAL(VIDEO_FINAL)
+                            ON DELETE SET NULL,
+                        CONSTRAINT FK_VIDEO_MATERIA 
+                            FOREIGN KEY (MATERIA)
+                            REFERENCES APROVACAO(MATERIA)
                             ON DELETE SET NULL
                     );
 
@@ -403,7 +407,6 @@ def populate_table(cur):
     episodio = "('2020-01-01', '222'), ('2019-03-12', '223')"
     sql_command = "insert into EPISODIO (DATA, PRODUTOR) values %s" % episodio
     cur.execute(sql_command)
-    return
 
     materia_final = "('video1', '111', 1, 1, 1, '2019-01-01', '50 minutes', '2020-01-01'), ('video2', '223', 1,1,1, '2019-01-01', '2 hours', '2020-01-01')"
     sql_command = "insert into MATERIA_FINAL (VIDEO_FINAL, EDITOR, BLOCO, ANDAR, NUMERO, DATA, PERIODO, EPISODIO) values %s" % materia_final
@@ -413,19 +416,19 @@ def populate_table(cur):
     sql_command = "insert into SALA_EQUIPAMENTOS (BLOCO, ANDAR, NUMERO) values %s" % sala_equipamentos
     cur.execute(sql_command)
 
-    equipamentos = "('microfone', 2015, 'Shure', 3,2,1), ('camera', 'canon', 2017, 3,2,1)"
+    equipamentos = "('microfone', 2015, 'Shure', 3,2,1), ('camera',2018, 'canon', 3,2,1)"
     sql_command = "insert into EQUIPAMENTO (TIPO, ANO, MARCA, BLOCO, ANDAR, NUMERO) values %s" % equipamentos
     cur.execute(sql_command)
 
-    video = "('materia1', 'arquivo1', 1, 'video1', '50 minutes'), ('materia1', 'arquivo2', 1, 'video2', '2 hours')"
+    video = "('titulo1', 'arquivo1', 1, 'video1', '50 minutes'), ('titulo1', 'arquivo2', 1, 'video2', '2 hours')"
     sql_command = "insert into VIDEO (MATERIA, ARQUIVO, LOCAL, MATERIA_FINAL, DURACAO) values %s" % video
     cur.execute(sql_command)
 
-    participa = "('materia1','arquivo1', 'testemunha',  '333'), ('materia1', 'arquivo1', 'especialista', '334')"
-    sql_command = "insert into table (MATERIA, ARQUIVO, CARGO, PESSOA) values %s" % participa
+    participa = "('titulo1','arquivo1', 'testemunha',  '333'), ('titulo1', 'arquivo1', 'especialista', '334')"
+    sql_command = "insert into PARTICIPA (MATERIA, ARQUIVO, CARGO, PESSOA) values %s" % participa
     cur.execute(sql_command)
 
-    equipamento_utilizado = "('materia1', 'arquivo1', 1), ('materia1', 'arquivo1', 2)"
+    equipamento_utilizado = "('titulo1', 'arquivo1', 1), ('titulo1', 'arquivo1', 2)"
     sql_command = "insert into EQUIPAMENTO_UTILIZADO (MATERIA, ARQUIVO, EQUIPAMENTO) values %s" % equipamento_utilizado
     cur.execute(sql_command)
 
