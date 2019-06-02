@@ -335,14 +335,18 @@ def create_table(cur):
                     CREATE TABLE COMENTARIO(
                         MATERIA VARCHAR(100),
                         PRODUTOR CHAR(11),
-                        DATA TIMESTAMP,
+                        DATA_INCLUSAO TIMESTAMP DEFAULT now(),
                         TEXTO TEXT,
 
                         CONSTRAINT PK_COMENTARIO
-                            PRIMARY KEY (MATERIA, PRODUTOR, DATA),
+                            PRIMARY KEY (MATERIA, PRODUTOR, DATA_INCLUSAO),
                         CONSTRAINT FK_COMENTARIO_PRODUTOR
                             FOREIGN KEY (PRODUTOR)
                             REFERENCES PRODUTOR(CPF)
+                            ON DELETE CASCADE,
+                        CONSTRAINT FK_COMENTARIO_MATERIA
+                            FOREIGN KEY(MATERIA)
+                            REFERENCES MATERIA(TITULO)
                             ON DELETE CASCADE
                     );
                     """
@@ -432,9 +436,9 @@ def populate_table(cur):
     sql_command = "insert into EQUIPAMENTO_UTILIZADO (MATERIA, ARQUIVO, EQUIPAMENTO) values %s" % equipamento_utilizado
     cur.execute(sql_command)
 
-    # comentario = "('materia',), ()"
-    # sql_command = "insert into COMENTARIO (MATERIA, PRODUTOR, DATA, TEXTO) values %s" % comentario
-    # cur.execute(sql_command)
+    comentario = "('titulo1', '222', 'Otimo texto, coloquei alguns adendos para melhorar o texto'), ('titulo2', '223', 'Rever a linha 23')"
+    sql_command = "insert into COMENTARIO (MATERIA, PRODUTOR, TEXTO) values %s" % comentario
+    cur.execute(sql_command)
 
 if __name__ == "__main__":
     db = Database()
