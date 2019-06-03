@@ -27,6 +27,8 @@ router.get('/', async (request, response) => { // usando await async
         on pes.cpf = ed.cpf;
         `;
 
+        console.log(sql);
+
         const results = await conexao.query(sql);
         response.status(200).json(results.rows);
     } catch (err) {

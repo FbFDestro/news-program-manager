@@ -1,12 +1,16 @@
 let users = [];
+const pesquisador = document.getElementsByName('pesquisador')[0];
+const jornalista = document.getElementsByName('jornalista')[0];
+const produtor = document.getElementsByName('produtor')[0];
+const editor = document.getElementsByName('editor')[0];
 
 function adicionaFiltro() {
 
     const filtro = {
-        pesquisador: document.getElementsByName('pesquisador')[0].checked,
-        jornalista: document.getElementsByName('jornalista')[0].checked,
-        produtor: document.getElementsByName('produtor')[0].checked,
-        editor: document.getElementsByName('editor')[0].checked
+        pesquisador: pesquisador.checked,
+        jornalista: jornalista.checked,
+        produtor: produtor.checked,
+        editor: editor.checked
     }
     let strFiltro = '';
     let temFiltro = false;
@@ -120,19 +124,13 @@ async function getUser() {
                 const idClicked = parseInt(this.id);
                 console.log(users[idClicked]);
                 document.cookie = "dadosLogado=" + JSON.stringify(users[idClicked]);
-                console.log(getCookie("dadosLogado"));
                 window.location.href = "/paineis/index.html";
-                this.classList.add('teste');
             }
         }
 
     } catch (error) {
         console.error(error);
     }
-}
-getCookie = function (name) {
-    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if (match) return match[2];
 }
 
 async function getQtds() {
@@ -156,4 +154,11 @@ async function getQtds() {
 
 getUser();
 getQtds();
-document.getElementById('btnFiltro').onclick = getUser;
+
+
+// document.getElementById('btnFiltro').onclick = getUser;
+
+pesquisador.onclick = getUser;
+jornalista.onclick = getUser;
+produtor.onclick = getUser;
+editor.onclick = getUser;
