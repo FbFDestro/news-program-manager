@@ -7,6 +7,25 @@ router.use(express.urlencoded({
     extended: true
 }));
 
+
+
+router.delete('/', async (request, response) => {
+    console.log(request.body.titulo);
+    try {
+        const sql = `
+            delete from PAUTA where titulo = ${request.body.titulo};
+        `
+        console.log(sql);
+        await conexao.query(sql); // insere pauta
+        response.status(200).send("Pauta deletada com sucesso");
+    } catch (err) {
+        response.status(400).send("Falha ao inserir dados!\n" + err.message);
+        console.log('Database ' + err);
+        // console.log(Object.getOwnPropertyNames(err));
+    }
+});
+
+
 router.post('/', async (request, response) => {
     console.log(request.body.titulo, request.body.pesquisador, request.body.resumo);
     try {
