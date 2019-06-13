@@ -28,11 +28,11 @@ router.post('/', async (request, response) => {
 });
 
 router.post('/link', async (request, response) => {
-    console.log(request.body.pauta, request.body.link);
+    console.log(request.body.titulo, request.body.link);
     try {
         const sql = {
             text: 'INSERT INTO LINK ("pauta", "link") VALUES ($1, $2)',
-            values: [request.body.titulo, request.body.pesquisador, request.body.resumo]
+            values: [request.body.titulo, request.body.link]
         }
 
         console.log(sql);
@@ -51,9 +51,7 @@ router.post('/link', async (request, response) => {
 router.get('/', async (request, response) => { // usando await async
     try {
         const sql = `
-        select * from  PAUTA P 
-            left join LINK L 
-                ON L.pauta = P.titulo;
+        select * from  PAUTA P;
         `;
 
         console.log(sql);
@@ -71,8 +69,6 @@ router.get('/:titulo', async (request, response) => { // usando await async
     try {
         const sql = `
         select * from  PAUTA P 
-            left join LINK L
-                ON L.pauta = P.titulo
             where titulo = '${request.params.titulo}';
         `;
 
@@ -86,13 +82,28 @@ router.get('/:titulo', async (request, response) => { // usando await async
     }
 });
 
-router.get('/pautas/pesquisador', async (request, response) => { // usando await async
+router.get('/link/:titulo', async (request, response) => { // usando await async
+    try {
+        const sql = `
+        select link from  LINK
+            where titulo = '${request.params.titulo}';
+        `;
+
+        console.log(sql);
+
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
+
+router.get('/pautas/:pesquisador', async (request, response) => { // usando await async
     try {
         const sql = `
         select * from  PAUTA P 
-            left join LINK L
-                ON L.pauta = P.titulo
-            where P.titulo = ${response.pauta} and P.pesquisador = ${response.pesquisador};
+            where P.pesquisador = '${request.params.pesquisador}';
         `;
 
         console.log(sql);
