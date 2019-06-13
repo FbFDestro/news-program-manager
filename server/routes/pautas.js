@@ -52,8 +52,8 @@ router.get('/', async (request, response) => { // usando await async
     try {
         const sql = `
         select * from  PAUTA P 
-            left join LINK L
-                L.pauta = P.titulo;
+            left join LINK L 
+                ON L.pauta = P.titulo;
         `;
 
         console.log(sql);
@@ -72,7 +72,7 @@ router.get('/pautas', async (request, response) => { // usando await async
         const sql = `
         select * from  PAUTA P 
             left join LINK L
-                L.pauta = P.titulo
+                ON L.pauta = P.titulo
             where titulo = ${response.pauta};
         `;
 
@@ -91,7 +91,7 @@ router.get('/pautas/pesquisador', async (request, response) => { // usando await
         const sql = `
         select * from  PAUTA P 
             left join LINK L
-                L.pauta = P.titulo
+                ON L.pauta = P.titulo
             where P.titulo = ${response.pauta} and P.pesquisador = ${response.pesquisador};
         `;
 
