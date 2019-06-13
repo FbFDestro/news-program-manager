@@ -41,6 +41,24 @@ router.get('/:mes', async (request, response) => { // usando await async
 });
 
 
+router.get('/jornalistaspormes', async (request, response) => { // usando await async
+    try {
+        const sql = `
+            SELECT M.JORNALISTA, YEAR, MONTH, COUNT(*)
+                FROM MATERIA M
+                GROUP BY M.JORNALISTA, EXTRACT(YEAR FROM M.DATA_INCLUSAO) AS YEAR, EXTRACT(MONTH FROM M.DATA_INCLUSAO) AS MONTH;
+        `;
+
+        console.log(sql);
+
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Nothing found");
+        console.log('Database ' + err);
+    }
+});
+
 router.get('/quantidade/:jornalista', async (request, response) => { // usando await async
     try {
         const sql = `
@@ -64,7 +82,7 @@ router.post('/', async (request, response) => {
     console.log(request.body.titulo, request.body.jornalista, request.body.texto);
     try {
         const sql = {
-            text: 'INSERT INTO materia ("titulo", "jornalista", "data_inclusao", "texto") VALUES ($1, $2, default, $3)',
+            text: 'INSERT INTO materia ("titulo", "jornalista", "texto") VALUES ($1, $2, $3)',
             values: [request.body.titulo, request.body.jornalista, request.body.texto]
         }
 
