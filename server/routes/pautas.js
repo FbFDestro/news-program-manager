@@ -104,3 +104,5 @@ router.get('/pautas/pesquisador', async (request, response) => { // usando await
         console.log('Database ' + err);
     }
 });
+
+module.exports = router;
