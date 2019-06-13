@@ -86,7 +86,7 @@ router.get('/link/:titulo', async (request, response) => { // usando await async
     try {
         const sql = `
         select link from  LINK
-            where titulo = '${request.params.titulo}';
+            where pauta = '${request.params.titulo}';
         `;
 
         console.log(sql);
@@ -99,11 +99,11 @@ router.get('/link/:titulo', async (request, response) => { // usando await async
     }
 });
 
-router.get('/pautas/:pesquisador', async (request, response) => { // usando await async
+router.get('/pesquisador/:cpf', async (request, response) => { // usando await async
     try {
         const sql = `
         select * from  PAUTA P 
-            where P.pesquisador = '${request.params.pesquisador}';
+            where P.pesquisador = '${request.params.cpf}';
         `;
 
         console.log(sql);
