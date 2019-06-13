@@ -65,7 +65,7 @@ router.get('/:cpf', async (request, response) => { // usando await async
 router.get('/jornalistaspormes', async (request, response) => { // usando await async
     try {
         const sql = `
-        SELECT M.JORNALISTA, EXTRACT(YEAR FROM M.DATA_INCLUSAO), EXTRACT(MONTH FROM M.DATA_INCLUSAO), COUNT(*)
+        SELECT M.JORNALISTA, EXTRACT(YEAR FROM M.DATA_INCLUSAO) AS YEAR, EXTRACT(MONTH FROM M.DATA_INCLUSAO) AS MONTH, COUNT(*)
             FROM MATERIA M
             GROUP BY M.JORNALISTA, EXTRACT(YEAR FROM M.DATA_INCLUSAO), EXTRACT(MONTH FROM M.DATA_INCLUSAO);
         `;
