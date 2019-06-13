@@ -10,7 +10,10 @@ router.use(express.urlencoded({
 
 router.get('/', async (request, response) => { // usando await async
     try {
-        const sql = `SELECT * FROM MATERIA`;
+        const sql = `SELECT * FROM MATERIA M
+                        join PESSOA P 
+                            ON P.CPF = M.jornalista;            
+        `;
 
         console.log(sql);
 
@@ -40,6 +43,24 @@ router.get('/quantidade/:mes', async (request, response) => { // usando await as
     }
 });
 
+
+router.get('/:cpf', async (request, response) => { // usando await async
+    try {
+        const sql = `SELECT * FROM MATERIA M
+                        join PESSOA P 
+                            ON P.CPF = M.jornalista
+                    where M.jornalista = ${request.params.cpf};          
+        `;
+
+        console.log(sql);
+
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
 
 router.get('/jornalistaspormes', async (request, response) => { // usando await async
     try {
