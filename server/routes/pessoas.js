@@ -97,9 +97,7 @@ router.get('/filtros', async (request, response) => { // usando await async
 router.get('/quantidade/:cargo', async (request, response) => { // usando await async
     try {
         const sql = `
-        select count(*) from pessoa pes
-            inner join ${request.params.cargo} cargo
-            on pes.cpf = cargo.cpf 
+        select count(*) from  ${request.params.cargo};
         `;
 
         console.log(sql);

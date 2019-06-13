@@ -16,7 +16,8 @@ function adicionaFiltro() {
     let temFiltro = false;
     if (filtro.pesquisador || filtro.jornalista || filtro.produtor || filtro.editor) {
         strFiltro += 'filtros?';
-    }
+    } else return;
+
     if (filtro.pesquisador) {
         strFiltro += 'pesquisador=1'
         temFiltro = true;
