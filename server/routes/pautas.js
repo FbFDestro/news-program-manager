@@ -82,10 +82,10 @@ router.get('/semMateria', async (request, response) => { // usando await async
     try {
         const sql = `
         SELECT P.titulo, P.pesquisador, PESSOA.nome, P.data_inclusao, P.resumo from PAUTA P
-            join PESSOA
-                on PESSOA.cpf = P.pesquisador
             left join MATERIA M
                 ON P.titulo = M.titulo
+            join pessoa
+                ON PESSOA.cpf = P.pesquisador
             where M.jornalista is null;
         `;
 
