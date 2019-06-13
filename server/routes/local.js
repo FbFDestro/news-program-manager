@@ -27,7 +27,7 @@ router.post('/', async (request, response) => {
         request.body.bloco, request.body.andar, request.body.numero_sala);
     try {
         const sql = {
-            text: 'INSERT INTO local ("id", "logradouro", "numero_rua", "cep", "cidade", "estado", "bloco", "andar", "numero_sala") VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+            text: 'INSERT INTO local ("logradouro", "numero_rua", "cep", "cidade", "estado", "bloco", "andar", "numero_sala") VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
             values: [request.body.logradouro, request.body.numero_rua, request.body.cep, request.body.cidade, request.body.estado,
                  request.body.bloco, request.body.andar, request.body.numero_sala]
         }
@@ -57,6 +57,28 @@ router.delete('/:id', async (request, response) => {
         response.status(400).send("Falha ao remover Local!\n" + err.message);
         console.log('Database ' + err);
         // console.log(Object.getOwnPropertyNames(err));
+    }
+});
+
+
+router.get('/cenarios_mais_utilizados', async (request, response) => { // usando await async
+    try {
+        const sql = `
+            SELECT L.BLOCO, L.ANDAR, L.NUMERO, COUNT(*) AS QTDLOCACOES
+            FROM VIDEO V
+            JOIN LOCAL L
+            ON L.ID = V.ID
+            GROUP BY L.BLOCO, L.ANDAR, L.NUMERO
+            ORDER BY QTDLOCACOES
+        WHERE L.BLOCO IS NOT NULL AND L.ANDAR IS NOT NULL AND L.NUMERO IS NOT NULL;`;
+
+        console.log(sql);
+
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
     }
 });
 
