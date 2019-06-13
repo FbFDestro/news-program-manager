@@ -352,3 +352,11 @@ table tr:hover {
 #pautaLinks {
     margin-top: 10px;
 }
+
+#cadastrarPauta {
+    width: 80%;
+    margin: 20px auto;
+    border: 1px dashed #ccc;
+    padding: 20px;
+    margin-bottom: 0;
+}

@@ -32,9 +32,25 @@
 
         <a href="#" id="btnNovaPauta" class="btn">Cadastrar nova pauta</a>
         <div id="cadastrarPauta" class="hidden">
+            <h1>Cadastrar nova pauta</h1>
+            <form>
+                <input type="text" id="titulo" placeholder="Título *" />
+                <input type="text" id="resumo" placeholder="Resumo" />
 
-            <br />
-            Aqui vai vir o form de cadastro de nova pauta
+                <input type="button" id="cadastrarPauta" value="Cadastrar">
+            </form>
+            <p>Itens com (*) são obrigatórios</p>
+
+            <div id="avisos">
+                <div id="enviando" class="aviso hidden">Cadastrando..'</div>
+                <div id="sucesso" class="aviso hidden">Usuario cadastrado com sucesso. <a style="color:#008CBA"
+                        href="../index.html">Acessar página de
+                        usuarios!</a></div>
+                <div id="erro" class="aviso hidden">Erro ao cadastrar</div>
+            </div>
+
+
+
 
         </div>
 

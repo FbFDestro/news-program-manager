@@ -118,3 +118,38 @@ async function getPautas() {
 }
 
 getPautas();
+
+document.getElementById('cadastrarPauta').onclick = async () => {
+
+    const enviando = document.getElementById('enviando');
+    const sucesso = document.getElementById('sucesso');
+    const erro = document.getElementById('erro');
+
+    enviando.classList.add('hidden');
+    sucesso.classList.add('hidden');
+    erro.classList.add('hidden');
+
+    console.log(cookie);
+
+    const info = {
+        titulo: document.getElementById('titulo').value,
+        pesquisador: cookie.nome,
+        resumo: document.getElementById('resumo').value,
+    }
+
+    enviando.classList.toggle('hidden');
+    try {
+        const resp = await axios({
+            method: 'post',
+            url: '/api/pautas',
+            data: info
+        });
+        enviando.classList.toggle('hidden');
+        sucesso.classList.toggle('hidden');
+        console.log(resp);
+    } catch (err) {
+        enviando.classList.toggle('hidden');
+        erro.classList.toggle('hidden');
+        erro.innerText = err.response.data;
+    }
+};
