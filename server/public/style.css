@@ -263,42 +263,44 @@ p#nenhumUsuario {
     display: none !important;
 }
 
-#usuarios table {
+table {
     width: 100%;
 }
 
 
-#usuarios table,
-#usuarios th,
-#usuarios td {
+table,
+th,
+td {
+    margin-top: 15px;
     border: 1px solid #ccc;
     border-collapse: collapse;
 }
 
-#usuarios th,
-#usuarios td {
+th,
+td {
     padding: 15px;
     text-align: left;
 }
 
-#usuarios table tr:nth-child(even) {
+table tr:nth-child(even) {
     background-color: #fafafa;
 }
 
-#usuarios table tr:nth-child(odd) {
+table tr:nth-child(odd) {
     background-color: #fff;
 }
 
-#usuarios table th {
+table th {
     background-color: #eee;
     color: #000;
 }
 
-#usuarios table tr {
+table tr {
+    cursor: pointer;
     transition: 0.5s;
 }
 
-#usuarios table tr:hover {
+table tr:hover {
     background-color: #eee;
     transition: 0.5s;
 }

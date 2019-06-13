@@ -16,7 +16,7 @@ function adicionaFiltro() {
     let temFiltro = false;
     if (filtro.pesquisador || filtro.jornalista || filtro.produtor || filtro.editor) {
         strFiltro += 'filtros?';
-    } else return;
+    } else return '';
 
     if (filtro.pesquisador) {
         strFiltro += 'pesquisador=1'
@@ -51,7 +51,10 @@ function adicionaFiltro() {
 async function getUser() {
     try {
 
-        let strReq = 'http://localhost:3000/api/pessoas/' + adicionaFiltro();
+        let filtro = await adicionaFiltro();
+        let strReq = `http://localhost:3002/api/pessoas/` + filtro;
+
+        console.log(strReq);
 
         const response = await axios.get(strReq);
         const resposta = JSON.parse(response.request.response);
@@ -140,7 +143,7 @@ async function getQtds() {
     const cargos = ['pesquisador', 'jornalista', 'produtor', 'editor'];
 
     for (cargo of cargos) {
-        const response = await axios.get(`http://localhost:3000/api/pessoas/quantidade/${cargo}`);
+        const response = await axios.get(`http://localhost:3002/api/pessoas/quantidade/${cargo}`);
         const resposta = JSON.parse(response.request.response);
         console.log(resposta);
 
