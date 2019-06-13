@@ -18,8 +18,9 @@ app.use('/api/pessoas', pessoas);
 async function bd_setup() {
     await bdSetup.drop();
     await bdSetup.create();
+    await bdSetup.populate();
 }
-//bd_setup(); // drop e create
+bd_setup(); // drop e create
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
