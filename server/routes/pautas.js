@@ -81,10 +81,12 @@ router.get('/porcentagemPautasGravadas', async (request, response) => { // usand
 router.get('/semMateria', async (request, response) => { // usando await async
     try {
         const sql = `
-            SELECT P.titulo, P.pesquisador, P.data_inclusao, P.resumo from PAUTA P
-                left join MATERIA M
-                    ON P.titulo = M.materia
-                where M.jornalista is null;
+        SELECT P.titulo, P.pesquisador, PESSOA.nome, P.data_inclusao, P.resumo from PAUTA P
+            join PESSOA
+                on PESSOA.cpf = P.pesquisador
+            left join MATERIA M
+                ON P.titulo = M.titulo
+            where M.jornalista is null;
         `;
 
         console.log(sql);
