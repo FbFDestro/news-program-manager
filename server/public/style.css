@@ -348,3 +348,7 @@ table tr:hover {
 .qtdBox span {
     font-size: 20px;
 }
+
+#pautaLinks {
+    margin-top: 10px;
+}

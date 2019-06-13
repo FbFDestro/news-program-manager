@@ -166,3 +166,13 @@ pesquisador.onclick = getUser;
 jornalista.onclick = getUser;
 produtor.onclick = getUser;
 editor.onclick = getUser;
+
+
+
+function hide(element) {
+    element.classList.add("hidden");
+}
+
+function show(element) {
+    element.classList.remove("hidden");
+}
