@@ -3,7 +3,8 @@ if (!cookie.pesquisador) {
 }
 
 const pautas = document.querySelector('#pautas table');
-const pautaLinks = document.getElementById('pautaLinks')
+const pautaLinks = document.getElementById('pautaLinks');
+const filtro = document.getElementById('checkMinhasPautas');
 
 function hide(element) {
     element.classList.add("hidden");
@@ -83,8 +84,14 @@ async function showPauta(id) {
     };
 }
 
-async function getPautas() {
-    let strReq = `http://localhost:3002/api/pautas/`;
+async function getPautas(filtro) {
+    let strReq
+    if(!filtro){
+        strReq = `http://localhost:3002/api/pautas/`;
+    }else{
+        strReq = `http://localhost:3002/api/pautas/pesquisador/${cookie.cpf}`;
+    }
+    
 
     console.log(strReq);
     const response = await axios.get(strReq);
@@ -137,7 +144,7 @@ async function getPautas() {
 
 }
 
-getPautas();
+getPautas(filtro.checked);
 
 document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
@@ -182,7 +189,7 @@ document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
         enviando.classList.toggle('hidden');
         sucesso.classList.toggle('hidden');
-        getPautas();
+        getPautas(filtro.checked);
         limpaCampos();
         console.log(resp);
     } catch (err) {
@@ -212,3 +219,7 @@ document.getElementById('addLinkPautaBtn').onclick = () => {
     txtInput.placeholder = 'Link';
     listaLink.appendChild(txtInput);
 }
+
+filtro.onclick = () => {
+    getPautas(filtro.checked);
+} 

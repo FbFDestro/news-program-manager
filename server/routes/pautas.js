@@ -155,7 +155,9 @@ router.get('/link/:titulo', async (request, response) => { // usando await async
 router.get('/pesquisador/:cpf', async (request, response) => { // usando await async
     try {
         const sql = `
-        select * from  PAUTA P 
+        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, P.DATA_INCLUSAO, P.RESUMO  from  PAUTA P
+            join PESSOA
+                ON PESSOA.CPF = P.pesquisador
             where P.pesquisador = '${request.params.cpf}';
         `;
 
