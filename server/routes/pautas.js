@@ -59,7 +59,7 @@ router.get('/', async (request, response) => { // usando await async
         console.log(sql);
 
         const results = await conexao.query(sql);
-        response.status(200).json(results.rows[0].count);
+        response.status(200).json(results.rows);
     } catch (err) {
         response.status(404).send("Not found");
         console.log('Database ' + err);
@@ -67,19 +67,19 @@ router.get('/', async (request, response) => { // usando await async
 });
 
 
-router.get('/pautas', async (request, response) => { // usando await async
+router.get('/:titulo', async (request, response) => { // usando await async
     try {
         const sql = `
         select * from  PAUTA P 
             left join LINK L
                 ON L.pauta = P.titulo
-            where titulo = ${response.pauta};
+            where titulo = '${request.params.titulo}';
         `;
 
         console.log(sql);
 
         const results = await conexao.query(sql);
-        response.status(200).json(results.rows[0].count);
+        response.status(200).json(results.rows);
     } catch (err) {
         response.status(404).send("Not found");
         console.log('Database ' + err);
@@ -98,7 +98,7 @@ router.get('/pautas/pesquisador', async (request, response) => { // usando await
         console.log(sql);
 
         const results = await conexao.query(sql);
-        response.status(200).json(results.rows[0].count);
+        response.status(200).json(results.rows);
     } catch (err) {
         response.status(404).send("Not found");
         console.log('Database ' + err);
