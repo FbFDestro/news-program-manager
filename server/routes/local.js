@@ -23,12 +23,12 @@ router.get('/', async (request, response) => { // usando await async
 });
 
 router.post('/', async (request, response) => {
-    console.log(request.body.id, request.body.logradouro, request.body.numero_rua, request.body.cep, request.body.cidade, request.body.estado,
+    console.log(request.body.logradouro, request.body.numero_rua, request.body.cep, request.body.cidade, request.body.estado,
         request.body.bloco, request.body.andar, request.body.numero_sala);
     try {
         const sql = {
-            text: 'INSERT INTO local ("id", "logradouro", "numero_rua", "cep", "cidade", "estado", "bloco", "andar", "numero_sala") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-            values: [request.body.id, request.body.logradouro, request.body.numero_rua, request.body.cep, request.body.cidade, request.body.estado,
+            text: 'INSERT INTO local ("id", "logradouro", "numero_rua", "cep", "cidade", "estado", "bloco", "andar", "numero_sala") VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+            values: [request.body.logradouro, request.body.numero_rua, request.body.cep, request.body.cidade, request.body.estado,
                  request.body.bloco, request.body.andar, request.body.numero_sala]
         }
 
