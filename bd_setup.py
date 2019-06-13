@@ -124,7 +124,7 @@ def create_table(cur):
 
                     CREATE TABLE PAUTA (
                         TITULO VARCHAR(100),
-                        PESQUISADOR CHAR(11) NOT NULL DEFAULT 'INATIVO',
+                        PESQUISADOR CHAR(11) NOT NULL,
                         DATA_INCLUSAO DATE default now(),
                         RESUMO TEXT,
 
@@ -133,7 +133,6 @@ def create_table(cur):
                         CONSTRAINT FK_PAUTA
                             FOREIGN KEY (PESQUISADOR)
                             REFERENCES PESQUISADOR(CPF)
-                            ON DELETE SET DEFAULT
                     );
 
                     CREATE TABLE LINK (
@@ -150,7 +149,7 @@ def create_table(cur):
 
                     CREATE TABLE MATERIA (
                         TITULO VARCHAR(100),
-                        JORNALISTA CHAR(11) NOT NULL DEFAULT 'INATIVO',
+                        JORNALISTA CHAR(11) NOT NULL,
                         DATA_INCLUSAO DATE default now(),
                         TEXTO TEXT,
 
@@ -163,7 +162,6 @@ def create_table(cur):
                         CONSTRAINT FK_MATERIA_JORNALISTA
                             FOREIGN KEY (JORNALISTA)
                             REFERENCES JORNALISTA(CPF)
-                            ON DELETE SET DEFAULT
                     );
 
                     CREATE TABLE APROVACAO (
@@ -179,7 +177,6 @@ def create_table(cur):
                         CONSTRAINT FK_APROVACAO_PRODUTOR
                             FOREIGN KEY (PRODUTOR_APROVADOR)
                             REFERENCES PRODUTOR(CPF)
-                            ON DELETE CASCADE
                     );
 
                     CREATE TABLE LOCAL (
@@ -189,9 +186,9 @@ def create_table(cur):
                         CEP CHAR(8) NOT NULL,
                         CIDADE VARCHAR(20),
                         ESTADO CHAR(2),
-                        BLOCO INTEGER DEFAULT -1,
-                        ANDAR INTEGER DEFAULT -1,
-                        NUMERO_SALA INTEGER DEFAULT -1,
+                        BLOCO INTEGER,
+                        ANDAR INTEGER,
+                        NUMERO_SALA INTEGER,
 
                         CONSTRAINT PK_LOCAL
                             PRIMARY KEY (ID)
@@ -208,22 +205,21 @@ def create_table(cur):
 
                     CREATE TABLE EPISODIO (
                         DATA DATE,
-                        PRODUTOR CHAR(11) DEFAULT 'INATIVO',
+                        PRODUTOR CHAR(11),
 
                         CONSTRAINT PK_EPISODIO
                             PRIMARY KEY(DATA),
                         CONSTRAINT FK_EPISODIO
                             FOREIGN KEY (PRODUTOR)
                             REFERENCES PRODUTOR (CPF)
-                            ON DELETE SET DEFAULT
                     );
 
                     CREATE TABLE MATERIA_FINAL (
                         VIDEO_FINAL VARCHAR(50),
-                        EDITOR CHAR(11) NOT NULL DEFAULT 'INATIVO',
-                        BLOCO INTEGER NOT NULL DEFAULT -1, -- NOJENTO HEUHEU
-                        ANDAR INTEGER NOT NULL DEFAULT -1,
-                        NUMERO INTEGER NOT NULL DEFAULT -1,
+                        EDITOR CHAR(11) NOT NULL,
+                        BLOCO INTEGER NOT NULL,
+                        ANDAR INTEGER NOT NULL,
+                        NUMERO INTEGER NOT NULL,
                         DATA TIMESTAMP NOT NULL,
                         PERIODO INTERVAL NOT NULL,
                         EPISODIO DATE,
@@ -232,12 +228,10 @@ def create_table(cur):
                             PRIMARY KEY (VIDEO_FINAL),
                         CONSTRAINT FK_MATERIA_FINAL_EDITOR
                             FOREIGN KEY (EDITOR)
-                            REFERENCES EDITOR(CPF)
-                            ON DELETE SET DEFAULT,
+                            REFERENCES EDITOR(CPF),
                         CONSTRAINT FK_MATERIA_FINAL_SALA_EDICAO
                             FOREIGN KEY (BLOCO, ANDAR, NUMERO)
-                            REFERENCES SALA_EDICAO (BLOCO, ANDAR, NUMERO)
-                            ON DELETE SET DEFAULT,
+                            REFERENCES SALA_EDICAO (BLOCO, ANDAR, NUMERO),
                         CONSTRAINT SK_MATERIA_FINAL
                             UNIQUE (EDITOR, BLOCO, ANDAR, NUMERO, DATA),
                         CONSTRAINT FK_MATERIA_FINAL_EPISODIO
@@ -276,7 +270,7 @@ def create_table(cur):
 
                     CREATE TABLE VIDEO (
                         MATERIA VARCHAR(100),
-                        ARQUIVO VARCHAR(50), -- LINK DO VIDEO ARMAZENADO LOCALMENTE 
+                        ARQUIVO VARCHAR(50), -- LINK DO VIDEO ARMAZENADO LOCALMENTE (REFERENCIA RELATIVA)
                         LOCAL INTEGER,
                         MATERIA_FINAL VARCHAR(50),
                         DURACAO INTERVAL,
@@ -342,8 +336,7 @@ def create_table(cur):
                             PRIMARY KEY (MATERIA, PRODUTOR, DATA_INCLUSAO),
                         CONSTRAINT FK_COMENTARIO_PRODUTOR
                             FOREIGN KEY (PRODUTOR)
-                            REFERENCES PRODUTOR(CPF)
-                            ON DELETE CASCADE,
+                            REFERENCES PRODUTOR(CPF),
                         CONSTRAINT FK_COMENTARIO_MATERIA
                             FOREIGN KEY(MATERIA)
                             REFERENCES MATERIA(TITULO)
