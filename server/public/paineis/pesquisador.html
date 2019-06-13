@@ -37,15 +37,21 @@
                 <input type="text" id="titulo" placeholder="Título *" />
                 <input type="text" id="resumo" placeholder="Resumo" />
 
-                <input type="button" id="cadastrarPauta" value="Cadastrar">
+                <div id="listaLinks">
+                    <input type="text" class="link" placeholder="Link">
+                </div>
+
+                <input type="button" id="cadastrarPautaBtn" value="Cadastrar">
+                <input type="button" id="addLinkPautaBtn" value="Adicionar Link">
+                <input type="button" id="voltarPautaBtn" value="Voltar">
+
+
             </form>
             <p>Itens com (*) são obrigatórios</p>
 
             <div id="avisos">
                 <div id="enviando" class="aviso hidden">Cadastrando..'</div>
-                <div id="sucesso" class="aviso hidden">Usuario cadastrado com sucesso. <a style="color:#008CBA"
-                        href="../index.html">Acessar página de
-                        usuarios!</a></div>
+                <div id="sucesso" class="aviso hidden">Pauta cadastrada com sucesso cadastrado com sucesso.</div>
                 <div id="erro" class="aviso hidden">Erro ao cadastrar</div>
             </div>
 

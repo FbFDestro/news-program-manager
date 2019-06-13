@@ -17,6 +17,7 @@ let pautasVet = [];
 
 const btnNovaPauta = document.getElementById('btnNovaPauta');
 const boxNovaPauta = document.getElementById('cadastrarPauta');
+const listaLink = document.getElementById('listaLinks');
 
 btnNovaPauta.onclick = () => {
     show(boxNovaPauta);
@@ -44,6 +45,11 @@ async function showPauta(id) {
                             
                         </table>    
                         <br >
+
+                        <table id="tableLinks">
+                        
+                        </table>
+                        <br >
                         <a href="#" id="btnVoltarPautas" class="btn">Ver todas</a>
                             `;
 
@@ -51,10 +57,24 @@ async function showPauta(id) {
     let strReq = `http://localhost:3002/api/pautas/link/${pautasVet[id].titulo}`;
 
     console.log(strReq);
+
     const response = await axios.get(strReq);
     const resposta = JSON.parse(response.request.response);
 
-    console.log(resposta);
+    if (resposta.length > 0) {
+        const tableLinks = document.getElementById("tableLinks");
+        tableLinks.innerHTML += `
+        <tr>
+            <th>Links</th>
+        </tr>
+        `;
+    }
+
+
+    for (resp of resposta) {
+        tableLinks.innerHTML += `<tr><td>${resp.link}</td></tr>`;
+    }
+
 
     const btnVoltarPautas = document.getElementById('btnVoltarPautas');
     btnVoltarPautas.onclick = () => {
@@ -89,7 +109,7 @@ async function getPautas() {
         pautasTable += `
         <tr id="${id}">
         <td>${linha.titulo}</td>
-        <td>${linha.pesquisador}</td> 
+        <td>${linha.nome}</td> 
         <td>${linha.data_inclusao}</td>
         <td>${linha.resumo}</td>
       </tr>`;
@@ -119,7 +139,7 @@ async function getPautas() {
 
 getPautas();
 
-document.getElementById('cadastrarPauta').onclick = async () => {
+document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
     const enviando = document.getElementById('enviando');
     const sucesso = document.getElementById('sucesso');
@@ -133,7 +153,7 @@ document.getElementById('cadastrarPauta').onclick = async () => {
 
     const info = {
         titulo: document.getElementById('titulo').value,
-        pesquisador: cookie.nome,
+        pesquisador: cookie.cpf,
         resumo: document.getElementById('resumo').value,
     }
 
@@ -144,12 +164,51 @@ document.getElementById('cadastrarPauta').onclick = async () => {
             url: '/api/pautas',
             data: info
         });
+
+        const links = document.getElementsByClassName('link');
+        for (link of links) {
+            if (link.value) {
+                await axios({
+                    method: 'post',
+                    url: '/api/pautas/link',
+                    data: {
+                        pauta: info.titulo,
+                        link: link.value
+                    }
+                })
+            }
+        }
+
+
         enviando.classList.toggle('hidden');
         sucesso.classList.toggle('hidden');
+        getPautas();
+        limpaCampos();
         console.log(resp);
     } catch (err) {
         enviando.classList.toggle('hidden');
         erro.classList.toggle('hidden');
+        limpaCampos();
         erro.innerText = err.response.data;
     }
 };
+
+function limpaCampos() {
+    document.getElementById('titulo').value = "";
+    document.getElementById('resumo').value = "";
+    listaLink.innerHTML = `<input type="text" class="link" placeholder="Link">`;
+}
+
+document.getElementById('voltarPautaBtn').onclick = () => {
+    hide(boxNovaPauta);
+    limpaCampos();
+
+}
+
+document.getElementById('addLinkPautaBtn').onclick = () => {
+    const txtInput = document.createElement('input');
+    txtInput.type = 'text';
+    txtInput.classList.add('link');
+    txtInput.placeholder = 'Link';
+    listaLink.appendChild(txtInput);
+}
