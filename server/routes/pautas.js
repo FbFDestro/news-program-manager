@@ -28,11 +28,11 @@ router.post('/', async (request, response) => {
 });
 
 router.post('/link', async (request, response) => {
-    console.log(request.body.titulo, request.body.link);
+    console.log(request.body.pauta, request.body.link);
     try {
         const sql = {
             text: 'INSERT INTO LINK ("pauta", "link") VALUES ($1, $2)',
-            values: [request.body.titulo, request.body.link]
+            values: [request.body.pauta, request.body.link]
         }
 
         console.log(sql);
@@ -47,6 +47,55 @@ router.post('/link', async (request, response) => {
     }
 
 });
+
+
+router.get('/porcentagemPautasGravadas', async (request, response) => { // usando await async
+    try {
+        let sql = `
+        SELECT COUNT(*) FROM VIDEO V
+            JOIN PAUTA P
+                ON V.MATERIA = P.TITULO;
+        `;
+
+        console.log(sql);
+
+        let results = await conexao.query(sql);
+        let qtd_video = results.rows[0].count;
+        console.log(qtd_video);
+
+        sql = `
+        SELECT COUNT(*) FROM PAUTA;
+        `;
+
+        results = await conexao.query(sql);
+        let qtd_pautas = results.rows[0].count;
+        console.log(qtd_pautas);
+
+        response.status(200).json((qtd_video/qtd_pautas * 100).toFixed(2));
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
+
+// router.get('/semMateria', async (request, response) => { // usando await async
+//     try {
+//         const sql = `
+//             SELECT P.titulo, P.pesquisador, P.data_inclusao, P.resumo from PAUTA P
+//                 left join MATERIA M
+//                     ON P.titulo = M.materia
+//                 where M. ;
+//         `;
+
+//         console.log(sql);
+
+//         const results = await conexao.query(sql);
+//         response.status(200).json(results.rows);
+//     } catch (err) {
+//         response.status(404).send("Not found");
+//         console.log('Database ' + err);
+//     }
+// });
 
 router.get('/', async (request, response) => { // usando await async
     try {
