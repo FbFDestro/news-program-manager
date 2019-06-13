@@ -27,18 +27,22 @@ async function drop() {
 
     try {
         const results = await conexao.query(sql_command);
+        //console.log(sql_command);
+
         console.log("Drop tables");
     } catch (err) {
         console.log('Database ' + err);
     }
 }
 
+
+
 async function create() {
     sql_command = `
     CREATE TABLE PESSOA (
         CPF CHAR(11),
-        NOME VARCHAR(50) NOT NULL,
-        TEL INTEGER,
+        NOME VARCHAR(20) NOT NULL,
+        TEL BIGINT,
 
         CONSTRAINT PK_PESSOA
             PRIMARY KEY (CPF)
@@ -114,7 +118,7 @@ async function create() {
     CREATE TABLE PAUTA (
         TITULO VARCHAR(100),
         PESQUISADOR CHAR(11) NOT NULL DEFAULT 'INATIVO',
-        DATA_INCLUSAO DATE DEFAULT now(),
+        DATA_INCLUSAO DATE default now(),
         RESUMO TEXT,
 
         CONSTRAINT PK_PAUTA
@@ -140,7 +144,7 @@ async function create() {
     CREATE TABLE MATERIA (
         TITULO VARCHAR(100),
         JORNALISTA CHAR(11) NOT NULL DEFAULT 'INATIVO',
-        DATA_INCLUSAO DATE DEFAULT now(),
+        DATA_INCLUSAO DATE default now(),
         TEXTO TEXT,
 
         CONSTRAINT PK_MATERIA
@@ -178,9 +182,9 @@ async function create() {
         CEP CHAR(8) NOT NULL,
         CIDADE VARCHAR(20),
         ESTADO CHAR(2),
-        BLOCO INTEGER,
-        ANDAR INTEGER,
-        NUMERO_SALA INTEGER,
+        BLOCO INTEGER DEFAULT -1,
+        ANDAR INTEGER DEFAULT -1,
+        NUMERO_SALA INTEGER DEFAULT -1,
 
         CONSTRAINT PK_LOCAL
             PRIMARY KEY (ID)
@@ -342,11 +346,160 @@ async function create() {
 
     try {
         const results = await conexao.query(sql_command);
+        //console.log(sql_command);
+
         console.log("Create tables");
     } catch (err) {
         console.log('Database ' + err);
     }
 }
 
+async function populate() {
+
+    let sql_command = "";
+    try {
+        const pessoas = "('111', 'paulo', 11992915560), ('222', 'fabio', '1111111'), ('223', 'douglas', 222222), ('333', 'clayton', 333333), ('334', 'mauricio', 3333)"
+        sql_command = `insert into PESSOA (CPF, NOME, TEL) values ${pessoas}`;
+
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const pesquisador = "('111'), ('222')"
+        sql_command = `insert into PESQUISADOR (CPF) values ${pesquisador}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const editor = "('111'), ('223')"
+        sql_command = `insert into EDITOR (CPF) values ${editor}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const jornalista = "('111'), ('223')"
+        sql_command = `insert into JORNALISTA (CPF) values ${jornalista}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const produtor = "('222'), ('223')"
+        sql_command = `insert into PRODUTOR (CPF) values ${produtor}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const participante = "('333'), ('334')"
+        sql_command = `insert into PARTICIPANTE (CPF) values ${participante}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const cargo_participante = "('testemunha','333'), ('especialista', '334')"
+        sql_command = `insert into CARGO_PARTICIPANTE (CARGO, PESSOA) values ${cargo_participante}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const pauta = "('titulo1','111','resumo1'), ('titulo2','111','resumo2'), ('titulo3', '222', 'resumo3')"
+        sql_command = `insert into PAUTA (TITULO, PESQUISADOR, RESUMO) values ${pauta}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const link = "('titulo1', 'link1'), ('titulo1', 'link2'), ('titulo2', 'link3')"
+        sql_command = `insert into LINK (PAUTA, LINK) values ${link}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const materia = "('titulo1', '111', 'texto1'), ('titulo2', '223', 'text2')"
+        sql_command = `insert into MATERIA (TITULO, JORNALISTA, TEXTO) values ${materia}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const aprovacao = "('titulo1', '222'), ('titulo2', '222')"
+        sql_command = `insert into APROVACAO (MATERIA, PRODUTOR_APROVADOR) values ${aprovacao}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        let local = "('rua1', 1, 'cep1','sao paulo', 'sp', 1, 1, 1), ('rua1', 1, 'cep1', 'sao paulo', 'sp',2, 2, 2)"
+        sql_command = `insert into LOCAL (LOGRADOURO, NUMERO_RUA, CEP, CIDADE, ESTADO, BLOCO, ANDAR, NUMERO_SALA) values ${local}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        local = "('rua2', 256, 'cep2', 'sao carlos', 'sp')"
+        sql_command = `insert into LOCAL (LOGRADOURO, NUMERO_RUA, CEP, CIDADE, ESTADO) values ${local}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const sala_edicao = "(1,1,1), (1,1,2), (2,1,1), (1,3,1)"
+        sql_command = `insert into SALA_EDICAO (BLOCO, ANDAR, NUMERO) values ${sala_edicao}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const episodio = "('2020-01-01', '222'), ('2019-03-12', '223')"
+        sql_command = `insert into EPISODIO (DATA, PRODUTOR) values ${episodio}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const materia_final = "('video1', '111', 1, 1, 1, '2019-01-01', '50 minutes', '2020-01-01'), ('video2', '223', 1,1,1, '2019-01-01', '2 hours', '2020-01-01')"
+        sql_command = `insert into MATERIA_FINAL (VIDEO_FINAL, EDITOR, BLOCO, ANDAR, NUMERO, DATA, PERIODO, EPISODIO) values ${materia_final}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const sala_equipamentos = "(3,2,1), (3,2,2), (3,3,3)"
+        sql_command = `insert into SALA_EQUIPAMENTOS (BLOCO, ANDAR, NUMERO) values ${sala_equipamentos}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const equipamentos = "('microfone', 2015, 'Shure', 3,2,1), ('camera',2018, 'canon', 3,2,1)"
+        sql_command = `insert into EQUIPAMENTO (TIPO, ANO, MARCA, BLOCO, ANDAR, NUMERO) values ${equipamentos}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const video = "('titulo1', 'arquivo1', 1, 'video1', '50 minutes'), ('titulo1', 'arquivo2', 1, 'video2', '2 hours')"
+        sql_command = `insert into VIDEO (MATERIA, ARQUIVO, LOCAL, MATERIA_FINAL, DURACAO) values ${video}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const participa = "('titulo1','arquivo1', 'testemunha',  '333'), ('titulo1', 'arquivo1', 'especialista', '334')"
+        sql_command = `insert into PARTICIPA (MATERIA, ARQUIVO, CARGO, PESSOA) values ${participa}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const equipamento_utilizado = "('titulo1', 'arquivo1', 1), ('titulo1', 'arquivo1', 2)"
+        sql_command = `insert into EQUIPAMENTO_UTILIZADO (MATERIA, ARQUIVO, EQUIPAMENTO) values ${equipamento_utilizado}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+
+        const comentario = "('titulo1', '222', 'Otimo texto, coloquei alguns adendos para melhorar o texto'), ('titulo2', '223', 'Rever a linha 23')"
+        sql_command = `insert into COMENTARIO (MATERIA, PRODUTOR, TEXTO) values ${comentario}`;
+        await conexao.query(sql_command);
+        //console.log(sql_command);
+
+        console.log("Populate table");
+
+    } catch (e) {
+        console.log('Erro ao inserir dados');
+        console.log(e);
+    }
+
+}
+
+
 module.exports.drop = drop;
 module.exports.create = create;
+module.exports.populate = populate;
