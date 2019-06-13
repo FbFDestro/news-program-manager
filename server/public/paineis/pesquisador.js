@@ -52,7 +52,8 @@ async function showPauta(id) {
                         
                         </table>
                         <br >
-                        <a href="#" id="btnVoltarPautas" class="btn">Ver todas</a>
+                        <a href="#" id="btnVoltarPautas" class="btn">Ver todas Pautas</a>
+                        <input type="button" id="btnApagarPauta" value="Apagar Pauta">
                             `;
 
 
@@ -84,6 +85,23 @@ async function showPauta(id) {
         show(pautas);
         show(document.getElementById("checkPautas"));
     };
+
+    // const btnApagarPauta = document.getElementById('btnApagarPauta');
+    // btnApagarPauta.onclick = () => {
+    //     console.log(cookie);
+    //     try {
+    //         const response = await axios({
+    //             method: 'delete',
+    //             url: '/api/pautas',
+    //             data: {
+    //                 titulo: document.getElementById('titulo').value,
+    //             }
+    //         })
+    //         console.log(response);
+    //     } catch (err) {
+    //         console.log("oi");
+    //     }
+    // };
 }
 
 async function getPautas(filtro) {
@@ -146,7 +164,7 @@ async function getPautas(filtro) {
 
 }
 
-getPautas(filtro.checked);
+getPautas(filtro != null && filtro.checked);
 
 document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
@@ -191,7 +209,7 @@ document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
         enviando.classList.toggle('hidden');
         sucesso.classList.toggle('hidden');
-        getPautas(filtro.checked);
+        getPautas(filtro != null && filtro.checked);
         limpaCampos();
         console.log(resp);
     } catch (err) {
@@ -223,5 +241,5 @@ document.getElementById('addLinkPautaBtn').onclick = () => {
 }
 
 filtro.onclick = () => {
-    getPautas(filtro.checked);
+    getPautas(filtro != null && filtro.checked);
 }
