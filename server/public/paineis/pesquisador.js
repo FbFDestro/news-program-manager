@@ -28,6 +28,7 @@ btnNovaPauta.onclick = () => {
 async function showPauta(id) {
     hide(pautas);
     show(pautaLinks);
+    hide(document.getElementById("checkPautas"));
     pautaLinks.innerHTML = `
                         <table>
                             <tr>
@@ -81,17 +82,18 @@ async function showPauta(id) {
     btnVoltarPautas.onclick = () => {
         hide(pautaLinks);
         show(pautas);
+        show(document.getElementById("checkPautas"));
     };
 }
 
 async function getPautas(filtro) {
     let strReq
-    if(!filtro){
+    if (!filtro) {
         strReq = `http://localhost:3002/api/pautas/`;
-    }else{
+    } else {
         strReq = `http://localhost:3002/api/pautas/pesquisador/${cookie.cpf}`;
     }
-    
+
 
     console.log(strReq);
     const response = await axios.get(strReq);
@@ -222,4 +224,4 @@ document.getElementById('addLinkPautaBtn').onclick = () => {
 
 filtro.onclick = () => {
     getPautas(filtro.checked);
-} 
+}

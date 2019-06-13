@@ -353,10 +353,19 @@ table tr:hover {
     margin-top: 10px;
 }
 
-#cadastrarPauta {
+#cadastrarPauta,
+#cadastrarMateria {
     width: 80%;
     margin: 20px auto;
     border: 1px dashed #ccc;
     padding: 20px;
     margin-bottom: 0;
+}
+
+p#checkPautas,
+p#checkMaterias {
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin-right: 5px;
 }
