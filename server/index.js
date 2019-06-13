@@ -2,6 +2,7 @@ const Joi = require('joi');
 const genres = require('./routes/genres');
 const pessoas = require('./routes/pessoas');
 const pautas = require('./routes/pautas');
+const materias = require('./routes/materias');
 const express = require('express');
 const app = express();
 var path = require('path');
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use('/api/genres', genres);
 app.use('/api/pessoas', pessoas);
 app.use('/api/pautas', pautas);
+app.use('/api/materias', materias);
 
 // BD SETUP -> DROP E CREATE TABLES
 async function bd_setup() {
