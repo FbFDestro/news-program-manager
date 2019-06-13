@@ -52,7 +52,7 @@ router.post('/', async (request, response) => {
 router.get('/', async (request, response) => { // usando await async
     try {
         const sql = `
-        select * from  INSTRUMENTO;
+        select * from  EQUIPAMENTO;
         `;
 
         console.log(sql);
@@ -109,12 +109,11 @@ router.get('/quantidade/maior', async (request, response) => { // usando await a
 router.get('/quantidade/tipo', async (request, response) => { // usando await async
     try {
         const sql = `
-        select count(*) from  EQUIPAMENTO_UTILIZADO EU
+        select E.tipo, count(*) from  EQUIPAMENTO_UTILIZADO EU
             JOIN EQUIPAMENTO E
                 ON E.npatrimonio = EU.equipamento
             group by E.tipo
             order by count(*)
-            LIMIT 1;
         `;
 
         console.log(sql);

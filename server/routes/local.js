@@ -64,13 +64,14 @@ router.delete('/:id', async (request, response) => {
 router.get('/cenarios_mais_utilizados', async (request, response) => { // usando await async
     try {
         const sql = `
-            SELECT L.BLOCO, L.ANDAR, L.NUMERO, COUNT(*) AS QTDLOCACOES
+            SELECT L.BLOCO, L.ANDAR, L.NUMERO_SALA, COUNT(*) AS QTDLOCACOES
             FROM VIDEO V
             JOIN LOCAL L
-            ON L.ID = V.ID
-            GROUP BY L.BLOCO, L.ANDAR, L.NUMERO
-            ORDER BY QTDLOCACOES
-        WHERE L.BLOCO IS NOT NULL AND L.ANDAR IS NOT NULL AND L.NUMERO IS NOT NULL;`;
+            ON L.ID = V.LOCAL
+            WHERE L.BLOCO IS NOT NULL AND L.ANDAR IS NOT NULL AND L.NUMERO_SALA IS NOT NULL
+            GROUP BY L.BLOCO, L.ANDAR, L.NUMERO_SALA
+            ORDER BY QTDLOCACOES;
+        `;
 
         console.log(sql);
 
