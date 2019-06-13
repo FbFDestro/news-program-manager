@@ -51,7 +51,9 @@ router.post('/link', async (request, response) => {
 router.get('/', async (request, response) => { // usando await async
     try {
         const sql = `
-        select * from  PAUTA P;
+        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, P.DATA_INCLUSAO, P.RESUMO from  PAUTA P
+            join PESSOA
+                ON PESSOA.CPF = P.pesquisador;
         `;
 
         console.log(sql);
