@@ -78,24 +78,26 @@ router.get('/porcentagemPautasGravadas', async (request, response) => { // usand
     }
 });
 
-// router.get('/semMateria', async (request, response) => { // usando await async
-//     try {
-//         const sql = `
-//             SELECT P.titulo, P.pesquisador, P.data_inclusao, P.resumo from PAUTA P
-//                 left join MATERIA M
-//                     ON P.titulo = M.materia
-//                 where M. ;
-//         `;
+router.get('/semMateria', async (request, response) => { // usando await async
+    try {
+        const sql = `
+        SELECT P.titulo, P.pesquisador, PESSOA.nome, P.data_inclusao, P.resumo from PAUTA P
+            left join MATERIA M
+                ON P.titulo = M.titulo
+            join pessoa
+                ON PESSOA.cpf = P.pesquisador
+            where M.jornalista is null;
+        `;
 
-//         console.log(sql);
+        console.log(sql);
 
-//         const results = await conexao.query(sql);
-//         response.status(200).json(results.rows);
-//     } catch (err) {
-//         response.status(404).send("Not found");
-//         console.log('Database ' + err);
-//     }
-// });
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
 
 router.get('/', async (request, response) => { // usando await async
     try {
