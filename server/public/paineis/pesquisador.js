@@ -196,6 +196,7 @@ async function getPautas(filtro, pauta) {
 }
 
 getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
+getPorcentagem();
 
 document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
@@ -277,4 +278,16 @@ filtro.onclick = () => {
 
 pautaSMateria.onclick = () => {
     getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
+}
+
+async function getPorcentagem() {
+    const qtdBox = document.getElementById('infoPorcentagem');
+    const response = await axios.get(`http://localhost:3002/api/pautas/porcentagemPautasGravadas`);
+    const resposta = JSON.parse(response.request.response);
+
+    qtdBox.innerHTML += `
+            <div class="qtdBox">
+               <h3>Porcentagem</h3><span>${resposta}%</span>
+            </div>`;
+
 }

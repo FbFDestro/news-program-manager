@@ -30,5 +30,5 @@ async function bd_setup() {
 }
 //bd_setup(); // drop e create
 
-const port = process.env.PORT || 3002;
+const port = 3002;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
