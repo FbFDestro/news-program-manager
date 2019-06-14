@@ -13,10 +13,11 @@ router.delete('/', async (request, response) => {
     console.log(request.body.titulo);
     try {
         const sql = `
-            delete from PAUTA where titulo = ${request.body.titulo};
+            delete from LINK where pauta = '${request.body.titulo}';
+            delete from PAUTA where titulo = '${request.body.titulo}';
         `
         console.log(sql);
-        await conexao.query(sql); // insere pauta
+        await conexao.query(sql); //insere pauta
         response.status(200).send("Pauta deletada com sucesso");
     } catch (err) {
         response.status(400).send("Falha ao inserir dados!\n" + err.message);
@@ -118,12 +119,15 @@ router.get('/semMateria', async (request, response) => { // usando await async
     }
 });
 
-router.get('/', async (request, response) => { // usando await async
+router.get('/semMateria/:cpf', async (request, response) => { // usando await async
     try {
         const sql = `
-        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, P.DATA_INCLUSAO, P.RESUMO from  PAUTA P
-            join PESSOA
-                ON PESSOA.CPF = P.pesquisador;
+        SELECT P.titulo, P.pesquisador, PESSOA.nome, P.data_inclusao, P.resumo from PAUTA P
+            left join MATERIA M
+                ON P.titulo = M.titulo
+            join pessoa
+                ON PESSOA.cpf = P.pesquisador
+            where M.jornalista is null and P.pesquisador = '${request.params.cpf}';
         `;
 
         console.log(sql);

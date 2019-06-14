@@ -30,7 +30,7 @@ router.get('/quantidade/:mes', async (request, response) => { // usando await as
         const sql = `
             SELECT COUNT(*)
                 FROM MATERIA M
-                WHERE EXTRACT(MONTH FROM M.DATA_INCLUSAO)= ${request.params.mes}
+                WHERE EXTRACT(MONTH FROM M.DATA_INCLUSAO)= ${request.params.mes};
         `;
 
         console.log(sql);
