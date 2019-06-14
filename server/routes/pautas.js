@@ -106,7 +106,8 @@ router.get('/semMateria', async (request, response) => { // usando await async
                 ON P.titulo = M.titulo
             join pessoa
                 ON PESSOA.cpf = P.pesquisador
-            where M.jornalista is null;
+            where M.jornalista is null
+            order by P.data_inclusao;
         `;
 
         console.log(sql);
@@ -127,7 +128,8 @@ router.get('/semMateria/:cpf', async (request, response) => { // usando await as
                 ON P.titulo = M.titulo
             join pessoa
                 ON PESSOA.cpf = P.pesquisador
-            where M.jornalista is null and P.pesquisador = '${request.params.cpf}';
+            where M.jornalista is null and P.pesquisador = '${request.params.cpf}'
+            order by P.data_inclusao;
         `;
 
         console.log(sql);
@@ -163,7 +165,8 @@ router.get('/', async (request, response) => { // usando await async
         const sql = `
         select P.TITULO, PESSOA.NOME, P.PESQUISADOR, P.DATA_INCLUSAO, P.RESUMO from  PAUTA P
             join PESSOA
-                ON PESSOA.CPF = P.pesquisador;
+                ON PESSOA.CPF = P.pesquisador
+        order by P.DATA_INCLUSAO;
         `;
 
         console.log(sql);
