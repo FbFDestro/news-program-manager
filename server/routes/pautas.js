@@ -158,6 +158,24 @@ router.get('/link/:titulo', async (request, response) => { // usando await async
     }
 });
 
+router.get('/', async (request, response) => { // usando await async
+    try {
+        const sql = `
+        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, P.DATA_INCLUSAO, P.RESUMO from  PAUTA P
+            join PESSOA
+                ON PESSOA.CPF = P.pesquisador;
+        `;
+
+        console.log(sql);
+
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
+
 router.get('/pesquisador/:cpf', async (request, response) => { // usando await async
     try {
         const sql = `
