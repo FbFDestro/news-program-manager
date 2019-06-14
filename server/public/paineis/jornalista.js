@@ -3,7 +3,7 @@ if (!cookie.jornalista) {
 }
 
 const materias = document.querySelector('#materias table');
-const materiaEspecifica = document.getElementById('#materiaEspecifica');
+const materiaEspecifica = document.getElementById('materiaEspecifica');
 const filtro = document.getElementById('checkMinhasMaterias');
 
 let materiasVet = [];
