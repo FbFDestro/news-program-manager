@@ -351,14 +351,14 @@ async function populate() {
 
     let sql_command = "";
     try {
-        const pessoas = "('111', 'paulo', 11992915560), ('222', 'fabio', '1111111'), ('223', 'douglas', 222222), ('333', 'clayton', 333333), ('334', 'mauricio', 3333)"
+        const pessoas = "('111', 'paulo', 11992915560), ('222', 'fabio', '1111111'),('2623', 'renata', 2247163),('7745', 'vitor', 43245), ('223', 'douglas', 222222), ('333', 'clayton', 333333), ('334', 'mauricio', 45352235)"
         sql_command = `insert into PESSOA (CPF, NOME, TEL) values ${pessoas}`;
 
         await conexao.query(sql_command);
         //console.log(sql_command);
 
 
-        const pesquisador = "('111'), ('222')"
+        const pesquisador = "('111'), ('222'), ('333')"
         sql_command = `insert into PESQUISADOR (CPF) values ${pesquisador}`;
         await conexao.query(sql_command);
         //console.log(sql_command);
@@ -394,7 +394,7 @@ async function populate() {
         //console.log(sql_command);
 
 
-        const pauta = "('titulo1','111','resumo1'), ('titulo2','111','resumo2'), ('titulo3', '222', 'resumo3')"
+        const pauta = "('titulo1','111','resumo1'), ('titulo2','111','resumo2'), ('titulo3', '222', 'resumo3'), ('titulo4','333','pauta do clayton'), ('titulo5','333','segunda pauta do clayton')"
         sql_command = `insert into PAUTA (TITULO, PESQUISADOR, RESUMO) values ${pauta}`;
         await conexao.query(sql_command);
         //console.log(sql_command);
@@ -406,7 +406,7 @@ async function populate() {
         //console.log(sql_command);
 
 
-        const materia = "('titulo1', '111', 'texto1'), ('titulo2', '223', 'text2')"
+        const materia = "('titulo1', '111', 'texto1'), ('titulo2', '223', 'text2'), ('titulo5', '223', 'text3')"
         sql_command = `insert into MATERIA (TITULO, JORNALISTA, TEXTO) values ${materia}`;
         await conexao.query(sql_command);
         //console.log(sql_command);
@@ -442,7 +442,7 @@ async function populate() {
         //console.log(sql_command);
 
 
-        const materia_final = "('video1', '111', 1, 1, 1, '2019-01-01', '50 minutes', '2020-01-01'), ('video2', '223', 1,1,1, '2019-01-01', '2 hours', '2020-01-01')"
+        const materia_final = "('video1', '111', 1, 1, 1, '2019-01-01', '50 minutes', '2020-01-01'), ('video2', '223', 1,1,1, '2019-01-01', '2 hours', '2020-01-01'), ('video3', '223', 1,1,1, '2019-02-02', '1 hour', '2019-03-12')"
         sql_command = `insert into MATERIA_FINAL (VIDEO_FINAL, EDITOR, BLOCO, ANDAR, NUMERO, DATA, PERIODO, EPISODIO) values ${materia_final}`;
         await conexao.query(sql_command);
         //console.log(sql_command);
@@ -454,13 +454,13 @@ async function populate() {
         //console.log(sql_command);
 
 
-        const equipamentos = "('microfone', 2015, 'Shure', 3,2,1), ('camera',2018, 'canon', 3,2,1)"
+        const equipamentos = "('microfone', 2015, 'Shure', 3,2,1), ('camera',2018, 'canon', 3,2,1), ('camera', 2019, 'canon', 3,2,1)"
         sql_command = `insert into EQUIPAMENTO (TIPO, ANO, MARCA, BLOCO, ANDAR, NUMERO) values ${equipamentos}`;
         await conexao.query(sql_command);
         //console.log(sql_command);
 
 
-        const video = "('titulo1', 'arquivo1', 1, 'video1', '50 minutes'), ('titulo1', 'arquivo2', 1, 'video2', '2 hours')"
+        const video = "('titulo1', 'arquivo1', 1, 'video1', '50 minutes'), ('titulo1', 'arquivo2', 1, 'video2', '2 hours'), ('titulo2', 'arquivo3', 1, 'video3', '1 hour')"
         sql_command = `insert into VIDEO (MATERIA, ARQUIVO, LOCAL, MATERIA_FINAL, DURACAO) values ${video}`;
         await conexao.query(sql_command);
         //console.log(sql_command);
@@ -472,7 +472,7 @@ async function populate() {
         //console.log(sql_command);
 
 
-        const equipamento_utilizado = "('titulo1', 'arquivo1', 1), ('titulo1', 'arquivo1', 2)"
+        const equipamento_utilizado = "('titulo1', 'arquivo1', 1), ('titulo1', 'arquivo1', 2), ('titulo2', 'arquivo3', 3)"
         sql_command = `insert into EQUIPAMENTO_UTILIZADO (MATERIA, ARQUIVO, EQUIPAMENTO) values ${equipamento_utilizado}`;
         await conexao.query(sql_command);
         //console.log(sql_command);

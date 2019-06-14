@@ -12,7 +12,8 @@ router.get('/', async (request, response) => { // usando await async
     try {
         const sql = `SELECT * FROM MATERIA M
                         join PESSOA P 
-                            ON P.CPF = M.jornalista;            
+                            ON P.CPF = M.jornalista
+                    order by M.data_inclusao;            
         `;
 
         console.log(sql);
@@ -49,7 +50,8 @@ router.get('/jornalista/:cpf', async (request, response) => { // usando await as
         const sql = `SELECT * FROM MATERIA M
                         join PESSOA P 
                             ON P.CPF = M.jornalista
-                    where M.jornalista = '${request.params.cpf}';          
+                    where M.jornalista = '${request.params.cpf}'
+                    order by M.data_inclusao;          
         `;
 
         console.log(sql);

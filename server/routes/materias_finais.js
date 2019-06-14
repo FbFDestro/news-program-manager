@@ -8,6 +8,45 @@ router.use(express.urlencoded({
 }));
 
 
+router.post('/', async (request, response) => {
+    console.log(request.body.video_final, request.body.editor, request.body.bloco, request.body.andar, request.body.numero, request.body.data, request.body.periodo, request.body.episodio);
+    try {
+        const sql = {
+            text: 'INSERT INTO MATERIA_FINAL ("video_final", "editor", bloco, andar, numero, data, periodo, episodio) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+            values: [request.body.video_final, request.body.editor, request.body.bloco, request.body.andar, request.body.numero, request.body.data, request.body.periodo, request.body.episodio]
+        }
+
+        console.log(sql);
+
+        await conexao.query(sql);
+
+        response.status(200).send("Materia inserida com sucesso");
+    } catch (err) {
+        response.status(400).send("Falha ao inserir Materia!\n" + err.message);
+        console.log('Database ' + err);
+        // console.log(Object.getOwnPropertyNames(err));
+    }
+});
+
+router.delete('/:video_final', async (request, response) => {
+    console.log(request.params.video_final);
+    try {
+        const sql = `delete from MATERIA_FINAL where video_final = '${request.params.video_final}';`;
+
+        console.log(sql);
+
+        await conexao.query(sql);
+
+        response.status(200).send("Materia deletada com sucesso");
+    } catch (err) {
+        response.status(400).send("Falha ao deletar Materia!\n" + err.message);
+        console.log('Database ' + err);
+        // console.log(Object.getOwnPropertyNames(err));
+    }
+});
+
+
+
 router.get('/', async (request, response) => { // usando await async
     try {
         const sql = `SELECT * FROM MATERIA_FINAL`;

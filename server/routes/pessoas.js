@@ -24,7 +24,8 @@ router.get('/', async (request, response) => { // usando await async
         left join PRODUTOR prod
         on pes.cpf = prod.cpf
         left join editor ed
-        on pes.cpf = ed.cpf;
+        on pes.cpf = ed.cpf
+        order by pes.nome;
         `;
 
         console.log(sql);
