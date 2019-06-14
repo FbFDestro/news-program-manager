@@ -17,7 +17,7 @@ router.delete('/', async (request, response) => {
             delete from PAUTA where titulo = '${request.body.titulo}';
         `
         console.log(sql);
-        await conexao.query(sql); // insere pauta
+        await conexao.query(sql); //insere pauta
         response.status(200).send("Pauta deletada com sucesso");
     } catch (err) {
         response.status(400).send("Falha ao inserir dados!\n" + err.message);
@@ -158,23 +158,6 @@ router.get('/', async (request, response) => { // usando await async
     }
 });
 
-
-router.get('/:titulo', async (request, response) => { // usando await async
-    try {
-        const sql = `
-        select * from  PAUTA P 
-            where titulo = '${request.params.titulo}';
-        `;
-
-        console.log(sql);
-
-        const results = await conexao.query(sql);
-        response.status(200).json(results.rows);
-    } catch (err) {
-        response.status(404).send("Not found");
-        console.log('Database ' + err);
-    }
-});
 
 router.get('/link/:titulo', async (request, response) => { // usando await async
     try {
