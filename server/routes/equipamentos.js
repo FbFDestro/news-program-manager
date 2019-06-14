@@ -84,14 +84,14 @@ router.get('/utilizados', async (request, response) => { // usando await async
 });
 
 //retorna o tipo de equipamento mais utilizado
-router.get('/quantidade/maior', async (request, response) => { // usando await async
+router.get('/quantidadeUtilizada/maior', async (request, response) => { // usando await async
     try {
         const sql = `
         select E.tipo, count(*) from  EQUIPAMENTO_UTILIZADO EU
             JOIN EQUIPAMENTO E
                 ON E.npatrimonio = EU.equipamento
             group by E.tipo
-            order by count(*)
+            order by count(*) DESC
             LIMIT 1;
         `;
 
@@ -106,14 +106,33 @@ router.get('/quantidade/maior', async (request, response) => { // usando await a
 });
 
 //retorna quantas vezes cada tipo de equipamento foi utilizado
-router.get('/quantidade/tipo', async (request, response) => { // usando await async
+router.get('/quantidadeUtilizada/total', async (request, response) => { // usando await async
     try {
         const sql = `
         select E.tipo, count(*) from  EQUIPAMENTO_UTILIZADO EU
             JOIN EQUIPAMENTO E
                 ON E.npatrimonio = EU.equipamento
             group by E.tipo
-            order by count(*)
+            order by count(*) DESC
+        `;
+
+        console.log(sql);
+
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
+
+
+//retorna quantas vezes cada tipo de equipamento foi utilizado
+router.get('/estoque', async (request, response) => { // usando await async
+    try {
+        const sql = `
+            select count(*), E.tipo from EQUIPAMENTO E
+            group by E.tipo;
         `;
 
         console.log(sql);
