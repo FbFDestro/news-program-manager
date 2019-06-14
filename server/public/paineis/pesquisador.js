@@ -56,6 +56,8 @@ async function showPauta(id) {
                         <br >
                         <a href="#" id="btnVoltarPautas" class="btn">Ver todas Pautas</a>
                         <input type="button" id="btnApagarPauta" value="Apagar Pauta">
+
+                       
                             `;
 
 
@@ -80,6 +82,13 @@ async function showPauta(id) {
         tableLinks.innerHTML += `<tr><td>${resp.link}</td></tr>`;
     }
 
+    const enviandoDelete = document.getElementById('enviandoDelete');
+    const sucessoDelete = document.getElementById('sucessoDelete');
+    const erroDelete = document.getElementById('erroDelete');
+
+    enviandoDelete.classList.add('hidden');
+    sucessoDelete.classList.add('hidden');
+    erroDelete.classList.add('hidden');
 
     const btnVoltarPautas = document.getElementById('btnVoltarPautas');
     btnVoltarPautas.onclick = () => {
@@ -90,8 +99,9 @@ async function showPauta(id) {
     };
 
     const btnApagarPauta = document.getElementById('btnApagarPauta');
-    btnApagarPauta.onclick = async() => {
-        console.log(cookie);
+    btnApagarPauta.onclick = async () => {
+
+        enviandoDelete.classList.toggle('hidden');
         try {
             const response = await axios({
                 method: 'delete',
@@ -99,23 +109,37 @@ async function showPauta(id) {
                 data: {
                     titulo: pautasVet[id].titulo,
                 }
-            })
+            });
+
+            enviandoDelete.classList.toggle('hidden');
+            sucessoDelete.classList.toggle('hidden');
+
+            await getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
+            show(pautas);
+            hide(pautaLinks);
+            show(document.getElementsByClassName("parCheck")[0]);
+            show(document.getElementsByClassName("parCheck")[1]);
+
+
             console.log(response);
         } catch (err) {
-            console.log("oi");
+            enviandoDelete.classList.toggle('hidden');
+            erroDelete.classList.toggle('hidden');
+            erroDelete.innerText = err.response.data;
+            console.log('aaaaaaaaaaaaaaaaaaaaaa');
         }
     };
 }
 
 async function getPautas(filtro, pauta) {
     let strReq
-    if(!filtro && !pauta){
+    if (!filtro && !pauta) {
         strReq = `http://localhost:3002/api/pautas/`;
-    }else if(filtro && !pauta){
+    } else if (filtro && !pauta) {
         strReq = `http://localhost:3002/api/pautas/pesquisador/${cookie.cpf}`;
-    }else if(!filtro && pauta){
+    } else if (!filtro && pauta) {
         strReq = `http://localhost:3002/api/pautas/semMateria`;
-    }else{
+    } else {
         strReq = `http://localhost:3002/api/pautas/semMateria/${cookie.cpf}`;
     }
 
@@ -171,7 +195,7 @@ async function getPautas(filtro, pauta) {
 
 }
 
-getPautas(filtro != null && filtro.checked,pautaSMateria != null && pautaSMateria.checked);
+getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
 
 document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
@@ -216,7 +240,7 @@ document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
         enviando.classList.toggle('hidden');
         sucesso.classList.toggle('hidden');
-        getPautas(filtro != null && filtro.checked,pautaSMateria != null && pautaSMateria.checked);
+        getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
         limpaCampos();
         console.log(resp);
     } catch (err) {
@@ -249,8 +273,8 @@ document.getElementById('addLinkPautaBtn').onclick = () => {
 
 filtro.onclick = () => {
     getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
-} 
+}
 
 pautaSMateria.onclick = () => {
-    getPautas(filtro != null && filtro.checked,pautaSMateria != null && pautaSMateria.checked);
+    getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
 }
