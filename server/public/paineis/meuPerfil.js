@@ -14,11 +14,13 @@ function checkLogin() {
 
 
 const nome = document.getElementById('nome');
+const cpf = document.getElementById('cpf');
 const telefone = document.getElementById('telefone');
-const cargos = document.getElementById('cargos');
 const cookie = checkLogin();
-console.log(cookie);
-nome.value = cookie.nome;
+
+nome.value = cookie.nome.trim();
+cpf.value = cookie.cpf.trim();
+telefone.value = cookie.tel.trim();
 
 document.getElementById('atualizar').onclick = async () => {
 
