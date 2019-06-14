@@ -13,7 +13,7 @@ router.delete('/', async (request, response) => {
     console.log(request.body.titulo);
     try {
         const sql = `
-            delete from PAUTA where titulo = ${request.body.titulo};
+            delete from PAUTA where titulo = '${request.body.titulo}';
         `
         console.log(sql);
         await conexao.query(sql); // insere pauta
@@ -106,6 +106,27 @@ router.get('/semMateria', async (request, response) => { // usando await async
             join pessoa
                 ON PESSOA.cpf = P.pesquisador
             where M.jornalista is null;
+        `;
+
+        console.log(sql);
+
+        const results = await conexao.query(sql);
+        response.status(200).json(results.rows);
+    } catch (err) {
+        response.status(404).send("Not found");
+        console.log('Database ' + err);
+    }
+});
+
+router.get('/semMateria/:cpf', async (request, response) => { // usando await async
+    try {
+        const sql = `
+        SELECT P.titulo, P.pesquisador, PESSOA.nome, P.data_inclusao, P.resumo from PAUTA P
+            left join MATERIA M
+                ON P.titulo = M.titulo
+            join pessoa
+                ON PESSOA.cpf = P.pesquisador
+            where M.jornalista is null and P.pesquisador = '${request.params.cpf}';
         `;
 
         console.log(sql);

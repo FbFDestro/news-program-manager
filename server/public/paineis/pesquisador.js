@@ -4,7 +4,8 @@ if (!cookie.pesquisador) {
 
 const pautas = document.querySelector('#pautas table');
 const pautaLinks = document.getElementById('pautaLinks');
-const filtro = document.getElementById('checkMinhasPautas');
+const filtro = document.getElementById('checkFiltro');
+const pautaSMateria = document.getElementById('checkPautaSemMateria');
 
 function hide(element) {
     element.classList.add("hidden");
@@ -84,30 +85,34 @@ async function showPauta(id) {
         show(pautas);
     };
 
-    // const btnApagarPauta = document.getElementById('btnApagarPauta');
-    // btnApagarPauta.onclick = () => {
-    //     console.log(cookie);
-    //     try {
-    //         const response = await axios({
-    //             method: 'delete',
-    //             url: '/api/pautas',
-    //             data: {
-    //                 titulo: document.getElementById('titulo').value,
-    //             }
-    //         })
-    //         console.log(response);
-    //     } catch (err) {
-    //         console.log("oi");
-    //     }
-    // };
+    const btnApagarPauta = document.getElementById('btnApagarPauta');
+    btnApagarPauta.onclick = async() => {
+        console.log(cookie);
+        try {
+            const response = await axios({
+                method: 'delete',
+                url: '/api/pautas',
+                data: {
+                    titulo: pautasVet[id].titulo,
+                }
+            })
+            console.log(response);
+        } catch (err) {
+            console.log("oi");
+        }
+    };
 }
 
-async function getPautas(filtro) {
+async function getPautas(filtro, pauta) {
     let strReq
-    if(!filtro){
+    if(!filtro && !pauta){
         strReq = `http://localhost:3002/api/pautas/`;
-    }else{
+    }else if(filtro && !pauta){
         strReq = `http://localhost:3002/api/pautas/pesquisador/${cookie.cpf}`;
+    }else if(!filtro && pauta){
+        strReq = `http://localhost:3002/api/pautas/semMateria`;
+    }else{
+        strReq = `http://localhost:3002/api/pautas/semMateria/${cookie.cpf}`;
     }
     
 
@@ -162,7 +167,7 @@ async function getPautas(filtro) {
 
 }
 
-getPautas(filtro != null && filtro.checked);
+getPautas(filtro != null && filtro.checked,pautaSMateria != null && pautaSMateria.checked);
 
 document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
@@ -207,7 +212,7 @@ document.getElementById('cadastrarPautaBtn').onclick = async () => {
 
         enviando.classList.toggle('hidden');
         sucesso.classList.toggle('hidden');
-        getPautas(filtro != null && filtro.checked);
+        getPautas(filtro != null && filtro.checked,pautaSMateria != null && pautaSMateria.checked);
         limpaCampos();
         console.log(resp);
     } catch (err) {
@@ -239,5 +244,9 @@ document.getElementById('addLinkPautaBtn').onclick = () => {
 }
 
 filtro.onclick = () => {
-    getPautas(filtro != null && filtro.checked);
+    getPautas(filtro != null && filtro.checked, pautaSMateria != null && pautaSMateria.checked);
 } 
+
+pautaSMateria.onclick = () => {
+    getPautas(filtro != null && filtro.checked,pautaSMateria != null && pautaSMateria.checked);
+}
