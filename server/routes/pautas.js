@@ -12,8 +12,8 @@ router.use(express.urlencoded({
 router.delete('/', async (request, response) => {
     console.log(request.body.titulo);
     try {
+        //delete from LINK where pauta = '${request.body.titulo}';
         const sql = `
-            delete from LINK where pauta = '${request.body.titulo}';
             delete from PAUTA where titulo = '${request.body.titulo}';
         `
         console.log(sql);
@@ -29,10 +29,12 @@ router.delete('/', async (request, response) => {
 
 router.post('/', async (request, response) => {
     console.log(request.body.titulo, request.body.pesquisador, request.body.resumo);
+    console.log(request.body.titulo + "fim");
+    console.log(request.body.titulo.trim() + "fim");
     try {
         const sql = {
             text: 'INSERT INTO PAUTA ("titulo", "pesquisador", "resumo") VALUES ($1, $2, $3)',
-            values: [request.body.titulo, request.body.pesquisador, request.body.resumo]
+            values: [request.body.titulo.trim(), request.body.pesquisador.trim(), request.body.resumo.trim()]
         }
 
         console.log(sql);
@@ -52,7 +54,7 @@ router.post('/link', async (request, response) => {
     try {
         const sql = {
             text: 'INSERT INTO LINK ("pauta", "link") VALUES ($1, $2)',
-            values: [request.body.pauta, request.body.link]
+            values: [request.body.pauta.trim(), request.body.link.trim()]
         }
 
         console.log(sql);
