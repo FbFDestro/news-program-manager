@@ -27,9 +27,9 @@ function show(element) {
 async function getMaterias(filtro) {
     let strReq;
     if (!filtro) {
-        strReq = `http://localhost:3002/api/materias/`;
+        strReq = `http://localhost:  3004/api/materias/`;
     } else {
-        strReq = `http://localhost:3002/api/materias/jornalista/${cookie.cpf}`;
+        strReq = `http://localhost:  3004/api/materias/jornalista/${cookie.cpf}`;
     }
 
 
@@ -121,7 +121,7 @@ async function showMateria(id) {
     };
 }
 async function carregaPautasSemMateria() {
-    let strReq = `http://localhost:3002/api/pautas/semMateria`;
+    let strReq = `http://localhost:  3004/api/pautas/semMateria`;
     const response = await axios.get(strReq);
     const resposta = JSON.parse(response.request.response);
 

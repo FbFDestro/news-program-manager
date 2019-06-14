@@ -61,7 +61,7 @@ async function showPauta(id) {
                             `;
 
 
-    let strReq = `http://localhost:3002/api/pautas/link/${pautasVet[id].titulo}`;
+    let strReq = `http://localhost:  3004/api/pautas/link/${pautasVet[id].titulo}`;
 
     console.log(strReq);
 
@@ -134,13 +134,13 @@ async function showPauta(id) {
 async function getPautas(filtro, pauta) {
     let strReq
     if (!filtro && !pauta) {
-        strReq = `http://localhost:3002/api/pautas/`;
+        strReq = `http://localhost:  3004/api/pautas/`;
     } else if (filtro && !pauta) {
-        strReq = `http://localhost:3002/api/pautas/pesquisador/${cookie.cpf}`;
+        strReq = `http://localhost:  3004/api/pautas/pesquisador/${cookie.cpf}`;
     } else if (!filtro && pauta) {
-        strReq = `http://localhost:3002/api/pautas/semMateria`;
+        strReq = `http://localhost:  3004/api/pautas/semMateria`;
     } else {
-        strReq = `http://localhost:3002/api/pautas/semMateria/${cookie.cpf}`;
+        strReq = `http://localhost:  3004/api/pautas/semMateria/${cookie.cpf}`;
     }
 
 
@@ -282,7 +282,7 @@ pautaSMateria.onclick = () => {
 
 async function getPorcentagem() {
     const qtdBox = document.getElementById('infoPorcentagem');
-    const response = await axios.get(`http://localhost:3002/api/pautas/porcentagemPautasGravadas`);
+    const response = await axios.get(`http://localhost:  3004/api/pautas/porcentagemPautasGravadas`);
     const resposta = JSON.parse(response.request.response);
 
     qtdBox.innerHTML += `

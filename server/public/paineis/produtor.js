@@ -6,7 +6,7 @@ async function getEquipamento() {
 
     const boxEquipamento = document.getElementById('equipamentosProdutor');
 
-    const response = await axios.get(`http://localhost:3002/api/equipamentos/quantidadeUtilizada/total`);
+    const response = await axios.get(`http://localhost:  3004/api/equipamentos/quantidadeUtilizada/total`);
     const resposta = JSON.parse(response.request.response);
 
     console.log(resposta);
@@ -25,7 +25,7 @@ async function getCenarios() {
 
     const boxCenarios = document.getElementById('cenariosProdutor');
 
-    const response = await axios.get(`http://localhost:3002/api/locais/cenarios_mais_utilizados`);
+    const response = await axios.get(`http://localhost:  3004/api/locais/cenarios_mais_utilizados`);
     const resposta = JSON.parse(response.request.response);
 
     console.log(resposta);

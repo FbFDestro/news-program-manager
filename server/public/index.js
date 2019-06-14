@@ -52,7 +52,7 @@ async function getUser() {
     try {
 
         let filtro = await adicionaFiltro();
-        let strReq = `http://localhost:3002/api/pessoas/` + filtro;
+        let strReq = `http://localhost:  3004/api/pessoas/` + filtro;
 
         console.log(strReq);
 
@@ -143,7 +143,7 @@ async function getQtds() {
     const cargos = ['pesquisador', 'jornalista', 'produtor', 'editor'];
 
     for (cargo of cargos) {
-        const response = await axios.get(`http://localhost:3002/api/pessoas/quantidade/${cargo}`);
+        const response = await axios.get(`http://localhost:  3004/api/pessoas/quantidade/${cargo}`);
         const resposta = JSON.parse(response.request.response);
         console.log(resposta);
 
