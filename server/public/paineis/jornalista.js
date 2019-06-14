@@ -11,6 +11,11 @@ let materiasVet = [];
 const btnNovaMateria = document.getElementById('btnNovaMateria');
 const boxNovaMateria = document.getElementById('cadastrarMateria');
 
+btnNovaMateria.onclick = () => {
+    show(boxNovaMateria);
+    carregaPautasSemMateria();
+};
+
 function hide(element) {
     element.classList.add("hidden");
 }
@@ -20,7 +25,7 @@ function show(element) {
 }
 
 async function getMaterias(filtro) {
-    let strReq
+    let strReq;
     if (!filtro) {
         strReq = `http://localhost:3002/api/materias/`;
     } else {
@@ -79,7 +84,6 @@ async function getMaterias(filtro) {
 
 getMaterias(filtro.checked);
 
-
 async function showMateria(id) {
     hide(materias);
     show(materiaEspecifica);
@@ -115,4 +119,68 @@ async function showMateria(id) {
         show(materias);
         show(document.getElementById("checkMaterias"));
     };
+}
+async function carregaPautasSemMateria() {
+    let strReq = `http://localhost:3002/api/pautas/semMateria`;
+    const response = await axios.get(strReq);
+    const resposta = JSON.parse(response.request.response);
+
+    console.log(resposta)
+    const possiveis = document.getElementById('pautasPossiveis');
+    possiveis.innerHTML = "";
+
+
+    for (linha of resposta) {
+        possiveis.innerHTML += `<option value="${linha.titulo}">${linha.titulo}</option>`;
+    }
+}
+
+document.getElementById('cadastrarMateriaBtn').onclick = async () => {
+
+    const enviando = document.getElementById('enviando');
+    const sucesso = document.getElementById('sucesso');
+    const erro = document.getElementById('erro');
+
+    enviando.classList.add('hidden');
+    sucesso.classList.add('hidden');
+    erro.classList.add('hidden');
+
+    console.log(cookie);
+
+    const info = {
+        titulo: document.getElementById('titulo').value,
+        pesquisador: cookie.cpf,
+        resumo: document.getElementById('resumo').value,
+    }
+
+    enviando.classList.toggle('hidden');
+    try {
+        const resp = await axios({
+            method: 'post',
+            url: '/api/materias',
+            data: info
+        });
+
+        enviando.classList.toggle('hidden');
+        sucesso.classList.toggle('hidden');
+        getMaterias(filtro != null && filtro.checked);
+        limpaCampos();
+        console.log(resp);
+    } catch (err) {
+        enviando.classList.toggle('hidden');
+        erro.classList.toggle('hidden');
+        limpaCampos();
+        erro.innerText = err.response.data;
+    }
+};
+
+function limpaCampos() {
+    document.getElementById('titulo').value = "";
+    document.getElementById('texto').value = "";
+}
+
+document.getElementById('voltarMateriaBtn').onclick = () => {
+    hide(boxNovaMateria);
+    limpaCampos();
+
 }

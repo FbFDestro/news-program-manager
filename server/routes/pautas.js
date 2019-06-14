@@ -90,7 +90,7 @@ router.get('/porcentagemPautasGravadas', async (request, response) => { // usand
         let qtd_pautas = results.rows[0].count;
         console.log(qtd_pautas);
 
-        response.status(200).json((qtd_video/qtd_pautas * 100).toFixed(2));
+        response.status(200).json((qtd_video / qtd_pautas * 100).toFixed(2));
     } catch (err) {
         response.status(404).send("Not found");
         console.log('Database ' + err);
@@ -136,23 +136,6 @@ router.get('/', async (request, response) => { // usando await async
     }
 });
 
-
-router.get('/:titulo', async (request, response) => { // usando await async
-    try {
-        const sql = `
-        select * from  PAUTA P 
-            where titulo = '${request.params.titulo}';
-        `;
-
-        console.log(sql);
-
-        const results = await conexao.query(sql);
-        response.status(200).json(results.rows);
-    } catch (err) {
-        response.status(404).send("Not found");
-        console.log('Database ' + err);
-    }
-});
 
 router.get('/link/:titulo', async (request, response) => { // usando await async
     try {
