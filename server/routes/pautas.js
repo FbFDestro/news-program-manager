@@ -101,7 +101,7 @@ router.get('/porcentagemPautasGravadas', async (request, response) => { // usand
 router.get('/semMateria', async (request, response) => { // usando await async
     try {
         const sql = `
-        SELECT P.titulo, P.pesquisador, PESSOA.nome, P.data_inclusao, P.resumo from PAUTA P
+        SELECT P.titulo, P.pesquisador, PESSOA.nome, to_char(P.DATA_INCLUSAO, 'DD/MM/YYYY') AS DATA_INCLUSAO, P.resumo from PAUTA P
             left join MATERIA M
                 ON P.titulo = M.titulo
             join pessoa
@@ -122,7 +122,7 @@ router.get('/semMateria', async (request, response) => { // usando await async
 router.get('/semMateria/:cpf', async (request, response) => { // usando await async
     try {
         const sql = `
-        SELECT P.titulo, P.pesquisador, PESSOA.nome, P.data_inclusao, P.resumo from PAUTA P
+        SELECT P.titulo, P.pesquisador, PESSOA.nome, to_char(P.DATA_INCLUSAO, 'DD/MM/YYYY') AS DATA_INCLUSAO, P.resumo from PAUTA P
             left join MATERIA M
                 ON P.titulo = M.titulo
             join pessoa
@@ -161,7 +161,7 @@ router.get('/link/:titulo', async (request, response) => { // usando await async
 router.get('/', async (request, response) => { // usando await async
     try {
         const sql = `
-        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, P.DATA_INCLUSAO, P.RESUMO from  PAUTA P
+        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, to_char(P.DATA_INCLUSAO, 'DD/MM/YYYY') AS DATA_INCLUSAO, P.RESUMO from  PAUTA P
             join PESSOA
                 ON PESSOA.CPF = P.pesquisador
         order by P.DATA_INCLUSAO desc;
@@ -180,7 +180,7 @@ router.get('/', async (request, response) => { // usando await async
 router.get('/pesquisador/:cpf', async (request, response) => { // usando await async
     try {
         const sql = `
-        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, P.DATA_INCLUSAO, P.RESUMO  from  PAUTA P
+        select P.TITULO, PESSOA.NOME, P.PESQUISADOR, to_char(P.DATA_INCLUSAO, 'DD/MM/YYYY') AS DATA_INCLUSAO, P.RESUMO  from  PAUTA P
             join PESSOA
                 ON PESSOA.CPF = P.pesquisador
             where P.pesquisador = '${request.params.cpf}';

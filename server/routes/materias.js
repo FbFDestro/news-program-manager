@@ -10,7 +10,8 @@ router.use(express.urlencoded({
 
 router.get('/', async (request, response) => { // usando await async
     try {
-        const sql = `SELECT * FROM MATERIA M
+        const sql = `SELECT M.TITULO, M.JORNALISTA, to_char(M.DATA_INCLUSAO, 'DD/MM/YYYY') AS DATA_INCLUSAO, M.TEXTO, P.CPF, P.NOME, P.TEL
+                        FROM MATERIA M
                         join PESSOA P 
                             ON P.CPF = M.jornalista
                     order by M.data_inclusao;            
@@ -47,7 +48,8 @@ router.get('/quantidade/:mes', async (request, response) => { // usando await as
 
 router.get('/jornalista/:cpf', async (request, response) => { // usando await async
     try {
-        const sql = `SELECT * FROM MATERIA M
+        const sql = `SELECT M.TITULO, M.JORNALISTA, to_char(M.DATA_INCLUSAO, 'DD/MM/YYYY') AS DATA_INCLUSAO, M.TEXTO, P.CPF, P.NOME, P.TEL
+                        FROM MATERIA M
                         join PESSOA P 
                             ON P.CPF = M.jornalista
                     where M.jornalista = '${request.params.cpf}'

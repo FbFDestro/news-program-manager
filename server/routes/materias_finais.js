@@ -49,7 +49,10 @@ router.delete('/:video_final', async (request, response) => {
 
 router.get('/', async (request, response) => { // usando await async
     try {
-        const sql = `SELECT * FROM MATERIA_FINAL MF
+        const sql = `SELECT MF.video_final, MF.EDITOR, MF.BLOCO, MF.ANDAR, MF.NUMERO,
+                to_char(MF.DATA, 'DD/MM/YYYY') as data, mf.periodo,
+                to_char(mf.episodio, 'DD/MM/YYYY') as episodio, p.cpf, p.nome, p.tel
+            FROM MATERIA_FINAL MF
             INNER JOIN PESSOA P 
                 ON MF.EDITOR = P.CPF;
         `;
