@@ -370,3 +370,7 @@ p#checkMaterias {
     font-size: 15px;
     margin-right: 5px;
 }
+
+div#pautas {
+    text-align: right;
+}

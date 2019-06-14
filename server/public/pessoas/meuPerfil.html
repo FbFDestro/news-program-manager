@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gerenciador jornal</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+    <header>
+        <div id="cabecalho">
+            <div id="logo"><a href="../index.html">Gerenciador de Jornal</a></div>
+            <nav>
+                <ul>
+                    <li><a href="/paineis/index.html">Paineis</a></li>
+                    <li><a href="cadastrar.html" style="background: #416d42">Cadastrar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <article>
+
+        <h1>Atualizar Registro</h1>
+        <form>
+            <input type="text" id="nome" placeholder="Nome*" />
+            <input type="text" id="cpf" readonly style="background: #dddddd" placeholder="CPF *" />
+            <input type="text" id="telefone" placeholder="Telefone" />
+
+            <div id="box-cargos">
+                <ul id="cargos">
+                    <li>
+                        <h3>Cargos</h3>
+                    </li>
+                    <li><input type="checkbox" name="pesquisador" value="pesquisador"> Pesquisador</li>
+                    <li><input type="checkbox" name="jornalista" value="jornalista"> Jornalista</li>
+                    <li><input type="checkbox" name="produtor" value="produtor"> Produtor</li>
+                    <li><input type="checkbox" name="editor" value="editor"> Editor</li>
+                    <li><input type="button" id="atualizar" value="Atualizar"></li>
+                </ul>
+            </div>
+        </form>
+        <div id="avisos">
+            <div id="enviando" class="aviso hidden">Cadastrando..'</div>
+            <div id="sucesso" class="aviso hidden">Usuario cadastrado com sucesso. <a style="color:#008CBA"
+                    href="../index.html">Acessar página de
+                    usuarios!</a></div>
+            <div id="erro" class="aviso hidden">Erro ao cadastrar</div>
+        </div>
+
+    </article>
+
+    <footer>
+        <div id="rodape">
+            <p>CRIADORES = [Fabio Destro, Paulo Carneiro, Renata Vinhaga, Vitor Gratiere];</p>
+        </div>
+    </footer>
+
+    <script src="meuPerfil.js"></script>
+</body>
+
+</html>
