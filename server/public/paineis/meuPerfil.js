@@ -16,11 +16,19 @@ function checkLogin() {
 const nome = document.getElementById('nome');
 const cpf = document.getElementById('cpf');
 const telefone = document.getElementById('telefone');
+const pesquisador= document.getElementsByName('pesquisador')[0];
+const jornalista= document.getElementsByName('jornalista')[0];
+const produtor= document.getElementsByName('produtor')[0];
+const editor= document.getElementsByName('editor')[0];
 const cookie = checkLogin();
 
 nome.value = cookie.nome.trim();
 cpf.value = cookie.cpf.trim();
 telefone.value = cookie.tel.trim();
+pesquisador.checked = cookie.pesquisador;
+jornalista.checked = cookie.jornalista;
+produtor.checked = cookie.produtor;
+editor.checked = cookie.editor;
 
 document.getElementById('atualizar').onclick = async () => {
 
@@ -45,13 +53,15 @@ document.getElementById('atualizar').onclick = async () => {
     enviando.classList.toggle('hidden');
     try {
         const resp = await axios({
-            method: 'post',
-            url: '/api/pessoas/atualizar',
+            method: 'put',
+            url: '/api/pessoas',
             data: info
         });
         enviando.classList.toggle('hidden');
         sucesso.classList.toggle('hidden');
         console.log(resp);
+        document.cookie = 'dadosLogado=; expires=-1; path=/;'
+        window.location.href = "../index.html";
     } catch (err) {
         enviando.classList.toggle('hidden');
         erro.classList.toggle('hidden');
