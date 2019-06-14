@@ -49,7 +49,10 @@ router.delete('/:video_final', async (request, response) => {
 
 router.get('/', async (request, response) => { // usando await async
     try {
-        const sql = `SELECT * FROM MATERIA_FINAL`;
+        const sql = `SELECT * FROM MATERIA_FINAL MF
+            INNER JOIN PESSOA P 
+                ON MF.EDITOR = P.CPF;
+        `;
 
         console.log(sql);
 
@@ -86,31 +89,36 @@ router.get('/episodio/:data', async (request, response) => { // usando await asy
 router.get('/creditos/:titulo', async (request, response) => { // usando await async
     try {
         const sql = `
-        SELECT V.MATERIA, PPES.NOME AS PESQUISADOR, PJOR.NOME AS JORNALISTA, PPRO.NOME AS PRODUTOR, PPAR.NOME AS PARTICIPANTE
+        SELECT  V.MATERIA, PPES.NOME AS PESQUISADOR, PJOR.NOME AS JORNALISTA, PPRO.NOME AS PRODUTOR, PEDI.NOME AS EDITOR, PPAR.NOME AS PARTICIPANTE
 
-            FROM VIDEO V
+        FROM VIDEO V
 
-            JOIN APROVACAO A
-                ON V.MATERIA = A.MATERIA
-            JOIN PESSOA PPRO -- PESSOA "PRODUTOR"
-                ON PPRO.CPF = A.PRODUTORAPROVADOR
+        JOIN APROVACAO A
+            ON V.MATERIA = A.MATERIA
+        JOIN PESSOA PPRO -- PESSOA "PRODUTOR"
+            ON PPRO.CPF = A.PRODUTOR_APROVADOR
 
-            JOIN MATERIA M
-                ON V.MATERIA = M.TITULO
-            JOIN PESSOA PJOR -- PESSOA "JORNALISTA"
-                ON PJOR.CPF = M.JORNALISTA
+        JOIN MATERIA M
+            ON V.MATERIA = M.TITULO
+        JOIN PESSOA PJOR -- PESSOA "JORNALISTA"
+            ON PJOR.CPF = M.JORNALISTA
 
-            JOIN PAUTA PA
-                ON V.MATERIA = PA.TITULO
-            JOIN PESSOA PPES -- PESSOA "PESQUISADOR"
-                ON PPES.CPF = PA.PESQUISADOR
+        JOIN PAUTA PA
+            ON V.MATERIA = PA.TITULO
+        JOIN PESSOA PPES -- PESSOA "PESQUISADOR"
+            ON PPES.CPF = PA.PESQUISADOR
 
-            LEFT JOIN PARTICIPA P
-                ON V.MATERIA = P.MATERIA AND V.ARQUIVO = P.ARQUIVO
-            LEFT JOIN PESSOA PPAR -- PESSOA "PARTICIPANTE"
-                ON PPAR.CPF = P.PESSOA;
+        JOIN MATERIA_FINAL MF
+            ON V.MATERIA_FINAL = MF.VIDEO_FINAL
+        JOIN PESSOA PEDI
+            ON PEDI.CPF = MF.EDITOR
+
+        LEFT JOIN PARTICIPA P
+            ON V.MATERIA = P.MATERIA AND V.ARQUIVO = P.ARQUIVO
+        LEFT JOIN PESSOA PPAR -- PESSOA "PARTICIPANTE"
+            ON PPAR.CPF = P.PESSOA
             
-            WHERE V.MATERIA = ${request.params.titulo}
+            WHERE V.MATERIA_FINAL = '${request.params.titulo}';
         `;
 
         console.log(sql);

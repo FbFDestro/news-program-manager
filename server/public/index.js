@@ -147,12 +147,14 @@ async function getQtds() {
         const resposta = JSON.parse(response.request.response);
         console.log(resposta);
 
+
         qtdBox.innerHTML += `
             <div class="qtdBox">
                <h3>${cargo}</h3><span>${resposta}</span>
             </div>`;
 
     }
+
 
 }
 

@@ -98,7 +98,7 @@ router.get('/quantidadeUtilizada/maior', async (request, response) => { // usand
         console.log(sql);
 
         const results = await conexao.query(sql);
-        response.status(200).json(results.rows);
+        response.status(200).json(results.rows[0]);
     } catch (err) {
         response.status(404).send("Not found");
         console.log('Database ' + err);

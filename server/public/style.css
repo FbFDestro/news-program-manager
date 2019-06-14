@@ -325,7 +325,7 @@ table tr:hover {
     text-align: center;
 }
 
-#infoQuantidades {
+.boxUnidades {
     margin-top: 15px;
     border-top: 1px dashed #ccc;
     padding-top: 25px;
@@ -339,6 +339,7 @@ table tr:hover {
     background: #eee;
     border: 1px solid #ccc;
     padding: 10px 0px;
+    margin-bottom: 20px;
 }
 
 .qtdBox h3 {
@@ -376,4 +377,14 @@ p#checkMaterias {
 
 div#pautas {
     text-align: right;
+}
+
+ul#listaParticipantes {
+    list-style: square;
+}
+
+#listaParticipantes li {
+    float: initial;
+    margin-left: 60px;
+    margin-bottom: 12px;
 }

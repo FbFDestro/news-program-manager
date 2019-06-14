@@ -29,8 +29,6 @@ router.delete('/', async (request, response) => {
 
 router.post('/', async (request, response) => {
     console.log(request.body.titulo, request.body.pesquisador, request.body.resumo);
-    console.log(request.body.titulo + "fim");
-    console.log(request.body.titulo.trim() + "fim");
     try {
         const sql = {
             text: 'INSERT INTO PAUTA ("titulo", "pesquisador", "resumo") VALUES ($1, $2, $3)',
