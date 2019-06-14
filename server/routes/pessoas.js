@@ -144,4 +144,45 @@ router.post('/', async (request, response) => {
     }
 });
 
+router.put('/', async (request, response) => {
+    console.log(request.body.cpf, request.body.nome, request.body.telefone, request.body.pesquisador);
+    try {
+        const sql = {
+            text: 'INSERT INTO pessoa ("cpf", "nome", "tel") VALUES ($1, $2, $3) ON CONFLICT ("cpf") DO UPDATE SET nome = excluded.nome, tel = excluded.tel',
+            values: [request.body.cpf, request.body.nome, request.body.telefone]
+        }
+
+        console.log(sql);
+
+        await conexao.query(sql); // insere pessoa
+
+        if (request.body.pesquisador == true) { // insere pesquisador
+            await conexao.query(`INSERT INTO PESQUISADOR ("cpf") VALUES (${request.body.cpf}) ON CONFLICT("cpf") DO NOTHING`);
+        }else{
+            await conexao.query(`delete from pesquisador where cpf = '${request.body.cpf}'`)
+        }
+        if (request.body.jornalista == true) {
+            await conexao.query(`INSERT INTO JORNALISTA ("cpf") VALUES (${request.body.cpf}) ON CONFLICT("cpf") DO NOTHING`);
+        }else{
+            await conexao.query(`delete from jornalista where cpf = '${request.body.cpf}'`)
+        }
+        if (request.body.produtor == true) {
+            await conexao.query(`INSERT INTO PRODUTOR ("cpf") VALUES (${request.body.cpf}) ON CONFLICT("cpf") DO NOTHING`);
+        }else{
+            await conexao.query(`delete from produtor where cpf = '${request.body.cpf}'`)
+        }
+        if (request.body.editor == true) {
+            await conexao.query(`INSERT INTO EDITOR ("cpf") VALUES (${request.body.cpf}) ON CONFLICT("cpf") DO NOTHING`);
+        }else{
+            await conexao.query(`delete from editor where cpf = '${request.body.cpf}'`)
+        }
+
+        response.status(200).send("Dados atualizados com sucesso");
+    } catch (err) {
+        response.status(400).send("Falha ao atualizar dados!\n" + err.message);
+        console.log('Database ' + err);
+        // console.log(Object.getOwnPropertyNames(err));
+    }
+});
+
 module.exports = router;

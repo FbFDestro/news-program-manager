@@ -17,7 +17,7 @@
             <div id="logo"><a href="../index.html">Gerenciador de Jornal</a></div>
             <nav>
                 <ul>
-                    <li><a href="../index.html">Entrar</a></li>
+                    <li><a href="index.html">Paineis</a></li>
                     <li><a href="cadastrar.html" style="background: #416d42">Cadastrar</a></li>
                 </ul>
             </nav>
@@ -29,7 +29,7 @@
         <h1>Atualizar Registro</h1>
         <form>
             <input type="text" id="nome" placeholder="Nome*" />
-            <input type="text" id="cpf" placeholder="CPF *" />
+            <input type="text" id="cpf" readonly style="background: #dddddd" placeholder="CPF *" />
             <input type="text" id="telefone" placeholder="Telefone" />
 
             <div id="box-cargos">
@@ -45,8 +45,6 @@
                 </ul>
             </div>
         </form>
-        <p>Itens com (*) são obrigatórios</p>
-
         <div id="avisos">
             <div id="enviando" class="aviso hidden">Cadastrando..'</div>
             <div id="sucesso" class="aviso hidden">Usuario cadastrado com sucesso. <a style="color:#008CBA"
