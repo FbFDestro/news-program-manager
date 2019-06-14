@@ -4,7 +4,7 @@ if (!cookie.jornalista) {
 
 const materias = document.querySelector('#materias table');
 const materiaEspecifica = document.getElementById('materiaEspecifica');
-const filtro = document.getElementById('checkMinhasMaterias');
+const filtroCheck = document.getElementById('checkMinhasMaterias');
 
 let materiasVet = [];
 
@@ -82,7 +82,7 @@ async function getMaterias(filtro) {
 
 }
 
-getMaterias(filtro.checked);
+getMaterias(filtroCheck.checked);
 
 async function showMateria(id) {
     hide(materias);
@@ -163,7 +163,7 @@ document.getElementById('cadastrarMateriaBtn').onclick = async () => {
 
         enviando.classList.toggle('hidden');
         sucesso.classList.toggle('hidden');
-        getMaterias(filtro != null && filtro.checked);
+        getMaterias(filtroCheck != null && filtroCheck.checked);
         limpaCampos();
         console.log(resp);
     } catch (err) {
@@ -184,3 +184,7 @@ document.getElementById('voltarMateriaBtn').onclick = () => {
     limpaCampos();
 
 }
+
+filtroCheck.onclick = () => {
+    getMaterias(filtroCheck.checked)
+};

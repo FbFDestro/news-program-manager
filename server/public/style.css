@@ -248,15 +248,18 @@ p#nenhumUsuario {
     padding: 20px 30px;
 }
 
-#enviando {
+#enviando,
+#enviandoDelete {
     color: #232323;
 }
 
-#sucesso {
+#sucesso,
+#sucessoDelete {
     color: #2b8dba;
 }
 
-#erro {
+#erro,
+#erroDelete {
     color: #ec3a3a;
 }
 
@@ -369,4 +372,8 @@ p#checkMaterias {
     text-transform: uppercase;
     font-size: 15px;
     margin-right: 5px;
+}
+
+div#pautas {
+    text-align: right;
 }
