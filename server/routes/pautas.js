@@ -13,6 +13,7 @@ router.delete('/', async (request, response) => {
     console.log(request.body.titulo);
     try {
         const sql = `
+            delete from LINK where pauta = '${request.body.titulo}';
             delete from PAUTA where titulo = '${request.body.titulo}';
         `
         console.log(sql);
