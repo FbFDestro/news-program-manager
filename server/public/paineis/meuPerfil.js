@@ -9,10 +9,6 @@ function checkLogin() {
     if (cookie == null) {
         window.location.href = "../index.html";
     }
-    const spanUser = document.querySelector('nav span');
-    spanUser.innerHTML = `Logado como: ${cookie.nome}`
-    console.log(cookie);
-
     return cookie;
 }
 
