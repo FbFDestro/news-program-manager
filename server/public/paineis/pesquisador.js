@@ -29,7 +29,8 @@ btnNovaPauta.onclick = () => {
 async function showPauta(id) {
     hide(pautas);
     show(pautaLinks);
-    hide(document.getElementById("checkPautas"));
+    hide(document.getElementById("checkPautaSemMateria"));
+    hide(document.getElementById("checkFiltro"));
     pautaLinks.innerHTML = `
                         <table>
                             <tr>
@@ -84,7 +85,8 @@ async function showPauta(id) {
     btnVoltarPautas.onclick = () => {
         hide(pautaLinks);
         show(pautas);
-        show(document.getElementById("checkPautas"));
+        show(document.getElementById("checkPautaSemMateria"));
+        show(document.getElementById("checkFiltro"));
     };
 
     const btnApagarPauta = document.getElementById('btnApagarPauta');
