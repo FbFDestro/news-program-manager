@@ -87,7 +87,7 @@ router.get('/utilizados', async (request, response) => { // usando await async
 router.get('/quantidade/maior', async (request, response) => { // usando await async
     try {
         const sql = `
-        select count(*) from  EQUIPAMENTO_UTILIZADO EU
+        select E.tipo, count(*) from  EQUIPAMENTO_UTILIZADO EU
             JOIN EQUIPAMENTO E
                 ON E.npatrimonio = EU.equipamento
             group by E.tipo
