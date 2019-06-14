@@ -26,8 +26,8 @@ router.post('/', async (request, response) => {
     console.log(request.body.materia, request.body.produtor,request.body.data, request.body.texto);
     try {
         const sql = {
-            text: 'INSERT INTO comentario ("materia", "produtor", "data", "texto") VALUES ($1, $2, $3, $4)',
-            values: [request.body.materia, request.body.produtor, request.body.data, request.body.texto]
+            text: 'INSERT INTO comentario ("materia", "produtor", "texto") VALUES ($1, $2, $3)',
+            values: [request.body.materia, request.body.produtor, request.body.texto]
         }
 
         console.log(sql);
