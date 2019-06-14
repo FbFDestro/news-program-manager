@@ -29,6 +29,7 @@ btnNovaPauta.onclick = () => {
 async function showPauta(id) {
     hide(pautas);
     show(pautaLinks);
+    hide(document.getElementById("checkPautas"));
     pautaLinks.innerHTML = `
                         <table>
                             <tr>
@@ -83,6 +84,7 @@ async function showPauta(id) {
     btnVoltarPautas.onclick = () => {
         hide(pautaLinks);
         show(pautas);
+        show(document.getElementById("checkPautas"));
     };
 
     const btnApagarPauta = document.getElementById('btnApagarPauta');
@@ -114,7 +116,7 @@ async function getPautas(filtro, pauta) {
     }else{
         strReq = `http://localhost:3002/api/pautas/semMateria/${cookie.cpf}`;
     }
-    
+
 
     console.log(strReq);
     const response = await axios.get(strReq);

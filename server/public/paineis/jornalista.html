@@ -30,6 +30,47 @@
 
         <h1>Paineis de jornalista</h1>
 
+
+        <a href="#" id="btnNovaMateria" class="btn">Cadastrar nova materia</a>
+        <div id="cadastrarMateria" class="hidden">
+            <h1>Cadastrar nova materia</h1>
+            <form>
+
+                <input type="button" id="cadastrarMateriaBtn" value="Cadastrar">
+                <input type="button" id="voltarMateriaBtn" value="Voltar">
+
+            </form>
+            <p>Itens com (*) são obrigatórios</p>
+
+            <div id="avisos">
+                <div id="enviando" class="aviso hidden">Cadastrando..'</div>
+                <div id="sucesso" class="aviso hidden">Pauta cadastrada com sucesso cadastrado com sucesso.</div>
+                <div id="erro" class="aviso hidden">Erro ao cadastrar</div>
+            </div>
+
+        </div>
+
+        <br>
+
+        <div id="materias">
+            <p id="checkMaterias"><input type="checkbox" id="checkMinhasMaterias" name="FiltroMinhasMaterias"
+                    value="false">
+                Minhas Materias</p>
+            <p>Clique em uma materia para vez mais</p>
+            <table>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Jornalista</th>
+                    <th>Data inclusão</th>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="materiaEspecifica" class="hidden">
+
+        </div>
+
     </article>
 
     <footer>
