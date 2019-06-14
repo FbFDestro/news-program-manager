@@ -5,7 +5,7 @@ const pautas = require('./routes/pautas');
 const equipamentos = require('./routes/equipamentos');
 const materias = require('./routes/materias');
 const materias_finais = require('./routes/materias_finais');
-const local = require('./routes/local');
+const locais = require('./routes/locais');
 const express = require('express');
 const app = express();
 var path = require('path');
@@ -19,7 +19,7 @@ app.use('/api/pessoas', pessoas);
 app.use('/api/pautas', pautas);
 app.use('/api/equipamentos', equipamentos);
 app.use('/api/materias', materias);
-app.use('/api/local', local);
+app.use('/api/locais', locais);
 app.use('/api/materias_finais', materias_finais);
 
 // BD SETUP -> DROP E CREATE TABLES
