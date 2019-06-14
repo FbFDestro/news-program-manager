@@ -15,7 +15,7 @@ const materias = document.querySelector('#materias_finais table');
 const materiaEspecifica = document.getElementById('materiaEspecifica');
 
 async function getMateriasFinais(filtro) {
-    let strReq = `http://localhost:  3004/api/materias_finais/`;
+    let strReq = `http://localhost:3004/api/materias_finais/`;
     console.log(strReq);
     const response = await axios.get(strReq);
     const resposta = JSON.parse(response.request.response);
@@ -64,7 +64,7 @@ async function showMateria(id) {
     hide(materias);
     show(materiaEspecifica);
 
-    const strReq = `http://localhost:  3004/api/materias_finais//creditos/${materiasVet[id].video_final}`;
+    const strReq = `http://localhost:3004/api/materias_finais//creditos/${materiasVet[id].video_final}`;
     const response = await axios.get(strReq);
     const resposta = JSON.parse(response.request.response);
 
