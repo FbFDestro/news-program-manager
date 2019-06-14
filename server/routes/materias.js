@@ -44,12 +44,12 @@ router.get('/quantidade/:mes', async (request, response) => { // usando await as
 });
 
 
-router.get('/:cpf', async (request, response) => { // usando await async
+router.get('/jornalista/:cpf', async (request, response) => { // usando await async
     try {
         const sql = `SELECT * FROM MATERIA M
                         join PESSOA P 
                             ON P.CPF = M.jornalista
-                    where M.jornalista = ${request.params.cpf};          
+                    where M.jornalista = '${request.params.cpf}';          
         `;
 
         console.log(sql);

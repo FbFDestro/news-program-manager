@@ -35,13 +35,12 @@
         <div id="cadastrarMateria" class="hidden">
             <h1>Cadastrar nova materia</h1>
             <form>
-
+                Selecione uma pauta sem materia
                 <select id="pautasPossiveis" style="width: 100%; height: 50px">
                 </select>
 
-                <input type="text" id="titulo" placeholder="Título *" />
 
-                <textarea rows="4" style="width:100%" placeholder="Texto"></textarea>
+                <textarea rows="4" style="width:100%" id="texto" placeholder="Texto"></textarea>
 
                 <input type="button" id="cadastrarMateriaBtn" value="Cadastrar">
                 <input type="button" id="voltarMateriaBtn" value="Voltar">
@@ -51,7 +50,7 @@
 
             <div id="avisos">
                 <div id="enviando" class="aviso hidden">Cadastrando..'</div>
-                <div id="sucesso" class="aviso hidden">Pauta cadastrada com sucesso cadastrado com sucesso.</div>
+                <div id="sucesso" class="aviso hidden">Materia cadastrada com sucesso cadastrado com sucesso.</div>
                 <div id="erro" class="aviso hidden">Erro ao cadastrar</div>
             </div>
 

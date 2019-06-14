@@ -148,9 +148,9 @@ document.getElementById('cadastrarMateriaBtn').onclick = async () => {
     console.log(cookie);
 
     const info = {
-        titulo: document.getElementById('titulo').value,
-        pesquisador: cookie.cpf,
-        resumo: document.getElementById('resumo').value,
+        titulo: document.getElementById('pautasPossiveis').value,
+        jornalista: cookie.cpf,
+        texto: document.getElementById('texto').value,
     }
 
     enviando.classList.toggle('hidden');
@@ -175,8 +175,8 @@ document.getElementById('cadastrarMateriaBtn').onclick = async () => {
 };
 
 function limpaCampos() {
-    document.getElementById('titulo').value = "";
     document.getElementById('texto').value = "";
+    carregaPautasSemMateria();
 }
 
 document.getElementById('voltarMateriaBtn').onclick = () => {
