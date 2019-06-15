@@ -24,7 +24,6 @@ router.post('/equipamentoUtilizado', async (request, response) => {
     } catch (err) {
         response.status(400).send("Falha ao inserir dados!\n" + err.message);
         console.log('Database ' + err);
-        // console.log(Object.getOwnPropertyNames(err));
     }
 });
 
@@ -45,7 +44,6 @@ router.post('/', async (request, response) => {
     } catch (err) {
         response.status(400).send("Falha ao inserir dados!\n" + err.message);
         console.log('Database ' + err);
-        // console.log(Object.getOwnPropertyNames(err));
     }
 });
 

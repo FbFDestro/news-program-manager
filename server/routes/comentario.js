@@ -23,7 +23,7 @@ router.get('/', async (request, response) => { // usando await async
 });
 
 router.post('/', async (request, response) => {
-    console.log(request.body.materia, request.body.produtor,request.body.data, request.body.texto);
+    console.log(request.body.materia, request.body.produtor, request.body.data, request.body.texto);
     try {
         const sql = {
             text: 'INSERT INTO comentario ("materia", "produtor", "texto") VALUES ($1, $2, $3)',
@@ -38,7 +38,6 @@ router.post('/', async (request, response) => {
     } catch (err) {
         response.status(400).send("Falha ao inserir comentario!\n" + err.message);
         console.log('Database ' + err);
-        // console.log(Object.getOwnPropertyNames(err));
     }
 });
 
@@ -55,7 +54,6 @@ router.delete('/', async (request, response) => {
     } catch (err) {
         response.status(400).send("Falha ao remover Comentario!\n" + err.message);
         console.log('Database ' + err);
-        // console.log(Object.getOwnPropertyNames(err));
     }
 });
 

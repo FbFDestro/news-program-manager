@@ -126,7 +126,6 @@ async function showPauta(id) {
             enviandoDelete.classList.toggle('hidden');
             erroDelete.classList.toggle('hidden');
             erroDelete.innerText = err.response.data;
-            console.log('aaaaaaaaaaaaaaaaaaaaaa');
         }
     };
 }

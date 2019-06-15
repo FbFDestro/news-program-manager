@@ -7,8 +7,6 @@ router.use(express.urlencoded({
     extended: true
 }));
 
-
-
 router.delete('/', async (request, response) => {
     console.log(request.body.titulo);
     try {
@@ -72,7 +70,7 @@ router.post('/link', async (request, response) => {
 router.get('/porcentagemPautasGravadas', async (request, response) => { // usando await async
     try {
         let sql = `
-        SELECT COUNT(*) FROM VIDEO V
+        SELECT COUNT(distinct p.titulo) FROM VIDEO V
             JOIN PAUTA P
                 ON V.MATERIA = P.TITULO;
         `;
