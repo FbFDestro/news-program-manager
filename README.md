@@ -1,8 +1,8 @@
 # News programme manager
 
-This is a project developt with learning purpose for the Database course. For this reason some techincal detais as security was not handled. 
+This is a project developed with learning purposes for the Database course. For this reason, some technical details such as security were not handled. 
 
-The system was developt with Node.Js as backend and Vanilla Javascript for the frontend, together with a PostgreSQL database which was the main focus on this project. 
+The system was developed with Node.Js as backend and Vanilla Javascript for the frontend, together with a PostgreSQL database which was the main focus on this project. 
 
 <img src="https://github.com/FbFDestro/gerenciadorJornal/blob/master/MER.jpg?raw=true" />
 
