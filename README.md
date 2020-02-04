@@ -1,4 +1,4 @@
-# News programme manager
+# News program manager
 
 This is a project developed with learning purposes for the Database course. For this reason, some technical details such as security were not handled. 
 
