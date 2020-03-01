@@ -24,11 +24,11 @@ app.use('/api/materias_finais', materias_finais);
 
 // BD SETUP -> DROP E CREATE TABLES
 async function bd_setup() {
-    await bdSetup.drop();
-    await bdSetup.create();
-    await bdSetup.populate();
+  await bdSetup.drop();
+  await bdSetup.create();
+  await bdSetup.populate();
 }
 //bd_setup(); // drop e create
 
-const port = 3004;
+const port = process.env.PORT || 3004;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

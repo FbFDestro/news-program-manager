@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "server": "nodemon index.js",
+    "client": "cd ../client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -14,5 +16,8 @@
     "pg": "^7.11.0",
     "nodemon": "^1.19.1"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
 }
