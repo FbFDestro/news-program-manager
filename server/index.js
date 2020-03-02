@@ -1,5 +1,7 @@
 const Joi = require('joi');
 
+require('dotenv').config(); // export env variables
+
 const pessoas = require('./routes/pessoas');
 const pautas = require('./routes/pautas');
 const equipamentos = require('./routes/equipamentos');
