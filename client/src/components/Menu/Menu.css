@@ -1,0 +1,39 @@
+nav {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+nav li {
+  float: left;
+  margin-left: 20px;
+}
+
+nav li a {
+  display: block;
+  color: #fff;
+  background: #4caf50;
+  font-family: nexaB;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: 0.6s;
+}
+
+nav li a.active {
+  background-color: #416d42;
+}
+
+nav li a:hover {
+  background-color: #53cc58;
+  transition: 0.6s;
+}

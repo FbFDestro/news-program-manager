@@ -1,0 +1,22 @@
+#filters h3 {
+  font-family: nexaB;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+ul#filters {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+ul#filters li {
+  margin-left: 15px;
+  text-transform: capitalize;
+}
+
+#filters input[type='checkbox'] {
+  width: 13px;
+  height: 13px;
+}

@@ -1,8 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+import Index from './components/Index/Index';
 
-class App extends React.Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -12,11 +14,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.callBackendAPI()
+    /*this.callBackendAPI()
       .then(res => {
         this.setState({ data: res });
       })
       .catch(err => console.log(err));
+      */
   }
 
   callBackendAPI = async () => {
@@ -31,17 +34,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <p>
-            Edit <code>src/App.js</code> and save to reload. Test
-          </p>
-          <p>{this.state.data && this.state.data.length}</p>
-        </header>
-      </div>
+      <>
+        <Header />
+
+        <Main title='Faça login para utilizar o sistema como um dos usuarios'>
+          <Index />
+        </Main>
+      </>
     );
   }
 }
-
-export default App;
