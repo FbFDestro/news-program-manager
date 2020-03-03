@@ -16,27 +16,53 @@ export default class UsersLoginTable extends Component {
         editor: false
       }
     };
-    // bind handleFilter
   }
 
-  async componentDidMount() {
-    const users = await this.getUsers();
-    this.setState({ users });
-    // Am I removing filter from the state? need to check this:wq
+  componentDidMount() {
+    this.getUsers();
   }
 
-  async getUsers() {
-    let strReq = '/api/pessoas/';
-    //strReq = 'api/pessoas/filtros?pesquisador=1&jornalista=1&produtor=1';
+  async getUsers(filters = '') {
+    let strReq = '/api/pessoas/' + filters;
     const response = await fetch(strReq);
-    return await response.json();
+    const users = await response.json();
+
+    this.setState({
+      users
+    });
   }
 
   handleFilterChange = async event => {
-    console.log(event.target.value);
-    this.setState(prevState => {});
-    // need to update state
+    console.log(event.target.name);
+    const name = event.target.name;
+    await this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          [name]: !prevState.filter[name]
+        }
+      };
+    });
+    this.updateFilters();
   };
+
+  updateFilters() {
+    let filters = '';
+    Object.keys(this.state.filter).forEach(filter => {
+      if (this.state.filter[filter]) {
+        if (filters.length > 0) {
+          filters += '&';
+        }
+        filters += filter.toString() + '=1';
+      }
+    });
+
+    if (filters.length > 0) {
+      this.getUsers('filtros?' + filters);
+    } else {
+      this.getUsers();
+    }
+  }
 
   render() {
     const tableHeader = ['Nome', 'CPF', 'Telefone', 'Cargos'];
@@ -44,18 +70,10 @@ export default class UsersLoginTable extends Component {
       this.state.users &&
       this.state.users.map(user => {
         let roles = '';
-        if (user.pesquisador != null) {
-          roles += 'Pesquisador; ';
-        }
-        if (user.jornalista != null) {
-          roles += 'Jornalista; ';
-        }
-        if (user.produtor != null) {
-          roles += 'Produtor; ';
-        }
-        if (user.editor != null) {
-          roles += 'Editor; ';
-        }
+        if (user.pesquisador != null) roles += 'Pesquisador; ';
+        if (user.jornalista != null) roles += 'Jornalista; ';
+        if (user.produtor != null) roles += 'Produtor; ';
+        if (user.editor != null) roles += 'Editor; ';
 
         return (
           <tr key={user.cpf}>

@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import './Filter.css';
+import Checkbox from '../Checkbox/Checkbox';
 
 export default class Filter extends Component {
-  handleClick = event => {
-    console.log(event.target.value);
-    event.preventDefault();
-  };
-
   render() {
     const listOfFilters = Object.keys(this.props.filter).map(prop => {
       return (
         <li key={prop}>
-          <input
-            type='checkbox'
-            name={prop}
-            value={prop}
-            ckecked={this.props.filter[prop].toString()}
-            onClick={this.props.handleChange}
-          />{' '}
-          {prop.toString()}
+          <Checkbox
+            name={prop.toString()}
+            isChecked={this.props.filter[prop]}
+            handleChange={this.props.handleChange}
+          />
         </li>
       );
     });
