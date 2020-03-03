@@ -1,15 +1,52 @@
 import React, { Component } from 'react';
 import UsersLoginTable from './UsersLoginTable/UsersLoginTable';
+import ContainerStatistics from '../ContainerStatistics/ContainerStatistics';
+import BoxStatistics from '../BoxStatistics/BoxStatistics';
 
 export default class Index extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      counterRoles: {
+        pesquisador: null,
+        jornalista: null,
+        produtor: null,
+        editor: null
+      }
+    };
+  }
+
+  async componentDidMount() {
+    const counterRoles = { ...this.state.counterRoles };
+    for (const role of Object.keys(counterRoles)) {
+      const strReq = `/api/pessoas/quantidade/${role.toString()}`;
+      const response = await fetch(strReq);
+      const count = await response.json();
+      counterRoles[role] = count;
+    }
+
+    this.setState({ counterRoles });
+  }
+
   render() {
+    const boxStatistics = Object.keys(this.state.counterRoles).map(role => {
+      return (
+        <BoxStatistics
+          key={role}
+          title={role}
+          data={this.state.counterRoles[role] || '...'}
+        />
+      );
+    });
+
     return (
       <>
         <UsersLoginTable />
 
-        <div id='infoQuantidades' className='boxUnidades'>
-          <h1>Quantidade de pessoas em cada cargo</h1>
-        </div>
+        <ContainerStatistics title='Quantidade de pessoas em cada cargo'>
+          {boxStatistics}
+        </ContainerStatistics>
 
         <div id='cadastrarNovoBtn'>
           <a className='btn' href='pessoas/cadastrar.html'>
