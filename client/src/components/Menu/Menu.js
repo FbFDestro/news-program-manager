@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Menu.css';
 
 export default class Menu extends Component {
@@ -7,12 +8,14 @@ export default class Menu extends Component {
       <nav>
         <ul>
           <li>
-            <a href='index.html' className={'active'}>
+            <Link to='/' className='btn active'>
               Entrar
-            </a>
+            </Link>
           </li>
           <li>
-            <a href='pessoas/cadastrar.html'>Cadastrar</a>
+            <Link to='/cadastro' className='btn'>
+              Cadastrar
+            </Link>
           </li>
         </ul>
       </nav>

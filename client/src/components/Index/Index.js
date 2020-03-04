@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import UsersLoginTable from './UsersLoginTable/UsersLoginTable';
 import ContainerStatistics from '../ContainerStatistics/ContainerStatistics';
 import BoxStatistics from '../BoxStatistics/BoxStatistics';
@@ -19,7 +20,7 @@ export default class Index extends Component {
 
   async componentDidMount() {
     const counterRoles = { ...this.state.counterRoles };
-    for (const role of Object.keys(counterRoles)) {
+    for (const role in counterRoles) {
       const strReq = `/api/pessoas/quantidade/${role.toString()}`;
       const response = await fetch(strReq);
       const count = await response.json();
@@ -48,10 +49,10 @@ export default class Index extends Component {
           {boxStatistics}
         </ContainerStatistics>
 
-        <div id='cadastrarNovoBtn'>
-          <a className='btn' href='pessoas/cadastrar.html'>
+        <div className='centeredBox'>
+          <Link to='/cadastro' className='btn btn-blue btn-big btn-inline'>
             Cadastrar novo
-          </a>
+          </Link>
         </div>
       </>
     );

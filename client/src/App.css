@@ -20,13 +20,43 @@ body {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #008cba;
   transition: 0.6s;
 }
 
 a:hover {
   opacity: 0.6;
   transition: 0.6s;
+}
+
+a.btn {
+  display: block;
+  color: #fff;
+  background: #4caf50;
+  font-family: nexaB;
+  text-align: center;
+  padding: 10px 16px;
+  margin: 10px;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: 0.6s;
+}
+
+a.btn.btn-blue {
+  background-color: #008cba;
+}
+
+a.btn.btn-inline {
+  display: inline-block;
+}
+
+a.btn.btn-big {
+  padding: 18px;
+  font-size: 17px;
+}
+
+a.btn.active {
+  background-color: #416d42;
 }
 
 ul {
@@ -40,4 +70,11 @@ h1 {
   font-family: NexaB, Times, serif;
   font-size: 18px;
   margin-bottom: 15px;
+}
+
+.centeredBox {
+  border-top: 1px dashed #ccc;
+  padding-top: 15px;
+  text-align: center;
+  margin-top: 25px;
 }

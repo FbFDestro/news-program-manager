@@ -48,14 +48,14 @@ export default class UsersLoginTable extends Component {
 
   updateFilters() {
     let filters = '';
-    Object.keys(this.state.filter).forEach(filter => {
+    for (const filter in this.state.filter) {
       if (this.state.filter[filter]) {
         if (filters.length > 0) {
           filters += '&';
         }
         filters += filter.toString() + '=1';
       }
-    });
+    }
 
     if (filters.length > 0) {
       this.getUsers('filtros?' + filters);
