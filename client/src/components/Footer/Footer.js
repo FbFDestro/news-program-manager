@@ -12,7 +12,7 @@ export default class Footer extends Component {
           </p>
           <p>
             sourceCode ={' '}
-            <a href='https://github.com/FbFDestro/gerenciadorJornal'>Github</a>
+            <a href='https://github.com/FbFDestro/gerenciadorJornal'>Github</a>;
           </p>
         </div>
       </footer>

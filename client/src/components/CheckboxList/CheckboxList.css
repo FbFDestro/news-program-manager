@@ -1,0 +1,33 @@
+.checkboxList h3 {
+  font-family: nexaB;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+ul.checkboxList {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+}
+ul.checkboxList.checkboxList-left {
+  justify-content: flex-start;
+}
+ul.checkboxList.checkboxList-left li {
+  margin-right: 15px;
+}
+
+ul.checkboxList.checkboxList-right {
+  justify-content: flex-end;
+}
+ul.checkboxList.checkboxList-right li {
+  margin-left: 15px;
+}
+
+ul.checkboxList li {
+  text-transform: capitalize;
+}
+
+.checkboxList input[type='checkbox'] {
+  width: 13px;
+  height: 13px;
+}

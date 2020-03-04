@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 import Menu from '../Menu/Menu';
 
@@ -8,7 +9,7 @@ export default class Header extends Component {
       <header>
         <div id='cabecalho'>
           <div id='logo'>
-            <a href='index.html'>Gerenciador de Jornal</a>
+            <Link to='/'>Gerenciador de Jornal</Link>
           </div>
           <Menu />
         </div>

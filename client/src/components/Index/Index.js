@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import UsersLoginTable from './UsersLoginTable/UsersLoginTable';
 import ContainerStatistics from '../ContainerStatistics/ContainerStatistics';
 import BoxStatistics from '../BoxStatistics/BoxStatistics';
+import Main from '../Main/Main';
 
 export default class Index extends Component {
   constructor(props) {
@@ -42,19 +43,21 @@ export default class Index extends Component {
     });
 
     return (
-      <>
-        <UsersLoginTable />
+      <Main title='Faça login para utilizar o sistema como um dos usuarios'>
+        <>
+          <UsersLoginTable />
 
-        <ContainerStatistics title='Quantidade de pessoas em cada cargo'>
-          {boxStatistics}
-        </ContainerStatistics>
+          <ContainerStatistics title='Quantidade de pessoas em cada cargo'>
+            {boxStatistics}
+          </ContainerStatistics>
 
-        <div className='centeredBox'>
-          <Link to='/cadastro' className='btn btn-blue btn-big btn-inline'>
-            Cadastrar novo
-          </Link>
-        </div>
-      </>
+          <div className='centeredBox'>
+            <Link to='/cadastro' className='btn btn-blue btn-big btn-inline'>
+              Cadastrar novo
+            </Link>
+          </div>
+        </>
+      </Main>
     );
   }
 }

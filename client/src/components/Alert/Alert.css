@@ -8,3 +8,11 @@
 .alert-neutral {
   background-color: #eee;
 }
+
+.alert-success {
+  background-color: #71da74;
+}
+
+.alert-error {
+  background-color: #f06b6b;
+}

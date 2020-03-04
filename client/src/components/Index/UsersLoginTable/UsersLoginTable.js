@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Filter from '../../Filter/Filter';
+import CheckboxList from '../../CheckboxList/CheckboxList';
 import Table from '../../Table/Table';
 import Alert from '../../Alert/Alert';
 
@@ -96,7 +96,12 @@ export default class UsersLoginTable extends Component {
 
     return (
       <div id='usuarios'>
-        <Filter filter={this.state.filter} handleChange={this.handleFilterChange} />
+        <CheckboxList
+          title='Filtros'
+          align='right'
+          checkboxStates={this.state.filter}
+          handleChange={this.handleFilterChange}
+        />
         {content}
       </div>
     );

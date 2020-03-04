@@ -78,3 +78,35 @@ h1 {
   text-align: center;
   margin-top: 25px;
 }
+
+/* Forms */
+form {
+  margin-bottom: 15px;
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type='submit'] {
+  background-color: #008cba;
+  border: none;
+  color: white;
+  font-family: nexaB;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: 0.6s;
+}
+
+input[type='submit']:hover {
+  opacity: 0.7;
+}

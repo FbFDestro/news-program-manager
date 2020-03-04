@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Index from './components/Index/Index';
 import Footer from './components/Footer/Footer';
+import SignUp from './components/SignUp/SignUp';
 
 export default class App extends Component {
   render() {
@@ -14,12 +15,10 @@ export default class App extends Component {
 
         <Switch>
           <Route exact path='/'>
-            <Main title='Faça login para utilizar o sistema como um dos usuarios'>
-              <Index />
-            </Main>
+            <Index />
           </Route>
           <Route path='/cadastro'>
-            <h1>Cadastrar</h1>
+            <SignUp />
           </Route>
           <Route path='*'>
             <Main title='Erro 404' />
