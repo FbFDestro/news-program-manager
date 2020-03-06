@@ -33,7 +33,19 @@ router.get('/', async (request, response) => {
     console.log(sql);
 
     const results = await conexao.query(sql);
-    response.status(200).json(results.rows);
+
+    const parsedResult = results.rows.map(row => {
+      return {
+        ...row,
+        pesquisador: row.pesquisador != null,
+        jornalista: row.jornalista != null,
+        produtor: row.produtor != null,
+        editor: row.produtor != null
+      };
+    });
+
+    //response.status(200).json(results.rows);
+    response.status(200).json(parsedResult);
   } catch (err) {
     response.status(404).send('Not found');
     console.log('Database ' + err);

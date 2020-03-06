@@ -5,74 +5,72 @@ const produtor = document.getElementsByName('produtor')[0];
 const editor = document.getElementsByName('editor')[0];
 
 function adicionaFiltro() {
+  const filtro = {
+    pesquisador: pesquisador.checked,
+    jornalista: jornalista.checked,
+    produtor: produtor.checked,
+    editor: editor.checked
+  };
+  let strFiltro = '';
+  let temFiltro = false;
+  if (filtro.pesquisador || filtro.jornalista || filtro.produtor || filtro.editor) {
+    strFiltro += 'filtros?';
+  } else return '';
 
-    const filtro = {
-        pesquisador: pesquisador.checked,
-        jornalista: jornalista.checked,
-        produtor: produtor.checked,
-        editor: editor.checked
+  if (filtro.pesquisador) {
+    strFiltro += 'pesquisador=1';
+    temFiltro = true;
+  }
+  if (filtro.jornalista) {
+    if (temFiltro) {
+      strFiltro += '&';
     }
-    let strFiltro = '';
-    let temFiltro = false;
-    if (filtro.pesquisador || filtro.jornalista || filtro.produtor || filtro.editor) {
-        strFiltro += 'filtros?';
-    } else return '';
+    strFiltro += 'jornalista=1';
+    temFiltro = true;
+  }
 
-    if (filtro.pesquisador) {
-        strFiltro += 'pesquisador=1'
-        temFiltro = true;
+  if (filtro.produtor) {
+    if (temFiltro) {
+      strFiltro += '&';
     }
-    if (filtro.jornalista) {
-        if (temFiltro) {
-            strFiltro += '&';
-        }
-        strFiltro += 'jornalista=1'
-        temFiltro = true;
+    strFiltro += 'produtor=1';
+    temFiltro = true;
+  }
+  if (filtro.editor) {
+    if (temFiltro) {
+      strFiltro += '&';
     }
+    strFiltro += 'editor=1';
+    temFiltro = true;
+  }
 
-    if (filtro.produtor) {
-        if (temFiltro) {
-            strFiltro += '&';
-        }
-        strFiltro += 'produtor=1'
-        temFiltro = true;
-    }
-    if (filtro.editor) {
-        if (temFiltro) {
-            strFiltro += '&';
-        }
-        strFiltro += 'editor=1'
-        temFiltro = true;
-    }
-
-    return strFiltro;
+  return strFiltro;
 }
 
 async function getUser() {
-    try {
+  try {
+    let filtro = await adicionaFiltro();
+    let strReq = `http://localhost:3004/api/pessoas/` + filtro;
 
-        let filtro = await adicionaFiltro();
-        let strReq = `http://localhost:3004/api/pessoas/` + filtro;
+    console.log(strReq);
 
-        console.log(strReq);
+    const response = await axios.get(strReq);
+    const resposta = JSON.parse(response.request.response);
 
-        const response = await axios.get(strReq);
-        const resposta = JSON.parse(response.request.response);
+    const usuarios = document.querySelector('#usuarios table');
+    usuarios.innerHTML = '';
 
-        const usuarios = document.querySelector('#usuarios table');
-        usuarios.innerHTML = '';
+    users = [];
 
-        users = [];
+    if (resposta.length == 0) {
+      usuarios.classList.add('hidden');
+      document.getElementById('nenhumUsuario').classList.remove('hidden');
+    } else {
+      usuarios.classList.remove('hidden');
+      document.getElementById('nenhumUsuario').classList.add('hidden');
+    }
 
-        if (resposta.length == 0) {
-            usuarios.classList.add('hidden');
-            document.getElementById('nenhumUsuario').classList.remove('hidden');
-        } else {
-            usuarios.classList.remove('hidden');
-            document.getElementById('nenhumUsuario').classList.add('hidden');
-        }
-
-        let usersTable = `
+    let usersTable = `
                    <tr>
                     <th>Nome</th>
                     <th>CPF</th>
@@ -80,87 +78,82 @@ async function getUser() {
                     <th>Cargos</th>
                 </tr>`;
 
-        let id = 0;
+    let id = 0;
 
-        for (linha of resposta) {
-            console.log(linha);
+    for (linha of resposta) {
+      console.log(linha);
 
-            let cargos = "";
-            if (linha.pesquisador != null) {
-                cargos += "Pesquisador; "
-            }
-            if (linha.jornalista != null) {
-                cargos += "Jornalista; "
-            }
-            if (linha.produtor != null) {
-                cargos += "Produtor; "
-            }
-            if (linha.editor != null) {
-                cargos += "Editor; "
-            }
+      let cargos = '';
+      if (linha.pesquisador) {
+        cargos += 'Pesquisador; ';
+      }
+      if (linha.jornalista) {
+        cargos += 'Jornalista; ';
+      }
+      if (linha.produtor) {
+        cargos += 'Produtor; ';
+      }
+      if (linha.editor) {
+        cargos += 'Editor; ';
+      }
 
-            usersTable += `
+      usersTable += `
             <tr id="${id}">
             <td>${linha.nome}</td>
             <td>${linha.cpf}</td> 
             <td>${linha.tel}</td>
             <td>${cargos}</td>
           </tr>`;
-            id++;
-            users.push({
-                nome: linha.nome,
-                cpf: linha.cpf,
-                tel: linha.tel,
-                pesquisador: linha.pesquisador != null,
-                jornalista: linha.jornalista != null,
-                produtor: linha.produtor != null,
-                editor: linha.editor != null
-            });
-        }
-
-        console.log(usersTable);
-        console.log(users);
-        usuarios.innerHTML += usersTable;
-
-        const linhas = document.getElementsByTagName('tr');
-        for (linha of linhas) {
-            linha.onclick = function () {
-                const idClicked = parseInt(this.id);
-                console.log(users[idClicked]);
-                document.cookie = "dadosLogado=" + JSON.stringify(users[idClicked]);
-                window.location.href = "/paineis/index.html";
-            }
-        }
-
-    } catch (error) {
-        console.error(error);
+      id++;
+      users.push({
+        nome: linha.nome,
+        cpf: linha.cpf,
+        tel: linha.tel,
+        pesquisador: linha.pesquisador,
+        jornalista: linha.jornalista,
+        produtor: linha.produtor,
+        editor: linha.editor
+      });
     }
+
+    console.log(usersTable);
+    console.log(users);
+    usuarios.innerHTML += usersTable;
+
+    const linhas = document.getElementsByTagName('tr');
+    for (linha of linhas) {
+      linha.onclick = function() {
+        const idClicked = parseInt(this.id);
+        console.log(users[idClicked]);
+        document.cookie = 'dadosLogado=' + JSON.stringify(users[idClicked]);
+        window.location.href = '/paineis/index.html';
+      };
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function getQtds() {
+  const qtdBox = document.getElementById('infoQuantidades');
+  const cargos = ['pesquisador', 'jornalista', 'produtor', 'editor'];
 
-    const qtdBox = document.getElementById('infoQuantidades');
-    const cargos = ['pesquisador', 'jornalista', 'produtor', 'editor'];
+  for (cargo of cargos) {
+    const response = await axios.get(
+      `http://localhost:3004/api/pessoas/quantidade/${cargo}`
+    );
+    const resposta = JSON.parse(response.request.response);
+    console.log(resposta);
 
-    for (cargo of cargos) {
-        const response = await axios.get(`http://localhost:3004/api/pessoas/quantidade/${cargo}`);
-        const resposta = JSON.parse(response.request.response);
-        console.log(resposta);
-
-
-        qtdBox.innerHTML += `
+    qtdBox.innerHTML += `
             <div class="qtdBox">
                <h3>${cargo}</h3><span>${resposta}</span>
             </div>`;
-
-    }
-
-
+  }
 }
 
 getUser();
 getQtds();
-
 
 // document.getElementById('btnFiltro').onclick = getUser;
 
@@ -169,12 +162,10 @@ jornalista.onclick = getUser;
 produtor.onclick = getUser;
 editor.onclick = getUser;
 
-
-
 function hide(element) {
-    element.classList.add("hidden");
+  element.classList.add('hidden');
 }
 
 function show(element) {
-    element.classList.remove("hidden");
+  element.classList.remove('hidden');
 }
