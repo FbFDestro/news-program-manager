@@ -12,6 +12,7 @@ export default class SignUp extends Component {
       cpf: '',
       phone: '',
       status: '',
+      responseText: '',
       roles: {
         pesquisador: false,
         jornalista: false,
@@ -52,28 +53,20 @@ export default class SignUp extends Component {
       editor: this.state.roles.editor
     };
 
-    console.log(JSON.stringify(data));
-    try {
-      const response = await fetch('/api/pessoas', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-      console.log(response);
+    const response = await fetch('/api/pessoas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
 
-      if (response.status === 200) {
-        this.setState({ status: 'success' });
-      } else {
-        this.setState({ status: 'error' });
-      }
-      // needs to get error message
-    } catch (error) {
-      this.setState({ status: 'error' });
+    const responseText = await response.text();
+    if (response.status === 200) {
+      this.setState({ status: 'success', responseText: responseText });
+    } else {
+      this.setState({ status: 'error', responseText: responseText });
     }
-
-    //this.setState({ status: 'success' });
   };
 
   render() {
@@ -82,10 +75,8 @@ export default class SignUp extends Component {
     if (status.length > 0) {
       if (status === 'submiting') {
         alertBox = <Alert type='neutral'>Cadastrando usuarios...</Alert>;
-      } else if (status === 'success') {
-        alertBox = <Alert type='success'>Usuario cadastrado com sucesso!</Alert>;
-      } else if (status === 'error') {
-        alertBox = <Alert type='error'>Algo deu errado!</Alert>;
+      } else {
+        alertBox = <Alert type={status}>{this.state.responseText}</Alert>;
       }
     }
 
