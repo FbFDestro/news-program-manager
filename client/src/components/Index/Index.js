@@ -6,6 +6,7 @@ import BoxStatistics from '../BoxStatistics/BoxStatistics';
 import Main from '../Main/Main';
 
 export default class Index extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
 
@@ -20,6 +21,7 @@ export default class Index extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true;
     const counterRoles = { ...this.state.counterRoles };
     for (const role in counterRoles) {
       const strReq = `/api/pessoas/quantidade/${role.toString()}`;
@@ -28,7 +30,13 @@ export default class Index extends Component {
       counterRoles[role] = count;
     }
 
-    this.setState({ counterRoles });
+    if (this._isMounted) {
+      this.setState({ counterRoles });
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

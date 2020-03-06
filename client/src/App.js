@@ -73,7 +73,7 @@ export default class App extends Component {
 
         <Switch>
           <Route exact path='/'>
-            <Index login={this.loginUser} />
+            {!this.state.isLogged ? <Index login={this.loginUser} /> : <h1>Painel</h1>}
           </Route>
           <Route path='/cadastro'>
             <SignUp />

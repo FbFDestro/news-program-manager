@@ -4,6 +4,7 @@ import Table from '../../Table/Table';
 import Alert from '../../Alert/Alert';
 
 export default class UsersLoginTable extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
 
@@ -19,7 +20,12 @@ export default class UsersLoginTable extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.getUsers();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   async getUsers(filters = '') {
@@ -27,23 +33,24 @@ export default class UsersLoginTable extends Component {
     const response = await fetch(strReq);
     const users = await response.json();
 
-    this.setState({
-      users
-    });
+    if (this._isMounted) {
+      this.setState({
+        users
+      });
+    }
   }
 
-  handleFilterChange = async event => {
+  handleFilterChange = event => {
     console.log(event.target.name);
     const name = event.target.name;
-    await this.setState(prevState => {
+    this.setState(prevState => {
       return {
         filter: {
           ...prevState.filter,
           [name]: !prevState.filter[name]
         }
       };
-    });
-    this.updateFilters();
+    }, this.updateFilters);
   };
 
   updateFilters() {
