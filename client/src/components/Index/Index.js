@@ -45,7 +45,7 @@ export default class Index extends Component {
     return (
       <Main title='Faça login para utilizar o sistema como um dos usuarios'>
         <>
-          <UsersLoginTable />
+          <UsersLoginTable login={this.props.login} />
 
           <ContainerStatistics title='Quantidade de pessoas em cada cargo'>
             {boxStatistics}

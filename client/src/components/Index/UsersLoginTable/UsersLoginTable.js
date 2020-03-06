@@ -64,19 +64,25 @@ export default class UsersLoginTable extends Component {
     }
   }
 
+  login = event => {
+    const userData = this.state.users[event.currentTarget.id];
+    console.log(userData);
+    this.props.login(userData);
+  };
+
   render() {
     const tableHeader = ['Nome', 'CPF', 'Telefone', 'Cargos'];
     const tableContent =
       this.state.users &&
-      this.state.users.map(user => {
+      this.state.users.map((user, index) => {
         let roles = '';
-        if (user.pesquisador != null) roles += 'Pesquisador; ';
-        if (user.jornalista != null) roles += 'Jornalista; ';
-        if (user.produtor != null) roles += 'Produtor; ';
-        if (user.editor != null) roles += 'Editor; ';
+        if (user.pesquisador) roles += 'Pesquisador; ';
+        if (user.jornalista) roles += 'Jornalista; ';
+        if (user.produtor) roles += 'Produtor; ';
+        if (user.editor) roles += 'Editor; ';
 
         return (
-          <tr key={user.cpf}>
+          <tr key={user.cpf} onClick={this.login} id={index}>
             <td>{user.nome}</td>
             <td>{user.cpf}</td>
             <td>{user.tel}</td>

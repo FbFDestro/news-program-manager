@@ -8,6 +8,64 @@ import Footer from './components/Footer/Footer';
 import SignUp from './components/SignUp/SignUp';
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogged: false,
+      userData: null
+    };
+  }
+
+  componentDidMount() {
+    const isLogged = localStorage.getItem('isLogged');
+    const userData = localStorage.getItem('userData');
+    if (isLogged === null && userData === null) {
+      this.setLocalStorage();
+      console.log('setLocalStorage');
+    } else {
+      this.getLocalStorage();
+      console.log('getLocalStorage');
+    }
+  }
+
+  setStateAsync = state => {
+    return new Promise(resolve => {
+      this.setState(state, resolve);
+    });
+  };
+
+  // set local Storage based on state
+  setLocalStorage = () => {
+    const { isLogged, userData } = this.state;
+    localStorage.setItem('isLogged', JSON.stringify(isLogged));
+    localStorage.setItem('userData', JSON.stringify(userData));
+  };
+
+  // get local storage and set state
+  getLocalStorage = () => {
+    const isLogged = JSON.parse(localStorage.getItem('isLogged'));
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (isLogged !== null && userData !== null) {
+      this.setState({ isLogged, userData });
+    }
+  };
+
+  loginUser = async userData => {
+    await this.setStateAsync({ isLogged: true, userData });
+    this.setLocalStorage();
+  };
+
+  logoutUser = () => {
+    this.setState({ isLogged: false, userData: null });
+    this.setLocalStorage();
+  };
+
+  /*
+  componentWillUnmount() {
+    localStorage.clear();
+  }
+  */
+
   render() {
     return (
       <Router>
@@ -15,7 +73,7 @@ export default class App extends Component {
 
         <Switch>
           <Route exact path='/'>
-            <Index />
+            <Index login={this.loginUser} />
           </Route>
           <Route path='/cadastro'>
             <SignUp />
