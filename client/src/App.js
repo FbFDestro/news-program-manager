@@ -6,6 +6,7 @@ import Main from './components/Main/Main';
 import Index from './components/Index/Index';
 import Footer from './components/Footer/Footer';
 import SignUp from './components/SignUp/SignUp';
+import UserPanel from './components/UserPanel/UserPanel';
 
 export default class App extends Component {
   constructor(props) {
@@ -72,15 +73,17 @@ export default class App extends Component {
         <Header />
 
         <Switch>
-          <Route exact path='/'>
-            {!this.state.isLogged ? <Index login={this.loginUser} /> : <h1>Painel</h1>}
-          </Route>
-          <Route path='/cadastro'>
-            <SignUp />
-          </Route>
-          <Route path='*'>
-            <Main title='Erro 404' />
-          </Route>
+          <Route
+            exact
+            path='/'
+            render={routeProps => <Index {...routeProps} login={this.loginUser} />}
+          />
+          <Route
+            path='/paineis'
+            render={routeProps => <UserPanel {...routeProps} login={this.loginUser} />}
+          />
+          <Route path='/cadastro' render={routeProps => <SignUp {...routeProps} />} />
+          <Route path='*' render={() => <Main title='Erro 404' />} />
         </Switch>
 
         <Footer />

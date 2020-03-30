@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Main from '../Main/Main';
 import CheckboxList from '../CheckboxList/CheckboxList';
 import Alert from '../Alert/Alert';
+
+import { Link } from 'react-router-dom';
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -76,7 +78,20 @@ export default class SignUp extends Component {
       if (status === 'submiting') {
         alertBox = <Alert type='neutral'>Cadastrando usuarios...</Alert>;
       } else {
-        alertBox = <Alert type={status}>{this.state.responseText}</Alert>;
+        alertBox = (
+          <Alert type={status}>
+            {this.state.responseText}
+            {status === 'success'
+              ? [
+                  <Fragment key='1'> - </Fragment>,
+                  <Link key='2' to='/'>
+                    {' '}
+                    Voltar para a página de Login
+                  </Link>
+                ]
+              : ''}
+          </Alert>
+        );
       }
     }
 
