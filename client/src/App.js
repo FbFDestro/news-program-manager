@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
@@ -11,7 +11,9 @@ import UserPanel from './components/UserPanel/UserPanel';
 export default class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      isLoadingUserData: true,
       isLogged: false,
       userData: null
     };
@@ -47,17 +49,23 @@ export default class App extends Component {
     const isLogged = JSON.parse(localStorage.getItem('isLogged'));
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (isLogged !== null && userData !== null) {
-      this.setState({ isLogged, userData });
+      this.setState({ isLoadingUserData: false, isLogged, userData });
+    } else {
+      this.setState({ isLoadingUserData: false });
     }
   };
 
   loginUser = async userData => {
-    await this.setStateAsync({ isLogged: true, userData });
+    await this.setStateAsync({ isLoadingUserData: false, isLogged: true, userData });
     this.setLocalStorage();
   };
 
-  logoutUser = () => {
-    this.setState({ isLogged: false, userData: null });
+  logoutUser = async () => {
+    await this.setStateAsync({
+      isLoadingUserData: false,
+      isLogged: false,
+      userData: null
+    });
     this.setLocalStorage();
   };
 
@@ -68,19 +76,33 @@ export default class App extends Component {
   */
 
   render() {
+    const authManage = {
+      ...this.state,
+      loginUser: this.loginUser,
+      logoutUser: this.logoutUser
+    };
+
+    const isLogged = !this.state.isLogged && !this.state.isLoadingUserData;
+
     return (
       <Router>
-        <Header />
+        <Header authManage={authManage} />
 
         <Switch>
           <Route
             exact
             path='/'
-            render={routeProps => <Index {...routeProps} login={this.loginUser} />}
+            render={routeProps => <Index {...routeProps} authManage={authManage} />}
           />
           <Route
             path='/paineis'
-            render={routeProps => <UserPanel {...routeProps} login={this.loginUser} />}
+            render={routeProps =>
+              isLogged ? (
+                <Redirect to='/' />
+              ) : (
+                <UserPanel {...routeProps} authManage={authManage} />
+              )
+            }
           />
           <Route path='/cadastro' render={routeProps => <SignUp {...routeProps} />} />
           <Route path='*' render={() => <Main title='Erro 404' />} />

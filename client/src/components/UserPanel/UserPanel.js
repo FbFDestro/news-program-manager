@@ -5,9 +5,13 @@ import Main from '../Main/Main';
 export default class UserPanel extends Component {
   render() {
     const { url } = this.props.match;
+
     return (
       <Main title='Paineis de usuarios'>
         <>
+          <h1>
+            {this.props.authManage.userData ? this.props.authManage.userData.cpf : ''}
+          </h1>
           <Link
             className='btn btn-blue btn-inline btn-big'
             id='pesquisador'

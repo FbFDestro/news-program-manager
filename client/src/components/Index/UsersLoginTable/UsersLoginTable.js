@@ -71,10 +71,11 @@ export default class UsersLoginTable extends Component {
     }
   }
 
-  login = event => {
+  login = async event => {
     const userData = this.state.users[event.currentTarget.id];
     console.log(userData);
-    this.props.login(userData);
+    await this.props.authManage.loginUser(userData);
+    this.props.history.push('/paineis');
   };
 
   render() {

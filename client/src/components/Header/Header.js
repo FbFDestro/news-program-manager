@@ -11,7 +11,7 @@ export default class Header extends Component {
           <div id='logo'>
             <Link to='/'>Gerenciador de Jornal</Link>
           </div>
-          <Menu />
+          <Menu authManage={this.props.authManage} />
         </div>
       </header>
     );

@@ -53,7 +53,10 @@ export default class Index extends Component {
     return (
       <Main title='Faça login para utilizar o sistema como um dos usuarios'>
         <>
-          <UsersLoginTable login={this.props.login} />
+          <UsersLoginTable
+            authManage={this.props.authManage}
+            history={this.props.history}
+          />
 
           <ContainerStatistics title='Quantidade de pessoas em cada cargo'>
             {boxStatistics}
