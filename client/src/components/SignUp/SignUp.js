@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import Main from '../Main/Main';
-import CheckboxList from '../CheckboxList/CheckboxList';
+//import CheckboxList from '../CheckboxList/CheckboxList';
 import Alert from '../Alert/Alert';
 
 import { Link } from 'react-router-dom';
+import ProfileForm from '../ProfileForm/ProfileForm';
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -98,43 +99,15 @@ export default class SignUp extends Component {
     return (
       <Main title='Cadastrar novo usuario'>
         <>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type='text'
-              name='name'
-              placeholder='Nome *'
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-            <input
-              type='text'
-              name='cpf'
-              placeholder='CPF *'
-              value={this.state.cpf}
-              onChange={this.handleChange}
-            />
-            <input
-              type='text'
-              name='phone'
-              placeholder='Telefone'
-              value={this.state.phone}
-              onChange={this.handleChange}
-            />
-            <CheckboxList
-              title='Cargos'
-              checkboxStates={this.state.roles}
-              handleChange={this.handleChange}
-            />
-            <input
-              type='submit'
-              value='Cadastrar'
-              style={{
-                float: 'right',
-                marginTop: '-30px'
-              }}
-            />
-          </form>
-          <p>Itens com (*) são obrigatórios</p>
+          <ProfileForm
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            name={this.state.name}
+            cpf={this.state.cpf}
+            phone={this.state.phone}
+            roles={this.state.roles}
+          />
+
           {alertBox}
         </>
       </Main>

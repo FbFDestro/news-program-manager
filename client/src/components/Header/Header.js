@@ -9,7 +9,9 @@ export default class Header extends Component {
       <header>
         <div id='cabecalho'>
           <div id='logo'>
-            <Link to='/'>Gerenciador de Jornal</Link>
+            <Link to={this.props.authManage.isLogged ? '/paineis' : '/'}>
+              Gerenciador de Jornal
+            </Link>
           </div>
           <Menu authManage={this.props.authManage} />
         </div>
