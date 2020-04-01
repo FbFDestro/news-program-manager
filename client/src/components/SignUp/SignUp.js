@@ -104,6 +104,7 @@ export default class SignUp extends Component {
             handleChange={this.handleChange}
             name={this.state.name}
             cpf={this.state.cpf}
+            disableCpf={false}
             phone={this.state.phone}
             roles={this.state.roles}
           />

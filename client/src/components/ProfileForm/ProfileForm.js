@@ -2,8 +2,24 @@ import React, { Component } from 'react';
 import CheckboxList from '../CheckboxList/CheckboxList';
 
 export default class ProfileForm extends Component {
+  handleChangeCpf = (event, disableCpf, handleChange) => {
+    if (disableCpf) {
+      return;
+    } else {
+      handleChange(event);
+    }
+  };
+
   render() {
-    const { handleSubmit, handleChange, name, cpf, phone, roles } = this.props;
+    const {
+      handleSubmit,
+      handleChange,
+      name,
+      cpf,
+      disableCpf,
+      phone,
+      roles
+    } = this.props;
 
     return (
       <>
@@ -20,7 +36,10 @@ export default class ProfileForm extends Component {
             name='cpf'
             placeholder='CPF *'
             value={cpf}
-            onChange={handleChange}
+            disabled={disableCpf}
+            onChange={e => {
+              this.handleChangeCpf(e, disableCpf, handleChange);
+            }}
           />
           <input
             type='text'
