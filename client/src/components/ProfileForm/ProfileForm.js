@@ -18,7 +18,8 @@ export default class ProfileForm extends Component {
       cpf,
       disableCpf,
       phone,
-      roles
+      roles,
+      buttonText
     } = this.props;
 
     return (
@@ -36,11 +37,13 @@ export default class ProfileForm extends Component {
             name='cpf'
             placeholder='CPF *'
             value={cpf}
-            disabled={disableCpf}
             onChange={e => {
               this.handleChangeCpf(e, disableCpf, handleChange);
             }}
+            disabled={disableCpf}
+            readOnly={disableCpf}
           />
+
           <input
             type='text'
             name='phone'
@@ -55,7 +58,7 @@ export default class ProfileForm extends Component {
           />
           <input
             type='submit'
-            value='Cadastrar'
+            value={buttonText}
             style={{
               float: 'right',
               marginTop: '-30px'

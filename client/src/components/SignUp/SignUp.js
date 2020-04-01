@@ -107,6 +107,7 @@ export default class SignUp extends Component {
             disableCpf={false}
             phone={this.state.phone}
             roles={this.state.roles}
+            buttonText='Cadastrar'
           />
 
           {alertBox}

@@ -13,7 +13,7 @@ export default class Header extends Component {
               Gerenciador de Jornal
             </Link>
           </div>
-          <Menu authManage={this.props.authManage} />
+          <Menu {...this.props} />
         </div>
       </header>
     );

@@ -7,28 +7,20 @@ import Index from './components/Index/Index';
 import Footer from './components/Footer/Footer';
 import SignUp from './components/SignUp/SignUp';
 import UserPanel from './components/UserPanel/UserPanel';
+import MyProfile from './components/MyProfile/MyProfile';
+
+function privateComponent(isAuthenticated, Component) {
+  return isAuthenticated ? Component : <Redirect to='/' />;
+}
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isLoadingUserData: true,
-      isLogged: false,
-      userData: null
+      isLogged: JSON.parse(localStorage.getItem('isLogged')),
+      userData: JSON.parse(localStorage.getItem('userData'))
     };
-  }
-
-  componentDidMount() {
-    const isLogged = localStorage.getItem('isLogged');
-    const userData = localStorage.getItem('userData');
-    if (isLogged === null && userData === null) {
-      this.setLocalStorage();
-      console.log('setLocalStorage');
-    } else {
-      this.getLocalStorage();
-      console.log('getLocalStorage');
-    }
   }
 
   setStateAsync = state => {
@@ -44,36 +36,18 @@ export default class App extends Component {
     localStorage.setItem('userData', JSON.stringify(userData));
   };
 
-  // get local storage and set state
-  getLocalStorage = () => {
-    const isLogged = JSON.parse(localStorage.getItem('isLogged'));
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    if (isLogged !== null && userData !== null) {
-      this.setState({ isLoadingUserData: false, isLogged, userData });
-    } else {
-      this.setState({ isLoadingUserData: false });
-    }
-  };
-
   loginUser = async userData => {
-    await this.setStateAsync({ isLoadingUserData: false, isLogged: true, userData });
+    await this.setStateAsync({ isLogged: true, userData });
     this.setLocalStorage();
   };
 
   logoutUser = async () => {
     await this.setStateAsync({
-      isLoadingUserData: false,
       isLogged: false,
       userData: null
     });
     this.setLocalStorage();
   };
-
-  /*
-  componentWillUnmount() {
-    localStorage.clear();
-  }
-  */
 
   render() {
     const authManage = {
@@ -82,11 +56,14 @@ export default class App extends Component {
       logoutUser: this.logoutUser
     };
 
-    const isLogged = !this.state.isLogged && !this.state.isLoadingUserData;
+    const { isLogged } = this.state;
 
     return (
       <Router>
-        <Header authManage={authManage} />
+        <Route
+          path='*'
+          render={routeProps => <Header {...routeProps} authManage={authManage} />}
+        />
 
         <Switch>
           <Route
@@ -94,17 +71,29 @@ export default class App extends Component {
             path='/'
             render={routeProps => <Index {...routeProps} authManage={authManage} />}
           />
+
           <Route
             path='/paineis'
             render={routeProps =>
-              isLogged ? (
-                <Redirect to='/' />
-              ) : (
+              privateComponent(
+                isLogged,
                 <UserPanel {...routeProps} authManage={authManage} />
               )
             }
           />
+
           <Route path='/cadastro' render={routeProps => <SignUp {...routeProps} />} />
+
+          <Route
+            path='/meuPerfil'
+            render={routeProps =>
+              privateComponent(
+                isLogged,
+                <MyProfile {...routeProps} authManage={authManage} />
+              )
+            }
+          />
+
           <Route path='*' render={() => <Main title='Erro 404' />} />
         </Switch>
 
