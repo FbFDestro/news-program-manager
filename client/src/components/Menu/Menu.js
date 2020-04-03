@@ -4,7 +4,7 @@ import './Menu.css';
 
 export default class Menu extends Component {
   isActive(linkPath, url) {
-    if (linkPath == url) return 'btn active';
+    if (linkPath === url) return 'btn active';
     return 'btn';
   }
 
@@ -31,7 +31,7 @@ export default class Menu extends Component {
             </Link>
           </li>
           <li>
-            <Link to='/' onClick={logoutUser} className={this.isActive('/', url)}>
+            <Link to='/' onClick={logoutUser} className='btn'>
               Sair
             </Link>
           </li>

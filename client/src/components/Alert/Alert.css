@@ -16,3 +16,9 @@
 .alert-error {
   background-color: #f06b6b;
 }
+
+.alert-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

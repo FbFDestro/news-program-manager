@@ -24,30 +24,52 @@ a {
   transition: 0.6s;
 }
 
-a:hover {
+a:hover,
+button:hover,
+input[type='button']:hover {
   opacity: 0.6;
   transition: 0.6s;
 }
 
-a.btn {
+button.btn,
+input[type='button'] {
+  cursor: pointer;
+  border: none;
+}
+
+a.btn,
+button.btn,
+input[type='button'].btn {
   display: block;
   color: #fff;
   background: #4caf50;
   font-family: nexaB;
   text-align: center;
   padding: 10px 16px;
-  margin: 10px;
+  margin: 10px 0;
   text-decoration: none;
   border-radius: 25px;
   transition: 0.6s;
 }
 
-a.btn.btn-blue {
+a.btn-blue,
+button.btn-blue,
+input[type='button'].btn-blue {
   background-color: #008cba;
 }
 
-a.btn.btn-inline {
+a.btn-inline,
+button.btn-inline,
+input[type='button'].btn-inline {
   display: inline-block;
+  margin-left: 0;
+  margin-right: 20px;
+}
+
+.right {
+  float: right;
+  margin-right: 0 !important;
+  margin-left: 20px !important;
 }
 
 a.btn.btn-big {
@@ -56,7 +78,7 @@ a.btn.btn-big {
 }
 
 a.btn.active {
-  background-color: #416d42;
+  filter: brightness(0.8);
 }
 
 ul {
@@ -66,12 +88,16 @@ ul {
   overflow: hidden;
 }
 
-h1 {
+h1,
+h2 {
   font-family: NexaB, Times, serif;
   font-size: 18px;
   margin-bottom: 15px;
 }
 
+h2 {
+  font-family: NexaL, Times, serif;
+}
 .centeredBox {
   border-top: 1px dashed #ccc;
   padding-top: 15px;

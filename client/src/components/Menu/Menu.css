@@ -20,3 +20,8 @@ nav li {
   display: block;
   padding: 20px 10px;
 }
+
+nav a.btn {
+  margin-left: 20px;
+  margin-right: 0;
+}
