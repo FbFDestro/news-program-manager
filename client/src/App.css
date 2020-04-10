@@ -58,6 +58,12 @@ input[type='button'].btn-blue {
   background-color: #008cba;
 }
 
+a.btn-red,
+button.btn-red,
+input[type='button'].btn-red {
+  background-color: #a80e0e;
+}
+
 a.btn-inline,
 button.btn-inline,
 input[type='button'].btn-inline {

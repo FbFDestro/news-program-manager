@@ -10,7 +10,7 @@ export default class Checkbox extends Component {
           checked={this.props.isChecked}
           onChange={this.props.handleChange}
         />{' '}
-        {this.props.name}
+        {this.props.title}
       </>
     );
   }

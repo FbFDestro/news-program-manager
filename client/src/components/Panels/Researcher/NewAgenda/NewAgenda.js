@@ -10,7 +10,7 @@ export default class NewAgenda extends Component {
       sumary: '',
       links: [''],
       status: '',
-      responseText: ''
+      responseText: '',
     };
   }
 
@@ -24,7 +24,7 @@ export default class NewAgenda extends Component {
     this.setState({ title: '', sumary: '', links: [''] });
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, id, value } = event.target;
 
     if (name === 'link') {
@@ -40,7 +40,7 @@ export default class NewAgenda extends Component {
     const data = {
       titulo: this.state.title,
       pesquisador: this.props.authManage.userData.cpf,
-      resumo: this.state.sumary
+      resumo: this.state.sumary,
     };
 
     this.setState({ responseText: 'Cadastrando nova pauta...', status: 'submiting' });
@@ -48,9 +48,9 @@ export default class NewAgenda extends Component {
       const response = await fetch('/api/pautas', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
 
       if (response.status !== 200) {
@@ -62,19 +62,26 @@ export default class NewAgenda extends Component {
           await fetch('/api/pautas/link', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ pauta: this.state.title, link })
+            body: JSON.stringify({ pauta: this.state.title, link }),
           });
         }
       }
 
-      /*
-      getPautas(
-        filtro != null && filtro.checked,
-        pautaSMateria != null && pautaSMateria.checked
-      );
-      */
+      const today = new Date();
+      let dd = today.getDate();
+      if (dd < 10) dd = '0' + dd;
+      let mm = today.getMonth() + 1;
+      if (mm < 10) mm = '0' + mm;
+      const yyyy = today.getFullYear();
+
+      this.props.changeDataNewAgenda({
+        titulo: data.titulo,
+        nome: this.props.authManage.userData.nome,
+        resumo: data.resumo,
+        data_inclusao: dd + '/' + mm + '/' + yyyy,
+      });
 
       this.clear();
       this.setState({ status: 'success', responseText: 'Pauta cadastrada com sucesso' });

@@ -4,11 +4,13 @@ import Checkbox from '../Checkbox/Checkbox';
 
 export default class CheckboxList extends Component {
   render() {
+    const { filterNames } = this.props;
     const listOfCheckbox = Object.keys(this.props.checkboxStates).map(prop => {
       return (
         <li key={prop}>
           <Checkbox
             name={prop.toString()}
+            title={filterNames ? filterNames[prop] : prop.toString()}
             isChecked={this.props.checkboxStates[prop]}
             handleChange={this.props.handleChange}
           />
