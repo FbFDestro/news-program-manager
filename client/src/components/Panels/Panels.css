@@ -1,0 +1,21 @@
+.panel {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: solid 1px #ccc;
+}
+
+#cadastrarPauta,
+#cadastrarMateria {
+  width: 80%;
+  margin: 20px auto;
+  border: 1px dashed #ccc;
+  padding: 20px;
+}
+ul#listaParticipantes {
+  list-style: square;
+}
+#listaParticipantes li {
+  float: initial;
+  margin-left: 60px;
+  margin-bottom: 12px;
+}

@@ -1,0 +1,16 @@
+footer {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
+  background: #eee;
+  line-height: 10px;
+}
+
+#rodape {
+  width: 980px;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 25px;
+  font-family: nexaB;
+  font-size: 14px;
+}

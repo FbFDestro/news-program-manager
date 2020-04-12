@@ -1,5 +1,7 @@
 const Joi = require('joi');
 
+require('dotenv').config(); // export env variables
+
 const pessoas = require('./routes/pessoas');
 const pautas = require('./routes/pautas');
 const equipamentos = require('./routes/equipamentos');
@@ -12,8 +14,6 @@ var path = require('path');
 
 const bdSetup = require('./bdsetup');
 
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.json());
 app.use('/api/pessoas', pessoas);
 app.use('/api/pautas', pautas);
@@ -24,11 +24,11 @@ app.use('/api/materias_finais', materias_finais);
 
 // BD SETUP -> DROP E CREATE TABLES
 async function bd_setup() {
-    await bdSetup.drop();
-    await bdSetup.create();
-    await bdSetup.populate();
+  await bdSetup.drop();
+  await bdSetup.create();
+  await bdSetup.populate();
 }
 //bd_setup(); // drop e create
 
-const port = 3004;
+const port = process.env.PORT || 3004;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

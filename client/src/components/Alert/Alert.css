@@ -1,0 +1,24 @@
+.alert {
+  font-family: nexaB;
+  border: 1px solid #ccc;
+  margin: 20px 0;
+  padding: 20px;
+}
+
+.alert-neutral {
+  background-color: #eee;
+}
+
+.alert-success {
+  background-color: #71da74;
+}
+
+.alert-error {
+  background-color: #f06b6b;
+}
+
+.alert-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

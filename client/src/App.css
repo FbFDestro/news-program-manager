@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: nexaL;
+  src: url(resources/nexaL.otf);
+}
+
+@font-face {
+  font-family: nexaB;
+  src: url(resources/nexaB.otf);
+}
+
+body {
+  font-family: NexaL, Times, serif;
+  font-size: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #008cba;
+  transition: 0.6s;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+a:hover,
+button:hover,
+input[type='button']:hover {
+  opacity: 0.6;
+  transition: 0.6s;
+}
+
+button.btn,
+input[type='button'] {
+  cursor: pointer;
+  border: none;
+}
+
+a.btn,
+button.btn,
+input[type='button'].btn {
+  display: block;
+  color: #fff;
+  background: #4caf50;
+  font-family: nexaB;
+  text-align: center;
+  padding: 10px 16px;
+  margin: 10px 0;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: 0.6s;
+}
+
+a.btn-blue,
+button.btn-blue,
+input[type='button'].btn-blue {
+  background-color: #008cba;
+}
+
+a.btn-red,
+button.btn-red,
+input[type='button'].btn-red {
+  background-color: #a80e0e;
+}
+
+a.btn-inline,
+button.btn-inline,
+input[type='button'].btn-inline {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 20px;
+}
+
+.right {
+  float: right;
+  margin-right: 0 !important;
+  margin-left: 20px !important;
+}
+
+a.btn.btn-big {
+  padding: 18px;
+  font-size: 17px;
+}
+
+span.spanLink {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 0.7s;
+}
+span.spanLink:hover {
+  opacity: 0.6;
+}
+
+a.btn.active {
+  filter: brightness(0.8);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+h1,
+h2 {
+  font-family: NexaB, Times, serif;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-family: NexaL, Times, serif;
+}
+.centeredBox {
+  border-top: 1px dashed #ccc;
+  padding-top: 15px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+/* Forms */
+form {
+  margin-bottom: 15px;
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type='submit'] {
+  background-color: #008cba;
+  border: none;
+  color: white;
+  font-family: nexaB;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: 0.6s;
+}
+
+input[type='submit']:hover {
+  opacity: 0.7;
+}
