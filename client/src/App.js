@@ -6,7 +6,7 @@ import Main from './components/Main/Main';
 import Index from './components/Index/Index';
 import Footer from './components/Footer/Footer';
 import SignUp from './components/SignUp/SignUp';
-import UserPanel from './components/UserPanel/UserPanel';
+import Panels from './components/Panels/Panels';
 import MyProfile from './components/MyProfile/MyProfile';
 
 function privateComponent(isAuthenticated, Component) {
@@ -19,12 +19,12 @@ export default class App extends Component {
 
     this.state = {
       isLogged: JSON.parse(localStorage.getItem('isLogged')),
-      userData: JSON.parse(localStorage.getItem('userData'))
+      userData: JSON.parse(localStorage.getItem('userData')),
     };
   }
 
-  setStateAsync = state => {
-    return new Promise(resolve => {
+  setStateAsync = (state) => {
+    return new Promise((resolve) => {
       this.setState(state, resolve);
     });
   };
@@ -36,7 +36,7 @@ export default class App extends Component {
     localStorage.setItem('userData', JSON.stringify(userData));
   };
 
-  loginUser = async userData => {
+  loginUser = async (userData) => {
     await this.setStateAsync({ isLogged: true, userData });
     this.setLocalStorage();
   };
@@ -44,7 +44,7 @@ export default class App extends Component {
   logoutUser = async () => {
     await this.setStateAsync({
       isLogged: false,
-      userData: null
+      userData: null,
     });
     this.setLocalStorage();
   };
@@ -53,7 +53,7 @@ export default class App extends Component {
     const authManage = {
       ...this.state,
       loginUser: this.loginUser,
-      logoutUser: this.logoutUser
+      logoutUser: this.logoutUser,
     };
 
     const { isLogged } = this.state;
@@ -62,31 +62,31 @@ export default class App extends Component {
       <Router>
         <Route
           path='*'
-          render={routeProps => <Header {...routeProps} authManage={authManage} />}
+          render={(routeProps) => <Header {...routeProps} authManage={authManage} />}
         />
 
         <Switch>
           <Route
             exact
             path='/'
-            render={routeProps => <Index {...routeProps} authManage={authManage} />}
+            render={(routeProps) => <Index {...routeProps} authManage={authManage} />}
           />
 
           <Route
             path='/paineis'
-            render={routeProps =>
+            render={(routeProps) =>
               privateComponent(
                 isLogged,
-                <UserPanel {...routeProps} authManage={authManage} />
+                <Panels {...routeProps} authManage={authManage} />
               )
             }
           />
 
-          <Route path='/cadastro' render={routeProps => <SignUp {...routeProps} />} />
+          <Route path='/cadastro' render={(routeProps) => <SignUp {...routeProps} />} />
 
           <Route
             path='/meuPerfil'
-            render={routeProps =>
+            render={(routeProps) =>
               privateComponent(
                 isLogged,
                 <MyProfile {...routeProps} authManage={authManage} />

@@ -4,8 +4,11 @@ import '../Panels.css';
 import NewAgenda from './NewAgenda/NewAgenda';
 import AgendaTable from './AgendaTable/AgendaTable';
 import Alert from '../../Alert/Alert';
+import ContainerStatistics from '../../ContainerStatistics/ContainerStatistics';
+import BoxStatistics from '../../BoxStatistics/BoxStatistics';
 
 export default class Researcher extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
 
@@ -16,7 +19,22 @@ export default class Researcher extends Component {
       changeStatus: null,
       changeText: null,
       dataNewAgenda: null, // used to avoid having to reload data after new agenda
+      percentage: null,
     };
+  }
+
+  async componentDidMount() {
+    this._isMounted = true;
+
+    const response = await fetch('/api/pautas/porcentagemPautasGravadas');
+    if (this._isMounted) {
+      const percentage = await response.json();
+      this.setState({ percentage });
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   changeSpecificAgenda = async (value, title = null) => {
@@ -92,6 +110,13 @@ export default class Researcher extends Component {
           dataNewAgenda={this.state.dataNewAgenda}
           changeStateStatus={this.changeStateStatus}
         />
+
+        <ContainerStatistics title='Porcentagem de pautas catalogadas que viraram gravação'>
+          <BoxStatistics
+            title='Porcentagem'
+            data={this.state.percentage ? this.state.percentage + '%' : '...'}
+          />
+        </ContainerStatistics>
       </div>
     );
   }
