@@ -39,19 +39,21 @@ export default class Producer extends Component {
         <BoxStatistics
           key={equipament.tipo}
           title={equipament.tipo}
-          data={equipament.count}
+          data={equipament.count + 'x'}
         />
       );
     });
 
     const scenariosList = this.state.scenarios.map((scenario) => {
       const title = `${scenario.andar}-${scenario.bloco}-${scenario.numero_sala}`;
-      return <BoxStatistics key={title} title={title} data={scenario.qtdlocacoes} />;
+      return (
+        <BoxStatistics key={title} title={title} data={scenario.qtdlocacoes + 'x'} />
+      );
     });
 
     return (
       <div className='panel'>
-        <h1>Paineis de jornalista</h1>
+        <h1>Painel de jornalista</h1>
 
         <ContainerStatistics title='Quantidade de utilizações de equipamentos'>
           {equipamentsList}

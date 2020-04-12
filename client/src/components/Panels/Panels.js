@@ -4,6 +4,7 @@ import Main from '../Main/Main';
 import Researcher from './Researcher/Researcher';
 import Journalist from './Journalist/Journalist';
 import Producer from './Producer/Producer';
+import Editor from './Editor/Editor';
 
 export default class Panels extends Component {
   render() {
@@ -43,6 +44,9 @@ export default class Panels extends Component {
           </Route>
           <Route path={`${url}/produtor`}>
             <Producer authManage={this.props.authManage} />
+          </Route>
+          <Route path={`${url}/editor`}>
+            <Editor authManage={this.props.authManage} />
           </Route>
         </Switch>
       </Main>

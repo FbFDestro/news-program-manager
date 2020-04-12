@@ -83,7 +83,7 @@ export default class Researcher extends Component {
 
     return (
       <div className='panel'>
-        <h1>Paineis de pesquisador</h1>
+        <h1>Painel de pesquisador</h1>
 
         <button
           type='button'

@@ -32,7 +32,7 @@ export default class Journalist extends Component {
   render() {
     return (
       <div className='panel'>
-        <h1>Paineis de jornalista</h1>
+        <h1>Painel de jornalista</h1>
         <button
           type='button'
           id='btnNovaMateria'
