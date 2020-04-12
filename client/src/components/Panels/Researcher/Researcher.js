@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import '../Panels.css';
 import NewAgenda from './NewAgenda/NewAgenda';
 import AgendaTable from './AgendaTable/AgendaTable';
+import Alert from '../../Alert/Alert';
 
 export default class Researcher extends Component {
   constructor(props) {
@@ -12,6 +13,8 @@ export default class Researcher extends Component {
       showNewAgenda: false,
       specificAgenda: null,
       specificAgendaLinks: null,
+      changeStatus: null,
+      changeText: null,
       dataNewAgenda: null, // used to avoid having to reload data after new agenda
     };
   }
@@ -45,7 +48,18 @@ export default class Researcher extends Component {
     this.setState({ dataNewAgenda: newAgenda });
   };
 
+  changeStateStatus = (status, text) => {
+    this.setState({ changeStatus: status, changeText: text });
+  };
+
   render() {
+    const { changeStatus, changeText } = this.state;
+
+    let alert = null;
+    if (changeStatus !== null) {
+      alert = <Alert type={changeStatus}>{changeText}</Alert>;
+    }
+
     return (
       <div className='panel'>
         <h1>Paineis de pesquisador</h1>
@@ -58,6 +72,9 @@ export default class Researcher extends Component {
         >
           Cadastrar nova pauta
         </button>
+
+        {alert}
+
         {this.state.showNewAgenda ? (
           <NewAgenda
             authManage={this.props.authManage}
@@ -73,6 +90,7 @@ export default class Researcher extends Component {
           changeSpecificAgenda={this.changeSpecificAgenda}
           changeDataNewAgenda={this.changeDataNewAgenda}
           dataNewAgenda={this.state.dataNewAgenda}
+          changeStateStatus={this.changeStateStatus}
         />
       </div>
     );

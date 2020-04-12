@@ -102,6 +102,40 @@ export default class AgendaTable extends Component {
     );
   };
 
+  deleteSpecificAgenda = async () => {
+    if (this.props.specificAgenda === null) return;
+
+    const title = this.state.agendas[this.props.specificAgenda].titulo;
+    this.props.changeStateStatus('submiting', 'Pauta sendo deletada...');
+    try {
+      const response = await fetch('/api/pautas/', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ titulo: title }),
+      });
+
+      this.props.changeStateStatus('success', 'Pauta deletada com sucesso!');
+      //
+      this.setState(
+        (prevState) => {
+          const newAgendas = prevState.agendas.filter((agenda) => {
+            return agenda.titulo !== title;
+          });
+          return { agendas: newAgendas };
+        },
+        () => {
+          this.props.changeSpecificAgenda(null);
+        }
+      );
+
+      console.log(response);
+    } catch (err) {
+      this.props.changeStateStatus('error', 'Erro ao deletar pauta');
+    }
+  };
+
   render() {
     const { agendas } = this.state;
     const { specificAgenda } = this.props;
@@ -146,7 +180,11 @@ export default class AgendaTable extends Component {
           >
             Ver todas as pautas
           </button>
-          <button type='button' className='btn btn-red btn-inline right'>
+          <button
+            type='button'
+            className='btn btn-red btn-inline right'
+            onClick={this.deleteSpecificAgenda}
+          >
             Apagar pauta
           </button>
         </>

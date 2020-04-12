@@ -24,6 +24,11 @@ a {
   transition: 0.6s;
 }
 
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
 a:hover,
 button:hover,
 input[type='button']:hover {
@@ -81,6 +86,15 @@ input[type='button'].btn-inline {
 a.btn.btn-big {
   padding: 18px;
   font-size: 17px;
+}
+
+span.spanLink {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 0.7s;
+}
+span.spanLink:hover {
+  opacity: 0.6;
 }
 
 a.btn.active {

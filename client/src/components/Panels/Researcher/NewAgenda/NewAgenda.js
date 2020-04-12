@@ -116,7 +116,7 @@ export default class NewAgenda extends Component {
     }
 
     return (
-      <div id='cadastrarPauta' className='hidden'>
+      <div id='cadastrarPauta'>
         <h1>Cadastrar nova pauta</h1>
 
         <form>
