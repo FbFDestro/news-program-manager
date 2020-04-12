@@ -9,10 +9,6 @@ import SignUp from './components/SignUp/SignUp';
 import Panels from './components/Panels/Panels';
 import MyProfile from './components/MyProfile/MyProfile';
 
-function privateComponent(isAuthenticated, Component) {
-  return isAuthenticated ? Component : <Redirect to='/' />;
-}
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -49,14 +45,16 @@ export default class App extends Component {
     this.setLocalStorage();
   };
 
+  privateComponent = (Component) => {
+    return this.state.isLogged ? Component : <Redirect to='/' />;
+  };
+
   render() {
     const authManage = {
       ...this.state,
       loginUser: this.loginUser,
       logoutUser: this.logoutUser,
     };
-
-    const { isLogged } = this.state;
 
     return (
       <Router>
@@ -75,10 +73,7 @@ export default class App extends Component {
           <Route
             path='/paineis'
             render={(routeProps) =>
-              privateComponent(
-                isLogged,
-                <Panels {...routeProps} authManage={authManage} />
-              )
+              this.privateComponent(<Panels {...routeProps} authManage={authManage} />)
             }
           />
 
@@ -87,10 +82,7 @@ export default class App extends Component {
           <Route
             path='/meuPerfil'
             render={(routeProps) =>
-              privateComponent(
-                isLogged,
-                <MyProfile {...routeProps} authManage={authManage} />
-              )
+              this.privateComponent(<MyProfile {...routeProps} authManage={authManage} />)
             }
           />
 
