@@ -83,6 +83,8 @@ export default class NewAgenda extends Component {
         data_inclusao: dd + '/' + mm + '/' + yyyy,
       });
 
+      this.props.updatePercentage();
+
       this.clear();
       this.setState({ status: 'success', responseText: 'Pauta cadastrada com sucesso' });
     } catch (error) {

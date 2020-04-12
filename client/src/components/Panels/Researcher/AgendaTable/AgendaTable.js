@@ -130,6 +130,8 @@ export default class AgendaTable extends Component {
         }
       );
 
+      this.props.updatePercentage();
+
       console.log(response);
     } catch (err) {
       this.props.changeStateStatus('error', 'Erro ao deletar pauta');

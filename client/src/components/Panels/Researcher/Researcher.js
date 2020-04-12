@@ -25,17 +25,20 @@ export default class Researcher extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
-
-    const response = await fetch('/api/pautas/porcentagemPautasGravadas');
-    if (this._isMounted) {
-      const percentage = await response.json();
-      this.setState({ percentage });
-    }
+    this.updatePercentage();
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
+
+  updatePercentage = async () => {
+    const response = await fetch('/api/pautas/porcentagemPautasGravadas');
+    if (this._isMounted) {
+      const percentage = await response.json();
+      this.setState({ percentage });
+    }
+  };
 
   changeSpecificAgenda = async (value, title = null) => {
     if (value === null) {
@@ -98,6 +101,7 @@ export default class Researcher extends Component {
             authManage={this.props.authManage}
             close={this.toggleAddNewBtnHandle}
             changeDataNewAgenda={this.changeDataNewAgenda}
+            updatePercentage={this.updatePercentage}
           />
         ) : null}
 
@@ -109,6 +113,7 @@ export default class Researcher extends Component {
           changeDataNewAgenda={this.changeDataNewAgenda}
           dataNewAgenda={this.state.dataNewAgenda}
           changeStateStatus={this.changeStateStatus}
+          updatePercentage={this.updatePercentage}
         />
 
         <ContainerStatistics title='Porcentagem de pautas catalogadas que viraram gravação'>

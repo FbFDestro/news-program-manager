@@ -89,7 +89,7 @@ export default class NewArticle extends Component {
       });
 
       this.setState((oldState) => {
-        const newOptions = oldState.options.filter((op) => op != data.titulo);
+        const newOptions = oldState.options.filter((op) => op !== data.titulo);
         return {
           options: newOptions,
         };
@@ -132,6 +132,7 @@ export default class NewArticle extends Component {
           <p>Selecione uma pauta sem matéria</p>
 
           <select
+            style={{ width: '100%', height: '50px' }}
             value={this.state.option}
             name='optionValue'
             onChange={this.handleChange}
@@ -144,7 +145,7 @@ export default class NewArticle extends Component {
             placeholder='Texto'
             value={this.state.text}
             onChange={this.handleChange}
-            style={{ resize: 'vertical' }}
+            style={{ resize: 'vertical', minHeight: '80px' }}
           />
 
           <input
