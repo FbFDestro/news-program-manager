@@ -16,7 +16,19 @@ The system was developed with Node.Js as backend and initially, Vanilla Javascri
 
    > `./npm-install-all.sh`
 
-3. Run the client and server by running the following command:
+3. Open the _server_ folder and add a '.env' file with the following environment variables
+
+   > USER=**DATABASE USER**
+
+   > PASS=**DATABASE PASSWORD**
+
+   > BDNAME=**DATABASE NAME**
+
+   > BDINITIALSETUP=**1 TO CREATE DATABASE TABLES AND POPULATE IT WITH INITIAL DATA, 0 OTHERWISE**
+
+   Before running the client and server, a PostgreSQL database needs to be configured.
+
+4. Run the client and server by running the following command on main folder:
    > `npm start`
 
 <img src="https://github.com/FbFDestro/news-program-manager/blob/master/MER.jpg?raw=true" />

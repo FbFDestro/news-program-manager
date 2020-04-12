@@ -28,7 +28,9 @@ async function bd_setup() {
   await bdSetup.create();
   await bdSetup.populate();
 }
-//bd_setup(); // drop e create
+if (process.env.BDINITIALSETUP == '1') {
+  bd_setup(); // drop e create
+}
 
 const port = process.env.PORT || 3004;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
