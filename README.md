@@ -10,25 +10,14 @@ The system was developed with Node.Js as backend and initially, Vanilla Javascri
 
    > `git clone https://github.com/FbFDestro/news-program-manager.git`
 
-2. Open the project folder and run the script _npm-install-all.sh_
+2. [Download and install Docker](https://docs.docker.com/get-docker/)
 
-   > `chmod +x npm-install-all.sh`
+3. Run the following Docker command
 
-   > `./npm-install-all.sh`
+   > docker-compose up -d --build
 
-3. Open the _server_ folder and add a '.env' file with the following environment variables
+   To stop it from running use
 
-   > USER=**DATABASE USER**
-
-   > PASS=**DATABASE PASSWORD**
-
-   > BDNAME=**DATABASE NAME**
-
-   > BDINITIALSETUP=**1 TO CREATE DATABASE TABLES AND POPULATE IT WITH INITIAL DATA, 0 OTHERWISE**
-
-   Before running the client and server, a PostgreSQL database needs to be configured.
-
-4. Run the client and server by running the following command on main folder:
-   > `npm start`
+   > docker-compose down
 
 <img src="https://github.com/FbFDestro/news-program-manager/blob/master/MER.jpg?raw=true" />

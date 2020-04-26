@@ -15,8 +15,8 @@ export default class Index extends Component {
         pesquisador: null,
         jornalista: null,
         produtor: null,
-        editor: null
-      }
+        editor: null,
+      },
     };
   }
 
@@ -40,7 +40,7 @@ export default class Index extends Component {
   }
 
   render() {
-    const boxStatistics = Object.keys(this.state.counterRoles).map(role => {
+    const boxStatistics = Object.keys(this.state.counterRoles).map((role) => {
       return (
         <BoxStatistics
           key={role}

@@ -1,0 +1,45 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    expose:
+      - 3001
+    ports:
+      - 3001:3001
+    container_name: server
+    depends_on:
+      - postgres
+    volumes:
+      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
+      - ./server:/app # Look at the server directory and copy everything into the app folder in the container
+    environment:
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres
+      - PGPORT=5432
+      - BDINITIALSETUP=1
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+      - postgres
+    container_name: client
+    links:
+      - server

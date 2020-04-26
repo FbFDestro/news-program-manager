@@ -14,8 +14,8 @@ export default class UsersLoginTable extends Component {
         pesquisador: false,
         jornalista: false,
         produtor: false,
-        editor: false
-      }
+        editor: false,
+      },
     };
   }
 
@@ -35,20 +35,20 @@ export default class UsersLoginTable extends Component {
 
     if (this._isMounted) {
       this.setState({
-        users
+        users,
       });
     }
   }
 
-  handleFilterChange = event => {
+  handleFilterChange = (event) => {
     console.log(event.target.name);
     const name = event.target.name;
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         filter: {
           ...prevState.filter,
-          [name]: !prevState.filter[name]
-        }
+          [name]: !prevState.filter[name],
+        },
       };
     }, this.updateFilters);
   };
@@ -71,7 +71,7 @@ export default class UsersLoginTable extends Component {
     }
   }
 
-  login = async event => {
+  login = async (event) => {
     const userData = this.state.users[event.currentTarget.id];
     console.log(userData);
     await this.props.authManage.loginUser(userData);

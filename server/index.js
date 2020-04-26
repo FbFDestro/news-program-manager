@@ -1,5 +1,3 @@
-const Joi = require('joi');
-
 require('dotenv').config(); // export env variables
 
 const pessoas = require('./routes/pessoas');
@@ -30,7 +28,8 @@ async function bd_setup() {
 }
 if (process.env.BDINITIALSETUP == '1') {
   bd_setup(); // drop e create
+  process.env.BDINITIALSETUP = '0';
 }
 
-const port = process.env.PORT || 3004;
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
